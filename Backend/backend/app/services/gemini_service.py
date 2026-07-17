@@ -9,7 +9,7 @@ model = None
 if genai is not None and getattr(settings, "GEMINI_API_KEY", None):
     try:
         genai.configure(api_key=settings.GEMINI_API_KEY)
-        model = genai.GenerativeModel('gemini-2.0-flash')
+        model = genai.GenerativeModel('gemini-3.1-flash-lite')
     except Exception:
         model = None
 
@@ -21,16 +21,26 @@ def _ensure_model_available():
 
 def get_chat_response(prompt: str) -> str:
     _ensure_model_available()
-    response = model.generate_content(prompt)
-    return response.text
+    try:
+        response = model.generate_content(prompt)
+        return response.text
+    except Exception as e:
+        if "429" in str(e):
+            return "You are sending requests too fast! Please wait about 1 minute for your API limits to reset."
+        raise e
 
 
 def get_service_recommendation(user_preferences: str, services_list: list) -> str:
     _ensure_model_available()
     context = f"Services available: {services_list}\n"
     prompt = f"{context} Based on the user's preferences: '{user_preferences}', which of these services would you recommend and why? Be concise and helpful like a beauty advisor."
-    response = model.generate_content(prompt)
-    return response.text
+    try:
+        response = model.generate_content(prompt)
+        return response.text
+    except Exception as e:
+        if "429" in str(e):
+            return "Rate limit exceeded. Please wait 1 minute."
+        raise e
 
 
 def analyze_face_shape_and_recommend(image_bytes: bytes, mime_type: str) -> str:
@@ -43,12 +53,32 @@ def analyze_face_shape_and_recommend(image_bytes: bytes, mime_type: str) -> str:
         "4. Suggest make-up color directions and hair colors that suit their skin tone. "
         "Provide your analysis in a structured, clean, and helpful response suitable for a personalized beauty application."
     )
-    response = model.generate_content([
-        {
-            "mime_type": mime_type,
-            "data": image_bytes
-        },
-        prompt
-    ])
-    return response.text
+    try:
+        response = model.generate_content([
+            {
+                "mime_type": mime_type,
+                "data": image_bytes
+            },
+            prompt
+        ])
+        return response.text
+    except Exception as e:
+        if "429" in str(e):
+            return "Rate limit exceeded. Please wait 1 minute before analyzing another image."
+        return f"Error from AI: {str(e)}"
 
+def analyze_image_general(image_bytes: bytes, mime_type: str, user_prompt: str) -> str:
+    _ensure_model_available()
+    try:
+        response = model.generate_content([
+            {
+                "mime_type": mime_type,
+                "data": image_bytes
+            },
+            user_prompt
+        ])
+        return response.text
+    except Exception as e:
+        if "429" in str(e):
+            return "Rate limit exceeded. Please wait 1 minute before analyzing another image."
+        return f"Error from AI: {str(e)}"

@@ -42,8 +42,10 @@ export const adminApi = {
     return response.data
   },
 
-  updateSupportTicket: async (ticketId, status) => {
-    const response = await api.put(`/api/support/tickets/${ticketId}`, { status })
+  updateSupportTicket: async (ticketId, status, reply = null) => {
+    const payload = { status }
+    if (reply !== null) payload.admin_reply = reply
+    const response = await api.put(`/api/support/tickets/${ticketId}`, payload)
     return response.data
   },
 

@@ -11,6 +11,7 @@ export default function SkinAnalysisPage() {
   const { imagePreview, setImagePreview, analysisResult, setAnalysisResult, clear } = useSkinAnalysisStore()
   const [isDragging, setIsDragging] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [selectedFile, setSelectedFile] = useState(null)
   const fileInputRef = useRef(null)
 
   const handleFileChange = (e) => {
@@ -25,6 +26,7 @@ export default function SkinAnalysisPage() {
     }
     const url = URL.createObjectURL(file)
     setImagePreview(url)
+    setSelectedFile(file)
     setAnalysisResult(null)
   }
 
@@ -36,11 +38,11 @@ export default function SkinAnalysisPage() {
   }
 
   const analyzeImage = async () => {
-    if (!imagePreview) return
+    if (!imagePreview || !selectedFile) return
     setIsLoading(true)
     try {
       const formData = new FormData()
-      formData.append('file', 'mock_image')
+      formData.append('file', selectedFile)
       const response = await aiApi.analyzeSkin(formData)
 
       setAnalysisResult(response.result || {

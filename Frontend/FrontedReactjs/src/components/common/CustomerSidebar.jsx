@@ -16,6 +16,7 @@ const customerNav = [
   { label: 'Wallet', to: '/dashboard/wallet', icon: Wallet },
   { label: 'Memberships', to: '/dashboard/memberships', icon: Crown },
   { label: 'Notifications', to: '/dashboard/notifications', icon: Bell },
+  { label: 'Support', to: '/dashboard/support', icon: Bot },
   { label: 'Settings', to: '/dashboard/settings', icon: Settings },
 ]
 

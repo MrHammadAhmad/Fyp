@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, status, Request
 from pydantic import BaseModel, EmailStr
 from typing import Optional, List
 from app.services.supabase_db import supabase
-from app.core.security import get_current_admin
+from app.core.security import get_current_admin, get_current_user
 import jwt
 from app.core.config import settings
 
@@ -16,6 +16,7 @@ class TicketCreate(BaseModel):
 
 class TicketStatusUpdate(BaseModel):
     status: str # 'open' or 'resolved'
+    admin_reply: Optional[str] = None
 
 def get_optional_user(request: Request) -> Optional[str]:
     auth_header = request.headers.get("Authorization")
@@ -42,11 +43,22 @@ def create_ticket(ticket: TicketCreate, user_id: Optional[str] = Depends(get_opt
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
 
+@router.get("/tickets/my")
+def get_my_tickets(status: Optional[str] = None, current_user: dict = Depends(get_current_user)):
+    try:
+        query = supabase.table("SupportTickets").select("*").eq("user_id", current_user["id"])
+        if status:
+            query = query.eq("status", status)
+        res = query.execute()
+        return res.data
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
 @router.get("/tickets")
 def get_tickets(status: Optional[str] = None, current_user: dict = Depends(get_current_admin)):
     try:
         query = supabase.table("SupportTickets").select("*")
-        if status:
+        if status and status != 'all':
             query = query.eq("status", status)
         res = query.execute()
         return res.data
@@ -61,9 +73,11 @@ def update_ticket_status(ticket_id: str, update: TicketStatusUpdate, current_use
         if not ticket_res.data:
             raise HTTPException(status_code=404, detail="Ticket not found")
             
-        res = supabase.table("SupportTickets").update({"status": update.status}).eq("id", ticket_id).execute()
-        return {"message": f"Ticket status updated to {update.status}", "ticket": res.data[0]}
+        update_data = {"status": update.status}
+        if update.admin_reply is not None:
+            update_data["admin_reply"] = update.admin_reply
+            
+        res = supabase.table("SupportTickets").update(update_data).eq("id", ticket_id).execute()
+        return {"message": "Ticket updated successfully"}
     except Exception as e:
-        if isinstance(e, HTTPException):
-            raise e
-        raise HTTPException(status_code=400, detail=str(e))
+        raise HTTPException(status_code=500, detail=str(e))

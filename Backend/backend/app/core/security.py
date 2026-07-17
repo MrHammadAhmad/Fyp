@@ -27,14 +27,18 @@ def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(securit
         if user is None:
             raise Exception("Invalid token or user not found")
             
-        # Fetch the role from the public.Users table using the admin client (bypasses RLS)
-        profile_res = supabase_admin.table("Users").select("role").eq("id", user.id).execute()
+        # Fetch the role, email and name from the public.Users table using the admin client (bypasses RLS)
+        profile_res = supabase_admin.table("Users").select("role, email, name").eq("id", user.id).execute()
         
         role = "customer" # default fallback
+        email = None
+        name = None
         if profile_res.data:
             role = profile_res.data[0].get("role", "customer")
+            email = profile_res.data[0].get("email")
+            name = profile_res.data[0].get("name")
             
-        user_data = {"id": user.id, "role": role}
+        user_data = {"id": user.id, "role": role, "email": email, "name": name}
         _USER_CACHE[token] = (now, user_data)
         
         return user_data

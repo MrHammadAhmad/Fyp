@@ -11,6 +11,7 @@ export default function HairAnalysisPage() {
   const { imagePreview, setImagePreview, analysisResult, setAnalysisResult, clear } = useHairAnalysisStore()
   const [isDragging, setIsDragging] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [selectedFile, setSelectedFile] = useState(null)
   const fileInputRef = useRef(null)
 
   const handleFileChange = (e) => {
@@ -25,6 +26,7 @@ export default function HairAnalysisPage() {
     }
     const url = URL.createObjectURL(file)
     setImagePreview(url)
+    setSelectedFile(file)
     // Clear previous results when new image is uploaded
     setAnalysisResult(null)
   }
@@ -37,13 +39,11 @@ export default function HairAnalysisPage() {
   }
 
   const analyzeImage = async () => {
-    if (!imagePreview) return
+    if (!imagePreview || !selectedFile) return
     setIsLoading(true)
     try {
-      // In a real app we would pass the File object to formData.
-      // Here we mock the API response.
       const formData = new FormData()
-      formData.append('file', 'mock_image')
+      formData.append('file', selectedFile)
       const response = await aiApi.analyzeHair(formData)
       
       setAnalysisResult(response.result || {

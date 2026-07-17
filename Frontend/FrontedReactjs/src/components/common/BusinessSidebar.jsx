@@ -20,8 +20,10 @@ const businessNav = [
   { label: 'Services', to: '/business/services', icon: Scissors },
   { label: 'Memberships', to: '/business/memberships', icon: ShoppingBag },
   { label: 'Payments', to: '/business/payments', icon: CreditCard },
+  { label: 'Subscriptions', to: '/business/subscriptions', icon: ShoppingBag },
   { label: 'Reports', to: '/business/reports', icon: BarChart2 },
   { label: 'Reviews', to: '/business/reviews', icon: Star },
+  { label: 'Support', to: '/business/support', icon: Megaphone },
   { label: 'Settings', to: '/business/settings', icon: Settings },
 ]
 

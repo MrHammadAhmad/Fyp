@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException, UploadFile, File, Depends
 from pydantic import BaseModel
-from app.services.gemini_service import get_chat_response, get_service_recommendation, analyze_face_shape_and_recommend
+from app.services.gemini_service import get_chat_response, get_service_recommendation, analyze_face_shape_and_recommend, analyze_image_general
 from app.services.supabase_db import supabase, supabase_admin
 from app.core.security import get_current_user
 from typing import List, Optional
@@ -183,7 +183,7 @@ async def hair_analysis(file: UploadFile = File(...), current_user: dict = Depen
         analysis = analyze_face_shape_and_recommend(contents, file.content_type)
         
         # Log history
-        supabase.table("RecommendationHistory").insert({
+        supabase_admin.table("RecommendationHistory").insert({
             "user_id": current_user["id"],
             "type": "hair",
             "input_data": "Uploaded hair image",
@@ -216,7 +216,7 @@ async def skin_analysis(file: UploadFile = File(...), current_user: dict = Depen
         analysis = analyze_face_shape_and_recommend(contents, file.content_type)
         
         # Log history
-        supabase.table("RecommendationHistory").insert({
+        supabase_admin.table("RecommendationHistory").insert({
             "user_id": current_user["id"],
             "type": "skin",
             "input_data": "Uploaded skin image",
@@ -243,6 +243,20 @@ async def skin_analysis(file: UploadFile = File(...), current_user: dict = Depen
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+@router.post("/analyze-image-general")
+async def analyze_image_generic(file: UploadFile = File(...), prompt: str = "Describe this image, detect objects, and extract any text (OCR).", current_user: dict = Depends(get_current_user)):
+    try:
+        if not file.content_type.startswith("image/"):
+            raise HTTPException(status_code=400, detail="Only image files are allowed.")
+            
+
+        contents = await file.read()
+        analysis = analyze_image_general(contents, file.content_type, prompt)
+        
+        return {"analysis": analysis}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
 @router.get("/review-analysis/{business_id}")
 def review_analysis(business_id: str, current_user: dict = Depends(get_current_user)):
     try:
@@ -263,7 +277,7 @@ def review_analysis(business_id: str, current_user: dict = Depends(get_current_u
 def analyze_skin(request: AnalysisRequest, current_user: dict = Depends(get_current_user)):
     try:
         analysis = "Based on your image, you have a warm skin tone. Recommended treatments: Gold facials, Vitamin C serums."
-        supabase.table("RecommendationHistory").insert({
+        supabase_admin.table("RecommendationHistory").insert({
             "user_id": current_user["id"],
             "type": "skin",
             "input_data": request.image_url,
@@ -277,7 +291,7 @@ def analyze_skin(request: AnalysisRequest, current_user: dict = Depends(get_curr
 def analyze_hair(request: AnalysisRequest, current_user: dict = Depends(get_current_user)):
     try:
         analysis = "Based on your image, you have wavy, slightly dry hair. Recommended: Deep conditioning, Keratin treatment."
-        supabase.table("RecommendationHistory").insert({
+        supabase_admin.table("RecommendationHistory").insert({
             "user_id": current_user["id"],
             "type": "hair",
             "input_data": request.image_url,

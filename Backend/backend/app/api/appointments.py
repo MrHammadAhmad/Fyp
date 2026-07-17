@@ -207,7 +207,7 @@ def book_appointment(appointment: AppointmentCreate, current_user: dict = Depend
         try:
             booking_details = result["appointment"]
             customer_email = current_user.get("email")
-            customer_name = booking_details.get("customerName", "Customer")
+            customer_name = booking_details.get("customerName") or current_user.get("name") or "Customer"
             
             # Fetch owner's email
             salon_res = supabase_admin.table("Salons").select("owner_id").eq("id", data["salon_id"]).execute()

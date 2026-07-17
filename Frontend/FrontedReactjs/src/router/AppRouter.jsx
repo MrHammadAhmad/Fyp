@@ -40,6 +40,7 @@ const PaymentHistoryPage = lazy(() => import('../pages/customer/PaymentHistoryPa
 const PaymentVerificationPage = lazy(() => import('../pages/customer/PaymentVerificationPage'))
 const BookAppointment = lazy(() => import('../pages/customer/BookAppointment'))
 const CustomerMemberships = lazy(() => import('../pages/customer/CustomerMemberships'))
+const CustomerSupport = lazy(() => import('../pages/customer/CustomerSupport'))
 
 // ===== Business Dashboard =====
 const BusinessLayout = lazy(() => import('../components/common/BusinessLayout'))
@@ -58,6 +59,8 @@ const MarketingPage = lazy(() => import('../pages/business/MarketingPage'))
 const BusinessReviewsPage = lazy(() => import('../pages/business/ReviewsPage'))
 const BusinessSettings = lazy(() => import('../pages/business/BusinessSettings'))
 const EditSalonProfilePage = lazy(() => import('../pages/business/EditSalonProfilePage'))
+const OwnerSubscriptions = lazy(() => import('../pages/business/OwnerSubscriptions'))
+const BusinessSupport = lazy(() => import('../pages/business/BusinessSupport'))
 const ManageServicesPage = lazy(() => import('../pages/business/ManageServicesPage'))
 const SalonPerformanceDashboard = lazy(() => import('../pages/business/SalonPerformanceDashboard'))
 const ManageSalonPage = lazy(() => import('../pages/business/ManageSalonPage'))
@@ -143,6 +146,7 @@ export default function AppRouter() {
             <Route path="payment-verification" element={<PaymentVerificationPage />} />
             <Route path="memberships" element={<CustomerMemberships />} />
             <Route path="notifications" element={<CustomerNotifications />} />
+            <Route path="support" element={<CustomerSupport />} />
             <Route path="settings" element={<ProfileSettings />} />
           </Route>
 
@@ -176,6 +180,8 @@ export default function AppRouter() {
             <Route path="edit-profile" element={<EditSalonProfilePage />} />
             <Route path="manage-services" element={<ManageServicesPage />} />
             <Route path="performance" element={<SalonPerformanceDashboard />} />
+            <Route path="subscriptions" element={<OwnerSubscriptions />} />
+            <Route path="support" element={<BusinessSupport />} />
           </Route>
 
           {/* ===== ADMIN PANEL ===== */}

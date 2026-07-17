@@ -12,6 +12,9 @@ export default function AdminSupport() {
   const [tickets, setTickets] = useState([])
   const [loading, setLoading] = useState(true)
 
+  const [selectedTicket, setSelectedTicket] = useState(null)
+  const [replyMessage, setReplyMessage] = useState('')
+
   useEffect(() => {
     fetchTickets()
   }, [filter])
@@ -29,11 +32,13 @@ export default function AdminSupport() {
     }
   }
 
-  const handleUpdateStatus = async (ticketId, newStatus) => {
+  const handleUpdateStatus = async (ticketId, newStatus, reply = null) => {
     try {
-      toast.loading(`Marking ticket as ${newStatus}...`, { id: 'update-ticket' })
-      await adminApi.updateSupportTicket(ticketId, newStatus)
-      toast.success(`Ticket marked as ${newStatus}`, { id: 'update-ticket' })
+      toast.loading(reply ? 'Sending reply...' : `Marking ticket as ${newStatus}...`, { id: 'update-ticket' })
+      await adminApi.updateSupportTicket(ticketId, newStatus, reply)
+      toast.success(reply ? 'Reply sent successfully!' : `Ticket marked as ${newStatus}`, { id: 'update-ticket' })
+      setSelectedTicket(null)
+      setReplyMessage('')
       fetchTickets() // Refresh the list
     } catch (error) {
       console.error('Failed to update ticket status:', error)
@@ -123,20 +128,29 @@ export default function AdminSupport() {
                         <Button 
                           variant="outline" 
                           size="sm" 
-                          leftIcon={<CheckCircle2 className="w-4 h-4" />}
-                          onClick={() => handleUpdateStatus(ticket.id, 'resolved')}
+                          leftIcon={<MessageSquare className="w-4 h-4" />}
+                          onClick={() => setSelectedTicket(ticket)}
                         >
-                          Mark Resolved
+                          View & Reply
                         </Button>
                       ) : (
-                        <Button 
-                          variant="outline" 
-                          size="sm" 
-                          leftIcon={<Reply className="w-4 h-4" />}
-                          onClick={() => handleUpdateStatus(ticket.id, 'open')}
-                        >
-                          Re-open
-                        </Button>
+                        <div className="flex items-center justify-end gap-2">
+                          <Button 
+                            variant="ghost" 
+                            size="sm" 
+                            onClick={() => setSelectedTicket(ticket)}
+                          >
+                            View
+                          </Button>
+                          <Button 
+                            variant="outline" 
+                            size="sm" 
+                            leftIcon={<Reply className="w-4 h-4" />}
+                            onClick={() => handleUpdateStatus(ticket.id, 'open')}
+                          >
+                            Re-open
+                          </Button>
+                        </div>
                       )}
                     </td>
                   </tr>
@@ -146,6 +160,84 @@ export default function AdminSupport() {
           </table>
         </div>
       </div>
+
+      {selectedTicket && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-surface-900/50 backdrop-blur-sm">
+          <div className="bg-white dark:bg-surface-900 rounded-2xl shadow-xl w-full max-w-2xl overflow-hidden border border-surface-200 dark:border-surface-800 flex flex-col max-h-[90vh]">
+            <div className="px-6 py-4 border-b border-surface-200 dark:border-surface-800 flex items-center justify-between sticky top-0 bg-white dark:bg-surface-900">
+              <div>
+                <h2 className="text-lg font-bold text-surface-900 dark:text-white flex items-center gap-2">
+                  <MessageSquare className="w-5 h-5 text-brand-500" />
+                  Ticket Details
+                </h2>
+                <p className="text-xs text-surface-500 font-mono mt-1">ID: {selectedTicket.id}</p>
+              </div>
+              <button onClick={() => { setSelectedTicket(null); setReplyMessage(''); }} className="p-2 rounded-xl text-surface-500 hover:bg-surface-100 dark:hover:bg-surface-800">
+                &times;
+              </button>
+            </div>
+
+            <div className="p-6 overflow-y-auto space-y-6 flex-1">
+              <div className="space-y-4">
+                <div className="bg-surface-50 dark:bg-surface-800/50 p-4 rounded-xl border border-surface-200 dark:border-surface-700/50">
+                  <div className="flex justify-between items-start mb-2">
+                    <div>
+                      <p className="font-semibold text-surface-900 dark:text-white">{selectedTicket.name}</p>
+                      <p className="text-sm text-surface-500">{selectedTicket.email}</p>
+                    </div>
+                    <span className="text-xs text-surface-400 flex items-center gap-1">
+                      <Clock className="w-3 h-3" />
+                      {new Date(selectedTicket.created_at).toLocaleString()}
+                    </span>
+                  </div>
+                  <h4 className="font-bold text-surface-900 dark:text-white mt-4 mb-2">{selectedTicket.subject}</h4>
+                  <p className="text-surface-700 dark:text-surface-300 text-sm whitespace-pre-wrap">{selectedTicket.message}</p>
+                </div>
+
+                {selectedTicket.admin_reply && (
+                  <div className="bg-brand-50 dark:bg-brand-900/10 p-4 rounded-xl border border-brand-100 dark:border-brand-900/30 ml-8">
+                    <div className="flex justify-between items-start mb-2">
+                      <p className="font-semibold text-brand-900 dark:text-brand-400 flex items-center gap-2">
+                        <CheckCircle2 className="w-4 h-4" />
+                        Admin Reply
+                      </p>
+                    </div>
+                    <p className="text-brand-800 dark:text-brand-300 text-sm whitespace-pre-wrap">{selectedTicket.admin_reply}</p>
+                  </div>
+                )}
+              </div>
+              
+              {selectedTicket.status === 'open' && (
+                <div className="space-y-2 mt-6">
+                  <label className="block text-sm font-medium text-surface-700 dark:text-surface-300">Your Reply</label>
+                  <textarea
+                    rows="4"
+                    className="w-full px-4 py-3 rounded-xl bg-surface-50 dark:bg-surface-950 border border-surface-200 dark:border-surface-800 focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 text-sm outline-none resize-none text-surface-900 dark:text-white"
+                    placeholder="Type your response to the user here..."
+                    value={replyMessage}
+                    onChange={(e) => setReplyMessage(e.target.value)}
+                  />
+                </div>
+              )}
+            </div>
+
+            <div className="p-6 border-t border-surface-200 dark:border-surface-800 flex justify-end gap-3 sticky bottom-0 bg-white dark:bg-surface-900">
+              <Button variant="outline" onClick={() => { setSelectedTicket(null); setReplyMessage(''); }}>
+                Close
+              </Button>
+              {selectedTicket.status === 'open' && (
+                <Button 
+                  onClick={() => handleUpdateStatus(selectedTicket.id, 'resolved', replyMessage)}
+                  disabled={!replyMessage.trim()}
+                  leftIcon={<Reply className="w-4 h-4" />}
+                >
+                  Send Reply & Resolve
+                </Button>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
