@@ -30,7 +30,7 @@ starlette==1.0.0
 storage3==0.6.1
 StrEnum==0.4.15
 stripe==15.1.0
-supabase==1.2.0
+supabase>=2.3.0
 supafunc==0.2.3
 typing-inspection==0.4.2
 typing_extensions==4.15.0
