@@ -1,0 +1,56 @@
+[
+  {
+    "id": "s1",
+    "businessId": "b1",
+    "categoryId": "cat-haircut",
+    "name": "Haircut",
+    "description": "Professional haircut tailored to your style",
+    "price": 30,
+    "duration": 30
+  },
+  {
+    "id": "s2",
+    "businessId": "b1",
+    "categoryId": "cat-styling",
+    "name": "Styling",
+    "description": "Professional styling and blow-dry",
+    "price": 45,
+    "duration": 45
+  },
+  {
+    "id": "s3",
+    "businessId": "b1",
+    "categoryId": "cat-facial",
+    "name": "Facial",
+    "description": "Refreshing and rejuvenating facial",
+    "price": 50,
+    "duration": 45
+  },
+  {
+    "id": "s4",
+    "businessId": "b1",
+    "categoryId": "cat-skincare",
+    "name": "Skincare",
+    "description": "Premium skincare treatment and analysis",
+    "price": 60,
+    "duration": 60
+  },
+  {
+    "id": "s5",
+    "businessId": "b1",
+    "categoryId": "cat-beard",
+    "name": "Beard",
+    "description": "Classic beard trim and hot towel shave",
+    "price": 20,
+    "duration": 20
+  },
+  {
+    "id": "s6",
+    "businessId": "b1",
+    "categoryId": "cat-makeup",
+    "name": "Makeup",
+    "description": "Full face professional makeup application",
+    "price": 75,
+    "duration": 60
+  }
+]

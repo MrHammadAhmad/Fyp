@@ -1,0 +1,225 @@
+Requirements Analysis
+This section presents the requirements analysis of the system “Beauty Personalized by AI”. It identifies system actors, defines the product backlog, and outlines all functional and non-functional requirements.
+3.1 List of Actors
+Actors represent the entities that interact with the system.
+Primary Actors
+Customer
+Register and login
+Search salons and services
+Book appointments
+Receive AI recommendations
+Make payments
+Give ratings and reviews
+Salon Owner
+Create and manage salon profile
+Add services and pricing
+Manage bookings
+View customer feedback
+Admin
+Manage users and salons
+Approve/reject salons
+Monitor system activities
+Generate reports
+Secondary Actors
+AI System
+Recommends hairstyles and services
+Detects face shape and skin tone
+Payment Gateway
+Processes online transactions
+3.2 Product Backlog
+The product backlog contains all system features described as user stories. Each item includes priority, acceptance criteria, and story points.
+3.2.0 Agile Concepts
+This project follows the Agile methodology for software development. The following concepts are used to manage and organize the product backlog.
+Link for WBS Diagram:
+
+https://miro.com/app/board/uXjVGd-LPz8=/
+Sprint
+A sprint is a fixed time period during which the development team completes a set of tasks and delivers a working product increment.
+Sprints typically last 2 to 3 weeks in this project. Each sprint includes planning, development, testing, and review.
+Epic
+An epic is a large user story that cannot be completed in a single sprint. It represents a major functionality of the system.
+Epics are divided into smaller user stories for implementation.
+Example: "Implement booking system"
+Feature
+A feature is a specific functionality within an epic that provides value to the user.
+Features are smaller than epics and can be completed within a sprint.
+Example: "Select appointment time" "Online payment"
+User Story
+A user story is a short description of a system feature from the user's perspective.
+Format:
+As a , I want so that 
+Example: As a customer, I want to book an appointment so that I can visit the salon easily.
+Acceptance Criteria
+Acceptance criteria define the conditions that must be met for a user story to be considered complete.
+They describe the expected behavior of the system.
+Example:
+User Story: As a user, I want to reset my password so that I can access my account.
+Acceptance Criteria:
+User can enter email to request reset
+System sends reset link
+Link expires in 24 hours
+User can set new password
+Story Points
+Story points are used to estimate the effort required to complete a user story.
+They represent complexity, effort, and risk, not time.
+Common scale: 1, 2, 3, 5, 8, 13
+2–3 → Simple task
+5 → Medium task
+8 → Complex task
+Backlog Grooming
+Backlog grooming is the process of reviewing and updating the product backlog regularly.
+It includes:
+Refining user stories
+Breaking large tasks into smaller ones
+Estimating effort
+Prioritizing tasks
+Adding or removing backlog items
+Importance
+Improves sprint planning
+Increases team productivity
+Keeps backlog up to date
+Reduces project risks
+3.2.1 Salon Catalog
+
+--- Table ---
+PB-ID | User Story | Priority | Acceptance Criteria | Story Points | Status
+SC-01 | As a salon owner, I can create a salon profile | High | Profile includes name, services, and location | 5 | Pending
+SC-02 | As a customer, I can browse salons | High | List of salons displayed | 5 | Pending
+SC-03 | As a customer, I can view salon details | High | Shows services, prices, reviews | 3 | Pending
+SC-04 | As a customer, I can filter salons | Medium | Filter by rating, price, location works | 3 | Pending
+-------------
+
+3.2.2 Account Management
+
+--- Table ---
+PB-ID | User Story | Priority | Acceptance Criteria | Story Points | Status
+AM-01 | As a user, I can register/login | High | User authenticated successfully | 5 | Pending
+AM-02 | As a user, I can update profile | Medium | Profile updated correctly | 3 | Pending
+AM-03 | As a user, I can reset password | Medium | Reset email sent | 3 | Pending
+AM-04 | As admin, I can manage users | High | Admin can block/edit users | 8 | Pending
+-------------
+
+3.2.3 Service Creation
+
+--- Table ---
+PB-ID | User Story | Priority | Acceptance Criteria | Story Points | Status
+SV-01 | As salon owner, I can add services | High | Service added successfully | 5 | Pending
+SV-02 | As salon owner, I can update services | Medium | Changes saved | 3 | Pending
+SV-03 | As salon owner, I can upload images | Medium | Images displayed correctly | 3 | Pending
+-------------
+
+3.2.4 Booking Services
+
+--- Table ---
+PB-ID | User Story | Priority | Acceptance Criteria | Story Points | Status
+BK-01 | As user, I can book appointment | High | Booking confirmed | 8 | Pending
+BK-02 | As user, I can select time slot | High | Available slots shown | 5 | Pending
+BK-03 | As user, I can make payment | High | Payment processed | 8 | Pending
+BK-04 | As user, I can cancel booking | Medium | Booking updated | 5 | Pending
+-------------
+
+3.2.5 Salon Admin Control
+
+--- Table ---
+PB-ID | User Story | Priority | Acceptance Criteria | Story Points | Status
+SA-01 | As admin, I can approve salons | High | Salon approved/rejected | 5 | Pending
+SA-02 | As admin, I can block users | High | User access restricted | 5 | Pending
+SA-03 | As admin, I can monitor system | Medium | Dashboard shows data | 5 | Pending
+-------------
+
+3.2.6 Viewing Services
+
+--- Table ---
+PB-ID | User Story | Priority | Acceptance Criteria | Story Points | Status
+VS-01 | As user, I can view services | High | Services displayed | 3 | Pending
+VS-02 | As user, I can view prices | High | Prices visible | 2 | Pending
+VS-03 | As user, I can view availability | Medium | Slots shown | 3 | Pending
+-------------
+
+3.2.7 Appointment Completion
+
+--- Table ---
+PB-ID | User Story | Priority | Acceptance Criteria | Story Points | Status
+AC-01 | As system, mark appointment complete | High | Status updated | 3 | Pending
+AC-02 | As user, view completed bookings | Medium | History visible | 3 | Pending
+-------------
+
+3.2.8 Miscellaneous
+
+--- Table ---
+PB-ID | User Story | Priority | Acceptance Criteria | Story Points | Status
+MS-01 | As user, receive notifications | Medium | Notification sent | 3 | Pending
+MS-02 | As user, view FAQ | Low | FAQ page loads | 2 | Pending
+-------------
+
+3.2.9 Forms
+
+--- Table ---
+PB-ID | User Story | Priority | Acceptance Criteria | Story Points | Status
+FO-01 | As user, submit feedback | Medium | Feedback stored | 3 | Pending
+FO-02 | As user, contact support | Medium | Message delivered | 3 | Pending
+-------------
+
+3.2.10 Announcements
+
+--- Table ---
+PB-ID | User Story | Priority | Acceptance Criteria | Story Points | Status
+AN-01 | As owner, post offers | Medium | Offer displayed | 3 | Pending
+AN-02 | As user, view promotions | Medium | Promotions visible | 2 | Pending
+-------------
+
+3.2.11 AI Features
+
+--- Table ---
+PB-ID | User Story | Priority | Acceptance Criteria | Story Points | Status
+AI-01 | As user, get hairstyle recommendations | High | AI suggests styles | 8 | Pending
+AI-02 | As user, use chatbot | High | Chatbot responds | 8 | Pending
+AI-03 | As system, detect face shape | High | Detection works | 8 | Pending
+-------------
+
+3.2.12 Non-Functional Requirements
+
+--- Table ---
+PB-ID | Requirement | Priority | Acceptance Criteria | Story Points | Status
+NFR-01 | Performance | High | Response < 3 seconds | 5 | Pending
+NFR-02 | Security | High | Data encrypted | 8 | Pending
+NFR-03 | Scalability | Medium | Handles multiple users | 5 | Pending
+-------------
+
+3.2.13 Affiliates
+
+--- Table ---
+PB-ID | User Story | Priority | Acceptance Criteria | Story Points | Status
+AF-01 | As partner, refer users | Low | Referral tracked | 3 | Pending
+AF-02 | As system, manage rewards | Low | Rewards calculated | 3 | Pending
+-------------
+
+3.2.14 Comments / Reviews
+
+--- Table ---
+PB-ID | User Story | Priority | Acceptance Criteria | Story Points | Status
+CM-01 | As user, rate salon | High | Rating saved | 3 | Pending
+CM-02 | As user, write review | Medium | Review displayed | 3 | Pending
+-------------
+
+3.2.15 Service Evaluation
+
+--- Table ---
+PB-ID | User Story | Priority | Acceptance Criteria | Story Points | Status
+EV-01 | As user, evaluate service | Medium | Feedback stored | 3 | Pending
+EV-02 | As admin, analyze feedback | Medium | Reports generated | 5 | Pending
+-------------
+
+3.2.16 Reporting
+
+--- Table ---
+PB-ID | User Story | Priority | Acceptance Criteria | Story Points | Status
+RP-01 | As admin, view reports | High | Reports generated | 5 | Pending
+RP-02 | As owner, view earnings | High | Earnings displayed | 5 | Pending
+-------------
+
+3.3 Figma UI/UX Designs
+Initial mockup screens will be inserted here. Each screen will be given an appropriate prototype id.e.g.
+Link of Figma Designs: 
+https://www.figma.com/design/jYOQ3d5CHRTaHc4D7cmhHQ/Untitled?node-id=0-1&p=f&t=pIuxl5g31VcLAcFv-0
+.

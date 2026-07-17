@@ -1,0 +1,8 @@
+[
+  { "id": "cat-haircut", "name": "Haircut", "icon": "✂️", "emoji": "✂️", "count": 284, "slug": "haircut", "color": "from-brand-500 to-brand-700" },
+  { "id": "cat-styling", "name": "Styling", "icon": "💇", "emoji": "💇", "count": 196, "slug": "styling", "color": "from-brand-600 to-brand-800" },
+  { "id": "cat-facial", "name": "Facial", "icon": "🧖", "emoji": "🧖", "count": 143, "slug": "facial", "color": "from-brand-400 to-brand-600" },
+  { "id": "cat-skincare", "name": "Skincare", "icon": "✨", "emoji": "✨", "count": 117, "slug": "skincare", "color": "from-brand-700 to-brand-900" },
+  { "id": "cat-beard", "name": "Beard", "icon": "🧔", "emoji": "🧔", "count": 112, "slug": "beard", "color": "from-brand-500 to-brand-800" },
+  { "id": "cat-makeup", "name": "Makeup", "icon": "💄", "emoji": "💄", "count": 76, "slug": "makeup", "color": "from-brand-600 to-brand-900" }
+]
