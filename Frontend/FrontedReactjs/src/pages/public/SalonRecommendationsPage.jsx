@@ -68,13 +68,13 @@ export default function SalonRecommendationsPage() {
             <h2 className="text-lg font-bold text-surface-900 dark:text-white mb-6">Your Preferences</h2>
             <form onSubmit={handleSearch} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-1.5">Location</label>
+                <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-1.5">Area in Lahore</label>
                 <div className="relative">
                   <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 text-surface-400" size={18} />
                   <input 
                     type="text" 
                     className="w-full bg-surface-50 dark:bg-surface-800 border border-surface-200 dark:border-surface-700 rounded-xl py-2.5 pl-10 pr-4 outline-none focus:border-brand-500" 
-                    placeholder="E.g. Downtown, ZIP code"
+                    placeholder="e.g. Gulberg, DHA, Johar Town"
                     value={salonCriteria.location}
                     onChange={(e) => setSalonCriteria({ location: e.target.value })}
                   />
