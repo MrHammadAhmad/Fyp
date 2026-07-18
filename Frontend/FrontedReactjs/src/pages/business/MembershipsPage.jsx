@@ -257,7 +257,7 @@ export default function MembershipsPage() {
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-surface-700 dark:text-surface-300">Price (Rs)</label>
                   <div className="relative">
-                    <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 text-surface-400" size={16} />
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-surface-400 font-medium text-sm">Rs</span>
                     <input type="number" min="1" step="0.01" value={newPlan.price} onChange={(e) => setNewPlan({...newPlan, price: e.target.value})}
                       className="w-full pl-9 pr-4 py-2 bg-surface-50 dark:bg-surface-800 border border-surface-200 dark:border-surface-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 dark:text-white"
                       placeholder="49.00" required />
@@ -315,7 +315,7 @@ export default function MembershipsPage() {
                 <div className="space-y-2">
                   <label className="text-sm font-medium text-surface-700 dark:text-surface-300">Price (Rs)</label>
                   <div className="relative">
-                    <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 text-surface-400" size={16} />
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-surface-400 font-medium text-sm">Rs</span>
                     <input type="number" min="1" step="0.01" value={editingPlan.price} onChange={(e) => setEditingPlan({...editingPlan, price: e.target.value})}
                       className="w-full pl-9 pr-4 py-2 bg-surface-50 dark:bg-surface-800 border border-surface-200 dark:border-surface-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 dark:text-white"
                       placeholder="49.00" required />

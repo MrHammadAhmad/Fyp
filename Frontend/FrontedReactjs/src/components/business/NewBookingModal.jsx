@@ -222,7 +222,7 @@ export default function NewBookingModal({ isOpen, onClose }) {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.94, y: 24 }}
             transition={{ duration: 0.28, type: 'spring', damping: 26, stiffness: 380 }}
-            className="relative w-full max-w-lg bg-white dark:bg-surface-900 rounded-3xl shadow-2xl border border-surface-200 dark:border-surface-800 overflow-hidden"
+            className="relative w-full max-w-lg bg-white dark:bg-surface-900 rounded-3xl shadow-2xl border border-surface-200 dark:border-surface-800 overflow-hidden flex flex-col max-h-[90vh]"
           >
             {/* Header */}
             <div className="flex items-center justify-between px-6 pt-5 pb-4 border-b border-surface-100 dark:border-surface-800">
@@ -269,7 +269,7 @@ export default function NewBookingModal({ isOpen, onClose }) {
             </div>
 
             {/* Body */}
-            <div className="px-6 py-4 min-h-[240px]">
+            <div className="px-6 py-4 min-h-[240px] overflow-y-auto flex-1">
               {loading ? (
                 <div className="flex items-center justify-center h-48">
                   <Loader2 className="animate-spin text-[#405742]" size={32} />
