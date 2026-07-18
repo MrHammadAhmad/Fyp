@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Sparkles, MapPin, DollarSign, Star, Scissors, CheckCircle2 } from 'lucide-react'
 import Button from '../../components/ui/Button'
@@ -10,6 +11,7 @@ import toast from 'react-hot-toast'
 import { Progress } from '../../components/ui/Progress'
 
 export default function SalonRecommendationsPage() {
+  const navigate = useNavigate()
   const { salonCriteria, setSalonCriteria } = useRecommendationStore()
   const [isLoading, setIsLoading] = useState(false)
   const [results, setResults] = useState(null)
@@ -26,6 +28,7 @@ export default function SalonRecommendationsPage() {
       setResults(response.recommendations || [
         {
           id: '1',
+          slug: 'aura-hair-styling',
           name: 'Aura Hair & Styling',
           matchPercentage: 98,
           score: 4.9,
@@ -35,6 +38,7 @@ export default function SalonRecommendationsPage() {
         },
         {
           id: '2',
+          slug: 'lumina-facial-studio',
           name: 'Lumina Facial Studio',
           matchPercentage: 85,
           score: 4.8,
@@ -200,7 +204,7 @@ export default function SalonRecommendationsPage() {
                           </div>
                           <Progress value={salon.matchPercentage} className="h-1.5" />
                         </div>
-                        <Button variant="outline" size="sm">View Profile</Button>
+                        <Button variant="outline" size="sm" onClick={() => navigate(`/business/${salon.slug || salon.id}`)}>View Profile</Button>
                       </div>
                     </div>
                   </div>
