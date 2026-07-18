@@ -156,10 +156,11 @@ def ai_recommend_salon(request: SalonRecommendRequest, current_user: dict = Depe
 def ai_recommend_service(request: ServiceRecommendRequest, current_user: dict = Depends(get_current_user)):
     try:
         concerns_str = ", ".join(request.concerns)
-        prompt = f"The user has the following beauty/skin/hair concerns: {concerns_str}. What treatments or services do you recommend for them? Keep it helpful and concise. IMPORTANT: Use structured paragraphs and bullet points for readability. Format it nicely."
+        prompt = f"The user has the following beauty/skin/hair concerns: {concerns_str}. What treatments or services do you recommend for them? Provide a well-thought-out, highly effective list of recommendations. Present them as a numbered list (1., 2., 3.). Put the name of the treatment in **bold** using markdown. Keep your explanation concise, easy to read, and helpful. Do NOT use hashtags (#)."
         reply = get_chat_response(prompt)
         
-        # We allow markdown now so the frontend can display it with whitespace-pre-wrap
+        # Strip any remaining # just in case, but KEEP asterisks for bolding
+        reply = reply.replace('#', '')
         
         return {
             "suggestions": [
@@ -167,7 +168,7 @@ def ai_recommend_service(request: ServiceRecommendRequest, current_user: dict = 
                     "id": "bundle_1",
                     "name": "Ultimate Rejuvenation Bundle",
                     "type": "bundle",
-                    "estimatedCost": "Rs 2,000 - Rs 5,000",
+                    "estimatedCost": "$140 - $200",
                     "duration": "120 mins",
                     "explanation": reply,
                     "treatments": request.concerns
@@ -181,7 +182,7 @@ def ai_recommend_service(request: ServiceRecommendRequest, current_user: dict = 
                     "id": "bundle_1",
                     "name": "Ultimate Rejuvenation Bundle",
                     "type": "bundle",
-                    "estimatedCost": "Rs 2,000 - Rs 5,000",
+                    "estimatedCost": "$140 - $200",
                     "duration": "120 mins",
                     "explanation": "Based on your concerns, we suggest a tailored treatment package.",
                     "treatments": request.concerns
