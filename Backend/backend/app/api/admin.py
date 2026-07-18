@@ -50,6 +50,32 @@ def approve_salon(salon_id: str, approval: SalonApprovalUpdate, current_user: di
             raise e
         raise HTTPException(status_code=400, detail=str(e))
 
+@router.delete("/salons/{salon_id}")
+def delete_salon(salon_id: str, current_user: dict = Depends(get_current_admin)):
+    try:
+        # Check if salon exists
+        salon_res = supabase_admin.table("Salons").select("*").eq("id", salon_id).execute()
+        if not salon_res.data:
+            raise HTTPException(status_code=404, detail="Salon not found")
+            
+        res = supabase_admin.table("Salons").delete().eq("id", salon_id).execute()
+        
+        # Notify owner of salon deletion
+        try:
+            supabase_admin.table("Notifications").insert({
+                "user_id": salon_res.data[0]["owner_id"],
+                "title": "Salon Removed",
+                "message": f"Your salon '{salon_res.data[0]['name']}' has been removed from the platform by the administrator."
+            }).execute()
+        except Exception as notify_err:
+            print(f"Failed to create notification: {str(notify_err)}")
+            
+        return {"message": "Salon removed successfully"}
+    except Exception as e:
+        if isinstance(e, HTTPException):
+            raise e
+        raise HTTPException(status_code=400, detail=str(e))
+
 @router.get("/users")
 def get_all_users(current_user: dict = Depends(get_current_admin)):
     try:

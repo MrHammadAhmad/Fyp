@@ -5,6 +5,7 @@ import { formatPrice } from '../../utils/helpers'
 import { adminApi } from '../../api/services/adminApi'
 import toast from 'react-hot-toast'
 import { motion, AnimatePresence } from 'framer-motion'
+import ConfirmModal from '../../components/ui/ConfirmModal'
 
 export default function AdminSubscriptions() {
   const [plans, setPlans] = useState([])
@@ -13,6 +14,10 @@ export default function AdminSubscriptions() {
   // Modal state
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [editingPlan, setEditingPlan] = useState(null)
+  
+  // Confirm Delete Modal State
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
+  const [planToDelete, setPlanToDelete] = useState(null)
   
   // Form state
   const [formData, setFormData] = useState({
@@ -39,16 +44,24 @@ export default function AdminSubscriptions() {
     }
   }
 
-  const handleDelete = async (planId) => {
-    if (!window.confirm('Are you sure you want to delete this subscription plan?')) return;
+  const handleDeleteClick = (planId) => {
+    setPlanToDelete(planId)
+    setIsDeleteModalOpen(true)
+  }
+
+  const handleConfirmDelete = async () => {
+    if (!planToDelete) return;
     try {
       toast.loading('Deleting plan...', { id: 'delete-plan' })
-      await adminApi.deleteSubscription(planId)
+      await adminApi.deleteSubscription(planToDelete)
       toast.success('Plan deleted successfully', { id: 'delete-plan' })
       fetchPlans()
     } catch (error) {
       console.error('Failed to delete plan:', error)
       toast.error('Failed to delete plan', { id: 'delete-plan' })
+    } finally {
+      setIsDeleteModalOpen(false)
+      setPlanToDelete(null)
     }
   }
 
@@ -184,7 +197,7 @@ export default function AdminSubscriptions() {
                 <Button 
                   variant="outline" 
                   className="px-3 hover:bg-red-50 hover:text-red-600 hover:border-red-200 dark:hover:bg-red-900/20 dark:hover:border-red-800 dark:hover:text-red-400"
-                  onClick={() => handleDelete(plan.id)}
+                  onClick={() => handleDeleteClick(plan.id)}
                 >
                   <Trash2 className="w-4 h-4" />
                 </Button>
@@ -296,6 +309,17 @@ export default function AdminSubscriptions() {
           </div>
         )}
       </AnimatePresence>
+
+      <ConfirmModal 
+        isOpen={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+        onConfirm={handleConfirmDelete}
+        title="Delete Plan"
+        message="Are you sure you want to delete this subscription plan? This action cannot be undone."
+        confirmText="Delete"
+        cancelText="Cancel"
+        isDestructive={true}
+      />
     </div>
   )
 }

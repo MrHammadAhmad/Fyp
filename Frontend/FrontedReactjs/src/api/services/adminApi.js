@@ -25,6 +25,11 @@ export const adminApi = {
     return response.data
   },
 
+  deleteSalon: async (salonId) => {
+    const response = await api.delete(`/api/admin/salons/${salonId}`)
+    return response.data
+  },
+
   getUsers: async () => {
     const response = await api.get('/api/admin/users')
     return response.data

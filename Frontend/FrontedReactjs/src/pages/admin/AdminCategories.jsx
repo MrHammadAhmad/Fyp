@@ -13,6 +13,7 @@ import Button from '../../components/ui/Button'
 import { useCategoryStore } from '../../store/categoryStore'
 import { motion, AnimatePresence } from 'framer-motion'
 import toast from 'react-hot-toast'
+import ConfirmModal from '../../components/ui/ConfirmModal'
 
 function StylingIcon({ className, strokeWidth = 1.75 }) {
   return (
@@ -73,6 +74,9 @@ export default function AdminCategories() {
     slug: ''
   })
 
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
+  const [categoryToDelete, setCategoryToDelete] = useState(null)
+
   const openModal = (category = null) => {
     if (category) {
       setEditingCategory(category)
@@ -110,11 +114,18 @@ export default function AdminCategories() {
     closeModal()
   }
 
-  const handleDelete = (id) => {
-    if (window.confirm('Are you sure you want to delete this category globally?')) {
-      deleteCategory(id)
+  const handleDeleteClick = (id) => {
+    setCategoryToDelete(id)
+    setIsDeleteModalOpen(true)
+  }
+
+  const handleConfirmDelete = () => {
+    if (categoryToDelete) {
+      deleteCategory(categoryToDelete)
       toast.success('Category deleted globally')
     }
+    setIsDeleteModalOpen(false)
+    setCategoryToDelete(null)
   }
 
   return (
@@ -155,7 +166,7 @@ export default function AdminCategories() {
                     <Edit className="w-4 h-4" />
                   </button>
                   <button 
-                    onClick={() => handleDelete(cat.id)}
+                    onClick={() => handleDeleteClick(cat.id)}
                     className="p-1.5 rounded text-surface-400 hover:text-red-600 hover:bg-red-50 transition-colors"
                   >
                     <Trash2 className="w-4 h-4" />
@@ -223,6 +234,17 @@ export default function AdminCategories() {
           </div>
         )}
       </AnimatePresence>
+
+      <ConfirmModal 
+        isOpen={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+        onConfirm={handleConfirmDelete}
+        title="Delete Category"
+        message="Are you sure you want to delete this category globally? This action cannot be undone."
+        confirmText="Delete"
+        cancelText="Cancel"
+        isDestructive={true}
+      />
     </div>
   )
 }

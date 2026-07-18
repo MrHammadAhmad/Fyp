@@ -84,7 +84,7 @@ export default function AdminUsers() {
               >
                 <option value="all">All Roles</option>
                 <option value="customer">Customers</option>
-                <option value="business_owner">Business Owners</option>
+                <option value="owner">Business Owners</option>
                 <option value="admin">Admins</option>
               </select>
               <Filter className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-surface-400 pointer-events-none" />
@@ -129,12 +129,12 @@ export default function AdminUsers() {
                       <Badge 
                         className={
                         (user.role || 'customer') === 'admin' ? 'bg-purple-50 text-purple-700 dark:bg-purple-900/30 dark:text-purple-400' :
-                        (user.role || 'customer') === 'business_owner' ? 'bg-brand-50 text-brand-700 dark:bg-brand-900/30 dark:text-brand-400' :
+                        (user.role || 'customer') === 'owner' ? 'bg-brand-50 text-brand-700 dark:bg-brand-900/30 dark:text-brand-400' :
                         'bg-surface-100 text-surface-700 dark:bg-surface-800 dark:text-surface-300'
                         }
                       >
                         {(user.role || 'customer') === 'admin' && <ShieldCheck className="w-3 h-3 mr-1" />}
-                        {(user.role || 'customer').replace('_', ' ').toUpperCase()}
+                        {(user.role || 'customer') === 'owner' ? 'BUSINESS OWNER' : (user.role || 'customer').replace('_', ' ').toUpperCase()}
                       </Badge>
                     </td>
                     <td className="p-4">
@@ -147,14 +147,16 @@ export default function AdminUsers() {
                     </td>
                     <td className="p-4 pr-6 text-right">
                       <div className="flex items-center justify-end gap-2">
-                        {!user.is_blocked ? (
-                          <button onClick={() => handleToggleBlock(user.id, user.is_blocked)} className="p-2 rounded-lg text-surface-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 transition-colors" title="Ban User">
-                            <Ban className="w-4 h-4" />
-                          </button>
-                        ) : (
-                          <button onClick={() => handleToggleBlock(user.id, user.is_blocked)} className="p-2 rounded-lg text-surface-400 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 transition-colors" title="Unban User">
-                            <ShieldCheck className="w-4 h-4" />
-                          </button>
+                        {(user.role || 'customer') !== 'admin' && (
+                          !user.is_blocked ? (
+                            <button onClick={() => handleToggleBlock(user.id, user.is_blocked)} className="p-2 rounded-lg text-surface-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 transition-colors" title="Ban User">
+                              <Ban className="w-4 h-4" />
+                            </button>
+                          ) : (
+                            <button onClick={() => handleToggleBlock(user.id, user.is_blocked)} className="p-2 rounded-lg text-surface-400 hover:text-emerald-600 dark:hover:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-900/30 transition-colors" title="Unban User">
+                              <ShieldCheck className="w-4 h-4" />
+                            </button>
+                          )
                         )}
                       </div>
                     </td>

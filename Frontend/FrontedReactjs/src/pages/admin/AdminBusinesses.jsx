@@ -6,6 +6,8 @@ import SearchBar from '../../components/common/SearchBar'
 import Pagination from '../../components/common/Pagination'
 import { Link } from 'react-router-dom'
 import { adminApi } from '../../api/services/adminApi'
+import ConfirmModal from '../../components/ui/ConfirmModal'
+import toast from 'react-hot-toast'
 
 export default function AdminBusinesses() {
   const [search, setSearch] = useState('')
@@ -13,6 +15,8 @@ export default function AdminBusinesses() {
   const [businesses, setBusinesses] = useState([])
   const [loading, setLoading] = useState(true)
   const [statusFilter, setStatusFilter] = useState('all')
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
+  const [selectedSalonId, setSelectedSalonId] = useState(null)
 
   useEffect(() => {
     fetchBusinesses()
@@ -42,6 +46,20 @@ export default function AdminBusinesses() {
       fetchBusinesses()
     } catch (error) {
       console.error('Failed to update salon status:', error)
+    }
+  }
+
+  const handleDeleteSalon = async () => {
+    if (!selectedSalonId) return;
+    try {
+      await adminApi.deleteSalon(selectedSalonId);
+      toast.success("Salon has been removed successfully");
+      fetchBusinesses();
+    } catch (e) {
+      toast.error("Failed to remove salon");
+    } finally {
+      setIsDeleteModalOpen(false);
+      setSelectedSalonId(null);
     }
   }
 
@@ -159,18 +177,12 @@ export default function AdminBusinesses() {
                           </>
                         )}
                         <button 
-                          onClick={async () => {
-                            if (window.confirm("Are you sure you want to ban this business owner?")) {
-                                try {
-                                    await adminApi.blockUser(business.owner_id, true)
-                                    alert("Owner has been banned successfully")
-                                } catch (e) {
-                                    alert("Failed to ban owner")
-                                }
-                            }
+                          onClick={() => {
+                            setSelectedSalonId(business.id);
+                            setIsDeleteModalOpen(true);
                           }}
                           className="p-2 rounded-lg text-surface-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 transition-colors" 
-                          title="Ban Owner"
+                          title="Remove Salon"
                         >
                           <Ban className="w-4 h-4" />
                         </button>
@@ -181,7 +193,7 @@ export default function AdminBusinesses() {
               ) : (
                 <tr>
                   <td colSpan="5" className="p-8 text-center text-surface-500">
-                    No businesses found matching your search.
+                    No businesses found matching your criteria.
                   </td>
                 </tr>
               )}
@@ -195,6 +207,17 @@ export default function AdminBusinesses() {
           </div>
         )}
       </div>
+
+      <ConfirmModal 
+        isOpen={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+        onConfirm={handleDeleteSalon}
+        title="Remove Salon"
+        message="Are you sure you want to completely remove this salon from the platform? This action cannot be undone."
+        confirmText="Remove"
+        cancelText="Cancel"
+        isDestructive={true}
+      />
     </div>
   )
 }
