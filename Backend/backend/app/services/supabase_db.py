@@ -7,9 +7,11 @@ key: str = settings.SUPABASE_KEY
 service_role_key: str = settings.SUPABASE_SERVICE_ROLE_KEY
 
 try:
-    from supabase import create_client, Client
-    default_supabase: Client = create_client(url, key)
-    supabase_admin: Client = create_client(url, service_role_key)
+    from supabase import create_client, Client, ClientOptions
+    # Increase the timeout because getting users can occasionally timeout on slow connections
+    opts = ClientOptions(postgrest_client_timeout=30)
+    default_supabase: Client = create_client(url, key, options=opts)
+    supabase_admin: Client = create_client(url, service_role_key, options=opts)
 except Exception:
     # Keep app importable for local docs/testing even if Supabase deps are unavailable.
     default_supabase: Any = None
