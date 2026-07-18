@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Sparkles, DollarSign, Activity, ChevronRight } from 'lucide-react'
 import Button from '../../components/ui/Button'
@@ -12,6 +13,7 @@ const CONCERN_OPTIONS = [
 ]
 
 export default function ServiceSuggestionsPage() {
+  const navigate = useNavigate()
   const { serviceCriteria, setServiceCriteria } = useRecommendationStore()
   const [isLoading, setIsLoading] = useState(false)
   const [results, setResults] = useState(null)
@@ -182,7 +184,7 @@ export default function ServiceSuggestionsPage() {
                     </ul>
                   </div>
 
-                  <Button fullWidth variant="outline" rightIcon={<ChevronRight size={16} />}>
+                  <Button fullWidth variant="outline" rightIcon={<ChevronRight size={16} />} onClick={() => navigate('/explore')}>
                     Find Salons Offering This
                   </Button>
                 </motion.div>

@@ -83,18 +83,31 @@ def ai_recommend_salon(request: SalonRecommendRequest, current_user: dict = Depe
         if not salons_list:
             return {"recommendations": []}
             
-        prompt = f"Based on location: {request.location or 'Any'}, budget: {request.budget or 'Any'}, category: {request.category or 'Any'}, and user preferences: '{request.preferences or 'None'}', recommend the best salon(s) from this list: {salons_list}. Keep the explanation short, clean, and return a JSON structure or structured explanation."
+        prompt = f"Based on location: {request.location or 'Any'}, budget: {request.budget or 'Any'}, category: {request.category or 'Any'}, and user preferences: '{request.preferences or 'None'}', pick the single best matching salon from this list: {salons_list}. Give a short, clean, plain English explanation (NO MARKDOWN LIKE * OR #) of why it's recommended. Format your ENTIRE response as a strictly valid JSON object with EXACTLY two keys: 'id' (the id of the chosen salon) and 'reason' (the explanation string). Do not include any other text or formatting."
         reply = get_chat_response(prompt)
+        
+        try:
+            # Strip ```json if it exists
+            clean_reply = reply.replace('```json', '').replace('```', '').strip()
+            parsed_reply = json.loads(clean_reply)
+            chosen_id = parsed_reply.get('id')
+            reason = parsed_reply.get('reason', 'Great choice based on your preferences.')
+            
+            # Find the chosen salon
+            chosen_salon = next((s for s in salons_list if s["id"] == chosen_id), salons_list[0])
+        except Exception:
+            chosen_salon = salons_list[0]
+            reason = reply.replace('*', '').replace('#', '')
         
         return {
             "recommendations": [
                 {
-                    "id": salons_list[0]["id"],
-                    "name": salons_list[0]["name"],
+                    "id": chosen_salon["id"],
+                    "name": chosen_salon["name"],
                     "matchPercentage": 98,
-                    "score": float(salons_list[0].get("average_rating") or 4.9),
-                    "location": salons_list[0]["location"],
-                    "whyRecommended": reply,
+                    "score": float(chosen_salon.get("average_rating") or 4.9),
+                    "location": chosen_salon["location"],
+                    "whyRecommended": reason,
                     "tags": ["Best Match"]
                 }
             ]
@@ -119,8 +132,11 @@ def ai_recommend_salon(request: SalonRecommendRequest, current_user: dict = Depe
 def ai_recommend_service(request: ServiceRecommendRequest, current_user: dict = Depends(get_current_user)):
     try:
         concerns_str = ", ".join(request.concerns)
-        prompt = f"The user has the following beauty/skin/hair concerns: {concerns_str}. What treatments or services do you recommend for them? Keep it helpful and concise."
+        prompt = f"The user has the following beauty/skin/hair concerns: {concerns_str}. What treatments or services do you recommend for them? Keep it helpful and concise. IMPORTANT: Use proper plain English sentences. Do NOT use any markdown formatting, asterisks (*), or hashtags (#)."
         reply = get_chat_response(prompt)
+        
+        # Strip any remaining markdown just in case
+        reply = reply.replace('*', '').replace('#', '')
         
         return {
             "suggestions": [
