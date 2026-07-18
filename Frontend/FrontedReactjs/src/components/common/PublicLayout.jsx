@@ -12,7 +12,10 @@ export default function PublicLayout() {
     path.startsWith('/admin') ||
     path.startsWith('/business') ||
     path.startsWith('/dashboard') ||
-    path.startsWith('/auth');
+    path.startsWith('/auth') ||
+    path === '/ai-assistant' ||
+    path.startsWith('/recommendations') ||
+    path.startsWith('/analysis');
 
   return (
     <div className="min-h-screen flex flex-col bg-white dark:bg-surface-950">

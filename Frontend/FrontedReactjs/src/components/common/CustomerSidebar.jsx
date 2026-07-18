@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import {
   LayoutDashboard, Calendar, Clock, Heart, Wallet, Bell,
   Settings, ChevronLeft, ChevronRight, Sparkles, User, Star, Gift,
-  Bot, Scissors, Microscope, FlaskConical, Building2, Crown
+  Bot, Scissors, Microscope, FlaskConical, Building2, Crown, Headphones
 } from 'lucide-react'
 import { useAuthStore } from '../../store/authStore'
 import { cn } from '../../utils/helpers'
@@ -16,7 +16,7 @@ const customerNav = [
   { label: 'Wallet', to: '/dashboard/wallet', icon: Wallet },
   { label: 'Memberships', to: '/dashboard/memberships', icon: Crown },
   { label: 'Notifications', to: '/dashboard/notifications', icon: Bell },
-  { label: 'Support', to: '/dashboard/support', icon: Bot },
+  { label: 'Support', to: '/dashboard/support', icon: Headphones },
   { label: 'Settings', to: '/dashboard/settings', icon: Settings },
 ]
 

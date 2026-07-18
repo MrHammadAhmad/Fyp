@@ -24,29 +24,7 @@ export default function SalonRecommendationsPage() {
       const payload = { ...salonCriteria }
       const response = await aiApi.getSalonRecommendations(payload)
       
-      // Since it's mock, if the response is empty, we will inject mock results
-      setResults(response.recommendations || [
-        {
-          id: '1',
-          slug: 'aura-hair-styling',
-          name: 'Aura Hair & Styling',
-          matchPercentage: 98,
-          score: 4.9,
-          location: 'Downtown',
-          whyRecommended: 'Perfect match for your budget and preferred haircut styles. They have top-rated stylists for your selected services.',
-          tags: ['Budget Friendly', 'Nearby']
-        },
-        {
-          id: '2',
-          slug: 'lumina-facial-studio',
-          name: 'Lumina Facial Studio',
-          matchPercentage: 85,
-          score: 4.8,
-          location: 'Westside',
-          whyRecommended: 'Excellent ratings for skincare services you previously booked.',
-          tags: ['Top Rated']
-        }
-      ])
+      setResults(response.recommendations || [])
     } catch (error) {
       toast.error('Failed to get recommendations. Please try again.')
       console.error(error)
@@ -75,20 +53,28 @@ export default function SalonRecommendationsPage() {
                 <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-1.5">Area in Lahore</label>
                 <div className="relative">
                   <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 text-surface-400" size={18} />
-                  <input 
-                    type="text" 
-                    className="w-full bg-surface-50 dark:bg-surface-800 border border-surface-200 dark:border-surface-700 rounded-xl py-2.5 pl-10 pr-4 outline-none focus:border-brand-500" 
-                    placeholder="e.g. Gulberg, DHA, Johar Town"
+                  <select 
+                    className="w-full bg-surface-50 dark:bg-surface-800 border border-surface-200 dark:border-surface-700 rounded-xl py-2.5 pl-10 pr-4 outline-none focus:border-brand-500 appearance-none"
                     value={salonCriteria.location}
                     onChange={(e) => setSalonCriteria({ location: e.target.value })}
-                  />
+                  >
+                    <option value="">Any Area in Lahore</option>
+                    <option value="Gulberg">Gulberg</option>
+                    <option value="DHA">DHA</option>
+                    <option value="Johar Town">Johar Town</option>
+                    <option value="Model Town">Model Town</option>
+                    <option value="Bahria Town">Bahria Town</option>
+                    <option value="Wapda Town">Wapda Town</option>
+                    <option value="Cavalry Ground">Cavalry Ground</option>
+                    <option value="Cantt">Cantt</option>
+                  </select>
                 </div>
               </div>
               
               <div>
                 <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-1.5">Budget Preference</label>
                 <div className="relative">
-                  <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 text-surface-400" size={18} />
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-surface-400 font-bold text-sm">Rs</span>
                   <select 
                     className="w-full bg-surface-50 dark:bg-surface-800 border border-surface-200 dark:border-surface-700 rounded-xl py-2.5 pl-10 pr-4 outline-none focus:border-brand-500 appearance-none"
                     value={salonCriteria.budget}
@@ -153,7 +139,15 @@ export default function SalonRecommendationsPage() {
             </div>
           )}
 
-          {results && !isLoading && (
+          {results && results.length === 0 && !isLoading && (
+            <div className="h-full flex flex-col items-center justify-center text-center p-12 bg-surface-50 dark:bg-surface-900/50 rounded-3xl border border-dashed border-surface-300 dark:border-surface-700">
+              <Sparkles className="text-surface-400 mb-4" size={48} />
+              <h3 className="text-xl font-bold text-surface-900 dark:text-white mb-2">No salons found</h3>
+              <p className="text-surface-500">We couldn't find any salons matching your criteria. Try adjusting your preferences.</p>
+            </div>
+          )}
+
+          {results && results.length > 0 && !isLoading && (
             <div className="space-y-6">
               {results.map((salon, idx) => (
                 <motion.div 
