@@ -121,16 +121,16 @@ export default function ServiceSuggestionsPage() {
               <div>
                 <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-1.5">Max Budget</label>
                 <div className="relative">
-                  <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 text-surface-400" size={18} />
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-surface-400 font-bold text-sm">Rs</span>
                   <select 
                     className="w-full bg-surface-50 dark:bg-surface-800 border border-surface-200 dark:border-surface-700 rounded-xl py-2.5 pl-10 pr-4 outline-none focus:border-brand-500 appearance-none"
                     value={serviceCriteria.budget}
                     onChange={(e) => setServiceCriteria({ budget: e.target.value })}
                   >
                     <option value="">No limit</option>
-                    <option value="50">Under $50</option>
-                    <option value="100">Under $100</option>
-                    <option value="200">Under $200</option>
+                    <option value="5000">Under Rs 5,000</option>
+                    <option value="10000">Under Rs 10,000</option>
+                    <option value="20000">Under Rs 20,000</option>
                   </select>
                 </div>
               </div>
