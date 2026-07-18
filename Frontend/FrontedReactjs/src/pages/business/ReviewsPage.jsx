@@ -114,14 +114,14 @@ export default function ReviewsPage() {
           <p className="text-sm text-surface-500 dark:text-surface-400">Read and respond to client feedback.</p>
         </div>
         <div className="flex items-center gap-2 bg-surface-100 dark:bg-surface-800 p-1 rounded-xl">
-          {['all', 'unreplied', 'positive', 'negative'].map(f => (
+          {['all', 'positive', 'negative'].map(f => (
             <button key={f} onClick={() => setFilter(f)}
               className={`px-4 py-1.5 text-sm font-semibold rounded-lg transition-colors capitalize ${
                 filter === f
                   ? 'bg-white dark:bg-surface-900 shadow-sm text-surface-900 dark:text-white'
                   : 'text-surface-500 hover:text-surface-700 dark:hover:text-surface-300'
               }`}>
-              {f === 'unreplied' ? 'Need Reply' : f}
+              {f}
             </button>
           ))}
         </div>
