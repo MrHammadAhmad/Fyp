@@ -80,6 +80,9 @@ def ai_recommend_salon(request: SalonRecommendRequest, current_user: dict = Depe
         salons_res = supabase_admin.table("Salons").select("id, name, location, average_rating").eq("is_approved", True).execute()
         salons_list = salons_res.data
         
+        if request.location:
+            salons_list = [s for s in salons_list if request.location.lower() in (s.get("location") or "").lower()]
+            
         if not salons_list:
             return {"recommendations": []}
             

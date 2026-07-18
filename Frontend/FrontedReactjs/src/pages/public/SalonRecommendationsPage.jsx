@@ -53,21 +53,24 @@ export default function SalonRecommendationsPage() {
                 <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-1.5">Area in Lahore</label>
                 <div className="relative">
                   <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 text-surface-400" size={18} />
-                  <select 
-                    className="w-full bg-surface-50 dark:bg-surface-800 border border-surface-200 dark:border-surface-700 rounded-xl py-2.5 pl-10 pr-4 outline-none focus:border-brand-500 appearance-none"
-                    value={salonCriteria.location}
+                  <input 
+                    type="text"
+                    list="lahore-areas"
+                    className="w-full bg-surface-50 dark:bg-surface-800 border border-surface-200 dark:border-surface-700 rounded-xl py-2.5 pl-10 pr-4 outline-none focus:border-brand-500"
+                    placeholder="e.g. Model Town"
+                    value={salonCriteria.location || ''}
                     onChange={(e) => setSalonCriteria({ location: e.target.value })}
-                  >
-                    <option value="">Any Area in Lahore</option>
-                    <option value="Gulberg">Gulberg</option>
-                    <option value="DHA">DHA</option>
-                    <option value="Johar Town">Johar Town</option>
-                    <option value="Model Town">Model Town</option>
-                    <option value="Bahria Town">Bahria Town</option>
-                    <option value="Wapda Town">Wapda Town</option>
-                    <option value="Cavalry Ground">Cavalry Ground</option>
-                    <option value="Cantt">Cantt</option>
-                  </select>
+                  />
+                  <datalist id="lahore-areas">
+                    <option value="Gulberg" />
+                    <option value="DHA" />
+                    <option value="Johar Town" />
+                    <option value="Model Town" />
+                    <option value="Bahria Town" />
+                    <option value="Wapda Town" />
+                    <option value="Cavalry Ground" />
+                    <option value="Cantt" />
+                  </datalist>
                 </div>
               </div>
               
