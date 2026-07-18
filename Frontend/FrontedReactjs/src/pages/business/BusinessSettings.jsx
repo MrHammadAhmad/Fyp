@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Store, Globe, Clock, Shield, Save, Loader2 } from 'lucide-react'
 import Input, { Textarea } from '../../components/ui/Input'
 import Button from '../../components/ui/Button'
+import LocationInput from '../../components/common/LocationInput'
 import Switch from '../../components/ui/Switch'
 import showToast from '../../components/ui/Toast'
 import { businessApi } from '../../api/services/businessApi'
@@ -228,17 +229,12 @@ export default function BusinessSettings() {
                 <Input label="Zip Code" value={zipCode} onChange={e => setZipCode(e.target.value)} placeholder="54000" />
               </div>
               <div className="grid grid-cols-1 gap-4 mt-4">
-                <Input label="Area in Lahore" value={city} onChange={e => setCity(e.target.value)} placeholder="e.g. Gulberg, DHA, Johar Town" list="lahore-areas-settings" />
-                <datalist id="lahore-areas-settings">
-                  <option value="Gulberg" />
-                  <option value="DHA" />
-                  <option value="Johar Town" />
-                  <option value="Model Town" />
-                  <option value="Bahria Town" />
-                  <option value="Wapda Town" />
-                  <option value="Cavalry Ground" />
-                  <option value="Cantt" />
-                </datalist>
+                <LocationInput 
+                  label="Area in Lahore" 
+                  value={city} 
+                  onChange={e => setCity(e.target.value)} 
+                  placeholder="e.g. Gulberg, DHA, Johar Town" 
+                />
               </div>
             </div>
           )}

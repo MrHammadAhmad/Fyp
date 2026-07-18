@@ -8,6 +8,8 @@ import { staffApi } from '../../api/services/staffApi'
 import Input from '../../components/ui/Input'
 import Button from '../../components/ui/Button'
 import showToast from '../../components/ui/Toast'
+import BusinessDashboardLayout from '../../components/common/BusinessDashboardLayout'
+import LocationInput from '../../components/common/LocationInput'
 
 const GLOBAL_SERVICES_LIST = [
   { name: 'Haircut', defaultPrice: 30, defaultDuration: 30 },
@@ -310,24 +312,13 @@ export default function ManageSalonPage() {
                 />
               </div>
               <div className="grid grid-cols-1 gap-4">
-                <Input 
+                <LocationInput 
                   label="Area in Lahore" 
                   placeholder="e.g. Gulberg, DHA, Johar Town" 
                   value={salonData.city} 
                   onChange={e => setSalonData({...salonData, city: e.target.value})} 
                   required 
-                  list="lahore-areas"
                 />
-                <datalist id="lahore-areas">
-                  <option value="Gulberg" />
-                  <option value="DHA" />
-                  <option value="Johar Town" />
-                  <option value="Model Town" />
-                  <option value="Bahria Town" />
-                  <option value="Wapda Town" />
-                  <option value="Cavalry Ground" />
-                  <option value="Cantt" />
-                </datalist>
               </div>
             </div>
 
