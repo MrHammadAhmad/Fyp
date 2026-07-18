@@ -167,7 +167,7 @@ export default function ServiceSuggestionsPage() {
                   <p className="text-xs text-surface-500 mb-4 flex items-center gap-1.5"><Activity size={14} /> {suggestion.duration}</p>
                   
                   <div className="bg-surface-50 dark:bg-surface-800/50 p-3 rounded-xl mb-4 border border-surface-100 dark:border-surface-700/50 flex-1">
-                    <p className="text-sm text-surface-600 dark:text-surface-400 leading-relaxed">
+                    <p className="text-sm text-surface-600 dark:text-surface-400 leading-relaxed whitespace-pre-wrap">
                       {suggestion.explanation}
                     </p>
                   </div>
@@ -184,7 +184,7 @@ export default function ServiceSuggestionsPage() {
                     </ul>
                   </div>
 
-                  <Button fullWidth variant="outline" rightIcon={<ChevronRight size={16} />} onClick={() => navigate('/explore')}>
+                  <Button fullWidth variant="outline" rightIcon={<ChevronRight size={16} />} onClick={() => navigate(`/explore?q=${encodeURIComponent(suggestion.treatments.join(' '))}`)}>
                     Find Salons Offering This
                   </Button>
                 </motion.div>

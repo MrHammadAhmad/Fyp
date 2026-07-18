@@ -156,11 +156,10 @@ def ai_recommend_salon(request: SalonRecommendRequest, current_user: dict = Depe
 def ai_recommend_service(request: ServiceRecommendRequest, current_user: dict = Depends(get_current_user)):
     try:
         concerns_str = ", ".join(request.concerns)
-        prompt = f"The user has the following beauty/skin/hair concerns: {concerns_str}. What treatments or services do you recommend for them? Keep it helpful and concise. IMPORTANT: Use proper plain English sentences. Do NOT use any markdown formatting, asterisks (*), or hashtags (#)."
+        prompt = f"The user has the following beauty/skin/hair concerns: {concerns_str}. What treatments or services do you recommend for them? Keep it helpful and concise. IMPORTANT: Use structured paragraphs and bullet points for readability. Format it nicely."
         reply = get_chat_response(prompt)
         
-        # Strip any remaining markdown just in case
-        reply = reply.replace('*', '').replace('#', '')
+        # We allow markdown now so the frontend can display it with whitespace-pre-wrap
         
         return {
             "suggestions": [
