@@ -5,7 +5,7 @@ export default function AverageRatingWidget({ rating = 4.8, totalReviews = 124, 
   // Generate breakdown percentages
   const percentages = {}
   Object.keys(breakdown).forEach(key => {
-    percentages[key] = Math.round((breakdown[key] / totalReviews) * 100)
+    percentages[key] = totalReviews > 0 ? Math.round((breakdown[key] / totalReviews) * 100) : 0
   })
 
   return (

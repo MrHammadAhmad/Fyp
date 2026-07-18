@@ -45,6 +45,8 @@ class SalonUpdate(BaseModel):
     town: Optional[str] = None
     shop_no: Optional[str] = None
     street_address: Optional[str] = None
+    latitude: Optional[float] = None
+    longitude: Optional[float] = None
     cover_image: Optional[str] = None
     images: Optional[List[str]] = None
 
@@ -61,6 +63,8 @@ class SalonResponse(SalonBase):
     id: str
     owner_id: str
     average_rating: Optional[float] = 0.0
+    review_count: Optional[int] = 0
+    services: Optional[List[dict]] = []
 
     class Config:
         from_attributes = True

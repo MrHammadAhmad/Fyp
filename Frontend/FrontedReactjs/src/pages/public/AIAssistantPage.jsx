@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import ReactMarkdown from 'react-markdown'
 import { Send, Bot, User, Trash2, Copy, Sparkles, RefreshCcw } from 'lucide-react'
 import Button from '../../components/ui/Button'
 import { useAIAssistantStore } from '../../store/aiAssistantStore'
@@ -119,7 +120,9 @@ export default function AIAssistantPage() {
                       ? 'bg-surface-100 dark:bg-surface-800 text-surface-900 dark:text-white rounded-tr-none' 
                       : 'bg-brand-50 dark:bg-brand-900/20 border border-brand-100 dark:border-brand-800/30 text-surface-900 dark:text-white rounded-tl-none'
                   }`}>
-                    <p className="whitespace-pre-wrap leading-relaxed">{msg.content}</p>
+                    <div className="prose prose-sm dark:prose-invert max-w-none prose-p:leading-relaxed prose-headings:font-bold prose-a:text-brand-600">
+                      <ReactMarkdown>{msg.content}</ReactMarkdown>
+                    </div>
                     
                     {msg.role === 'ai' && (
                       <div className="mt-3 flex justify-end">

@@ -111,7 +111,24 @@ def get_salon(salon_id: str):
         response = supabase.table("Salons").select("*").eq("id", salon_id).execute()
         if not response.data:
             raise HTTPException(status_code=404, detail="Salon not found")
-        return response.data[0]
+            
+        salon_data = response.data[0]
+        
+        # Fetch services
+        services_res = supabase.table("Services").select("*").eq("salon_id", salon_id).execute()
+        salon_data["services"] = services_res.data if services_res.data else []
+        
+        # Fetch reviews
+        reviews_res = supabase.table("Reviews").select("rating").eq("salon_id", salon_id).execute()
+        if reviews_res.data:
+            total_rating = sum([r["rating"] for r in reviews_res.data])
+            salon_data["review_count"] = len(reviews_res.data)
+            salon_data["average_rating"] = round(total_rating / len(reviews_res.data), 1)
+        else:
+            salon_data["review_count"] = 0
+            salon_data["average_rating"] = 0.0
+            
+        return salon_data
     except Exception as e:
         if isinstance(e, HTTPException):
             raise e

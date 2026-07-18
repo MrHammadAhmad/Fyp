@@ -265,8 +265,8 @@ export default function BookAppointment() {
                   <h3 className="font-bold text-lg text-surface-900 dark:text-white">{selectedSalon.name}</h3>
                   <div className="flex items-center gap-1 text-xs text-amber-500 font-bold">
                     <Star className="w-4 h-4 fill-current" />
-                    <span>{(selectedSalon.rating || 0).toFixed(1)}</span>
-                    <span className="text-surface-400 font-normal">({selectedSalon.reviewCount || 0} reviews)</span>
+                    <span>{(selectedSalon.average_rating || 0).toFixed(1)}</span>
+                    <span className="text-surface-400 font-normal">({selectedSalon.review_count || 0} reviews)</span>
                   </div>
                   <p className="text-sm text-surface-500 dark:text-surface-400 flex items-center gap-1.5 pt-1">
                     <MapPin className="w-4 h-4 text-surface-400" />
