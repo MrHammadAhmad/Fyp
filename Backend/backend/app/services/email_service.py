@@ -59,7 +59,7 @@ def send_booking_confirmation(customer_email: str, customer_name: str, booking_d
         </div>
         
         <p>We look forward to seeing you!</p>
-        <p style="color: #6b7280; font-size: 14px;">If you need to reschedule or cancel, please log in to your dashboard.</p>
+        <p style="color: #6b7280; font-size: 14px;">If you need to reschedule or cancel, please log in to your dashboard at <a href="https://fyp-iota-rust.vercel.app/" style="color: #405742;">https://fyp-iota-rust.vercel.app/</a>.</p>
     </div>
     """
     
@@ -89,7 +89,7 @@ def send_owner_notification(owner_email: str, owner_name: str, booking_details: 
             <p style="margin: 5px 0;"><strong>Time:</strong> {time_str}</p>
         </div>
         
-        <p>Please check your admin dashboard for more details.</p>
+        <p>Please check your admin dashboard at <a href="https://fyp-iota-rust.vercel.app/" style="color: #405742;">https://fyp-iota-rust.vercel.app/</a> for more details.</p>
     </div>
     """
     
@@ -120,6 +120,7 @@ def send_booking_reminder(customer_email: str, customer_name: str, booking_detai
         
         <p>Please aim to arrive 5-10 minutes early.</p>
         <p>We look forward to seeing you!</p>
+        <p style="color: #6b7280; font-size: 14px;">View your booking details at <a href="https://fyp-iota-rust.vercel.app/" style="color: #405742;">https://fyp-iota-rust.vercel.app/</a>.</p>
     </div>
     """
     
