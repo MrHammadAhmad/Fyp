@@ -77,7 +77,7 @@ def ai_recommendations(request: RecommendationRequest, current_user: dict = Depe
 @router.post("/recommend-salon")
 def ai_recommend_salon(request: SalonRecommendRequest, current_user: dict = Depends(get_current_user)):
     try:
-        salons_res = supabase_admin.table("Salons").select("id, name, slug, location, average_rating").eq("is_approved", True).execute()
+        salons_res = supabase_admin.table("Salons").select("id, name, location, average_rating").eq("is_approved", True).execute()
         salons_list = salons_res.data
         
         if not salons_list:
