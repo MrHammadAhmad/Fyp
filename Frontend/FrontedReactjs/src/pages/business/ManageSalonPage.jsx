@@ -308,6 +308,7 @@ export default function ManageSalonPage() {
                   value={salonData.street_address} 
                   onChange={e => setSalonData({...salonData, street_address: e.target.value})} 
                 />
+              </div>
               <div className="grid grid-cols-1 gap-4">
                 <Input 
                   label="Area in Lahore" 
