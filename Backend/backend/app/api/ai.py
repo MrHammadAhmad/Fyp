@@ -114,20 +114,40 @@ def ai_recommend_salon(request: SalonRecommendRequest, current_user: dict = Depe
             ]
         }
     except Exception as e:
-        # Fallback
-        return {
-            "recommendations": [
-                {
-                    "id": "aura-salon-mock",
-                    "name": "Aura Hair & Styling",
-                    "matchPercentage": 98,
-                    "score": 4.9,
-                    "location": request.location or "Downtown",
-                    "whyRecommended": "Perfect match for your budget and preferred haircut styles. They have top-rated stylists for your selected services.",
-                    "tags": ["Budget Friendly", "Nearby"]
-                }
-            ]
-        }
+        print(f"AI Recommendation error: {str(e)}")
+        # Fallback: if AI fails, filter manually by location (if provided) and return the highest rated
+        try:
+            filtered_salons = salons_list
+            if request.location:
+                # Basic string match
+                filtered_salons = [s for s in salons_list if request.location.lower() in (s.get("location") or "").lower()]
+            
+            if not filtered_salons:
+                filtered_salons = salons_list
+                
+            # Sort by rating descending
+            filtered_salons.sort(key=lambda x: float(x.get("average_rating") or 0), reverse=True)
+            chosen_salon = filtered_salons[0]
+            
+            return {
+                "recommendations": [
+                    {
+                        "id": chosen_salon["id"],
+                        "name": chosen_salon["name"],
+                        "slug": chosen_salon.get("slug"),
+                        "matchPercentage": 90,
+                        "score": float(chosen_salon.get("average_rating") or 4.9),
+                        "location": chosen_salon["location"],
+                        "whyRecommended": "Based on your preferences, this is one of our top-rated matching salons.",
+                        "tags": ["Top Rated", "Fallback Match"]
+                    }
+                ]
+            }
+        except Exception as fallback_e:
+            print(f"Fallback error: {str(fallback_e)}")
+            return {
+                "recommendations": []
+            }
 
 @router.post("/recommend-service")
 def ai_recommend_service(request: ServiceRecommendRequest, current_user: dict = Depends(get_current_user)):
