@@ -255,7 +255,7 @@ export default function MembershipsPage() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-surface-700 dark:text-surface-300">Price ($)</label>
+                  <label className="text-sm font-medium text-surface-700 dark:text-surface-300">Price (Rs)</label>
                   <div className="relative">
                     <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 text-surface-400" size={16} />
                     <input type="number" min="1" step="0.01" value={newPlan.price} onChange={(e) => setNewPlan({...newPlan, price: e.target.value})}
@@ -313,7 +313,7 @@ export default function MembershipsPage() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-surface-700 dark:text-surface-300">Price ($)</label>
+                  <label className="text-sm font-medium text-surface-700 dark:text-surface-300">Price (Rs)</label>
                   <div className="relative">
                     <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 text-surface-400" size={16} />
                     <input type="number" min="1" step="0.01" value={editingPlan.price} onChange={(e) => setEditingPlan({...editingPlan, price: e.target.value})}

@@ -95,9 +95,9 @@ export default function SalonRecommendationsPage() {
                     onChange={(e) => setSalonCriteria({ budget: e.target.value })}
                   >
                     <option value="">Any Budget</option>
-                    <option value="low">Budget Friendly ($)</option>
-                    <option value="medium">Standard ($$)</option>
-                    <option value="high">Premium ($$$)</option>
+                    <option value="low">Budget Friendly (Rs)</option>
+                    <option value="medium">Standard (Rs Rs)</option>
+                    <option value="high">Premium (Rs Rs Rs)</option>
                   </select>
                 </div>
               </div>

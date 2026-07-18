@@ -262,7 +262,7 @@ export default function ManageServicesPage() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-surface-700 dark:text-surface-300">Price ($)</label>
+                  <label className="text-sm font-medium text-surface-700 dark:text-surface-300">Price (Rs)</label>
                   <div className="relative">
                     <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 text-surface-400" size={16} />
                     <input 
@@ -336,7 +336,7 @@ export default function ManageServicesPage() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-surface-700 dark:text-surface-300">Price ($)</label>
+                  <label className="text-sm font-medium text-surface-700 dark:text-surface-300">Price (Rs)</label>
                   <div className="relative">
                     <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 text-surface-400" size={16} />
                     <input 

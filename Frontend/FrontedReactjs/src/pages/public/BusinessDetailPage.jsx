@@ -283,7 +283,7 @@ export default function BusinessDetailPage() {
                           </div>
                           <h3 className="text-xl font-bold text-surface-900 dark:text-white mb-1">{plan.name}</h3>
                           <div className="flex items-baseline gap-1">
-                            <span className="text-2xl font-extrabold text-surface-900 dark:text-white">${plan.price}</span>
+                            <span className="text-2xl font-extrabold text-surface-900 dark:text-white">Rs. {plan.price}</span>
                             <span className="text-sm text-surface-500">/{plan.duration || 'Month'}</span>
                           </div>
                         </div>

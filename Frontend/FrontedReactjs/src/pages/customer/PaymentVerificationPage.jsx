@@ -40,7 +40,7 @@ export default function PaymentVerificationPage() {
               </div>
               <div className="flex justify-between text-sm">
                 <span className="text-surface-500">Amount Paid</span>
-                <span className="font-bold text-brand-600 dark:text-brand-400">$65.00</span>
+                <span className="font-bold text-brand-600 dark:text-brand-400">Rs. 65.00</span>
               </div>
             </div>
             <div className="pt-4 flex flex-col gap-3">

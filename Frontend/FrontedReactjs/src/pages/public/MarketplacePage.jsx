@@ -123,7 +123,7 @@ export default function MarketplacePage() {
           </h1>
           {(queryParam || locationParam || categoryParam) && (
             <p className="text-surface-500 dark:text-surface-400">
-              Showing results for {queryParam && `"${queryParam}"`} {categoryParam && `in ${categories.find(c => c.id === categoryParam)?.name}`} {locationParam && `near "${locationParam}"`}
+              Showing results for {queryParam && `"Rs. {queryParam}"`} {categoryParam && `in ${categories.find(c => c.id === categoryParam)?.name}`} {locationParam && `near "Rs. {locationParam}"`}
             </p>
           )}
         </div>

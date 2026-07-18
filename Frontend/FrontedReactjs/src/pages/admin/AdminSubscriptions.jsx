@@ -229,7 +229,7 @@ export default function AdminSubscriptions() {
 
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-1">Price ($)</label>
+                      <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-1">Price (Rs)</label>
                       <input 
                         type="number" 
                         required

@@ -413,7 +413,7 @@ export default function GiftCardsPage() {
               </div>
 
               <div className="space-y-2">
-                <label className="text-sm font-medium text-surface-700 dark:text-surface-300">Gift Value ($)</label>
+                <label className="text-sm font-medium text-surface-700 dark:text-surface-300">Gift Value (Rs)</label>
                 <div className="relative">
                   <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 text-surface-400" size={16} />
                   <input 
@@ -480,7 +480,7 @@ export default function GiftCardsPage() {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-sm font-medium text-surface-700 dark:text-surface-300">Amount to Redeem ($)</label>
+                  <label className="text-sm font-medium text-surface-700 dark:text-surface-300">Amount to Redeem (Rs)</label>
                   <div className="relative">
                     <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 text-surface-400" size={16} />
                     <input 

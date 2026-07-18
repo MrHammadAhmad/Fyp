@@ -88,7 +88,7 @@ export default function PaymentHistoryPage() {
                     <p className="text-xs text-surface-500">{tx.service}</p>
                   </td>
                   <td className="py-4 px-4 text-surface-600 dark:text-surface-400">{tx.method}</td>
-                  <td className="py-4 px-4 font-bold text-surface-900 dark:text-white">${tx.amount.toFixed(2)}</td>
+                  <td className="py-4 px-4 font-bold text-surface-900 dark:text-white">Rs. {tx.amount.toFixed(2)}</td>
                   <td className="py-4 px-4">{getStatusBadge(tx.status)}</td>
                   <td className="py-4 px-4 text-right">
                     <button 
@@ -149,7 +149,7 @@ export default function PaymentHistoryPage() {
                   </div>
                   <div className="pt-4 mt-2 border-t border-surface-200 dark:border-surface-700 flex justify-between">
                     <span className="font-bold text-surface-900 dark:text-white">Total Amount</span>
-                    <span className="font-bold text-brand-600 dark:text-brand-400">${selectedTx.amount.toFixed(2)}</span>
+                    <span className="font-bold text-brand-600 dark:text-brand-400">Rs. {selectedTx.amount.toFixed(2)}</span>
                   </div>
                 </div>
 

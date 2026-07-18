@@ -96,11 +96,11 @@ export default function AppointmentsPage() {
 
     const headers = ['Client', 'Service', 'Date', 'Time', 'Staff', 'Price', 'Status']
     const rows = filteredAppointments.map((b) => [
-      `"${(b.customer_name || b.customerName || '').replace(/"/g, '""')}"`,
-      `"${(b.serviceName || '').replace(/"/g, '""')}"`,
+      `"Rs. {(b.customer_name || b.customerName || '').replace(/"/g, '""')}"`,
+      `"Rs. {(b.serviceName || '').replace(/"/g, '""')}"`,
       formatDate(b.date),
       formatTime(b.time),
-      `"${(b.staffName || 'Any').replace(/"/g, '""')}"`,
+      `"Rs. {(b.staffName || 'Any').replace(/"/g, '""')}"`,
       b.price || 0,
       b.status
     ])

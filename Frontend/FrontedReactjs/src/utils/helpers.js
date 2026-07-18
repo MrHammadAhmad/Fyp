@@ -40,8 +40,8 @@ export function formatDuration(minutes) {
 }
 
 // ===== Currency Formatters =====
-export function formatPrice(amount, currency = 'USD') {
-  return new Intl.NumberFormat('en-US', {
+export function formatPrice(amount, currency = 'PKR') {
+  return new Intl.NumberFormat('en-PK', {
     style: 'currency',
     currency,
     minimumFractionDigits: 0,

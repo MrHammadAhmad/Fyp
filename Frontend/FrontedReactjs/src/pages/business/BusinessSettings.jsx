@@ -312,7 +312,7 @@ export default function BusinessSettings() {
                 </div>
 
                 <div className="space-y-2">
-                  <label className="text-sm font-semibold text-surface-700 dark:text-surface-300">Late cancellation fee ($)</label>
+                  <label className="text-sm font-semibold text-surface-700 dark:text-surface-300">Late cancellation fee (Rs)</label>
                   <Input value={cancellationFee} onChange={e => setCancellationFee(e.target.value)} type="number" min="0" step="5" placeholder="0" />
                   <p className="text-xs text-surface-400">Charged to clients who cancel too late. Set to 0 for no fee.</p>
                 </div>

@@ -79,7 +79,7 @@ export default function Wallet() {
               <WalletIcon className="w-5 h-5" />
               <span className="font-medium text-sm">Personalized AI Balance</span>
             </div>
-            <h2 className="text-4xl font-extrabold mb-8">${wallet.balance.toFixed(2)}</h2>
+            <h2 className="text-4xl font-extrabold mb-8">Rs. {wallet.balance.toFixed(2)}</h2>
             <Button 
               variant="white" 
               fullWidth 
@@ -130,7 +130,7 @@ export default function Wallet() {
         onClose={() => setIsTopUpPromptOpen(false)}
         onSubmit={processTopUp}
         title="Top Up Wallet"
-        message="Enter amount to top up ($):"
+        message="Enter amount to top up (Rs):"
         defaultValue="50.00"
       />
     </div>
