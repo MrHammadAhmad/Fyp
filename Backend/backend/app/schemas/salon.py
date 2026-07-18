@@ -15,6 +15,8 @@ class SalonBase(BaseModel):
     town: Optional[str] = None
     shop_no: Optional[str] = None
     street_address: Optional[str] = None
+    latitude: Optional[float] = None
+    longitude: Optional[float] = None
     cover_image: Optional[str] = None
     images: Optional[List[str]] = None
 

@@ -41,6 +41,7 @@ const PaymentVerificationPage = lazy(() => import('../pages/customer/PaymentVeri
 const BookAppointment = lazy(() => import('../pages/customer/BookAppointment'))
 const CustomerMemberships = lazy(() => import('../pages/customer/CustomerMemberships'))
 const CustomerSupport = lazy(() => import('../pages/customer/CustomerSupport'))
+const NearbySalonsMap = lazy(() => import('../pages/customer/NearbySalonsMap'))
 
 // ===== Business Dashboard =====
 const BusinessLayout = lazy(() => import('../components/common/BusinessLayout'))
@@ -141,6 +142,7 @@ export default function AppRouter() {
             <Route path="bookings" element={<MyBookings />} />
             <Route path="bookings/:id/reschedule" element={<RescheduleAppointmentPage />} />
             <Route path="favorites" element={<Favorites />} />
+            <Route path="nearby" element={<NearbySalonsMap />} />
             <Route path="wallet" element={<Wallet />} />
             <Route path="payment-history" element={<PaymentHistoryPage />} />
             <Route path="payment-verification" element={<PaymentVerificationPage />} />

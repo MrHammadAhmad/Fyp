@@ -460,10 +460,10 @@ export default function CustomerDashboard() {
               </div>
 
               <Link
-                to="/explore"
+                to="/dashboard/nearby"
                 className={`inline-flex w-full items-center justify-center gap-2 ${brandGreenButtonClassName}`}
               >
-                Find Services
+                Find Nearby Salons
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
