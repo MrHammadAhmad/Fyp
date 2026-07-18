@@ -61,6 +61,22 @@ def get_user_notifications(current_user: dict = Depends(get_current_user)):
                             "is_read": False,
                             "created_at": now.isoformat()
                         })
+                
+                # 3. Appointment Day Reminder
+                is_today = apt_time.date() == now.date()
+                if is_today and time_diff > timedelta(hours=3):
+                    day_title = "Appointment Today!"
+                    day_msg = f"Don't forget your appointment today at {apt.get('time')}."
+                    has_day = any(n.get("title") == day_title and n.get("message") == day_msg for n in notifications)
+                    if not has_day:
+                        new_notifications.append({
+                            "user_id": current_user["id"],
+                            "title": day_title,
+                            "message": day_msg,
+                            "type": "booking",
+                            "is_read": False,
+                            "created_at": now.isoformat()
+                        })
             except Exception as e:
                 pass
                 
