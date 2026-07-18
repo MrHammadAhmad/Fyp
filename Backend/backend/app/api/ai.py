@@ -167,7 +167,7 @@ def ai_recommend_service(request: ServiceRecommendRequest, current_user: dict = 
                     "id": "bundle_1",
                     "name": "Ultimate Rejuvenation Bundle",
                     "type": "bundle",
-                    "estimatedCost": "$140 - $200",
+                    "estimatedCost": "Rs 2,000 - Rs 5,000",
                     "duration": "120 mins",
                     "explanation": reply,
                     "treatments": request.concerns
@@ -181,7 +181,7 @@ def ai_recommend_service(request: ServiceRecommendRequest, current_user: dict = 
                     "id": "bundle_1",
                     "name": "Ultimate Rejuvenation Bundle",
                     "type": "bundle",
-                    "estimatedCost": "$140 - $200",
+                    "estimatedCost": "Rs 2,000 - Rs 5,000",
                     "duration": "120 mins",
                     "explanation": "Based on your concerns, we suggest a tailored treatment package.",
                     "treatments": request.concerns

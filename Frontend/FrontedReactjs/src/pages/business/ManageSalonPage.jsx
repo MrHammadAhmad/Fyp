@@ -316,7 +316,18 @@ export default function ManageSalonPage() {
                   value={salonData.city} 
                   onChange={e => setSalonData({...salonData, city: e.target.value})} 
                   required 
+                  list="lahore-areas"
                 />
+                <datalist id="lahore-areas">
+                  <option value="Gulberg" />
+                  <option value="DHA" />
+                  <option value="Johar Town" />
+                  <option value="Model Town" />
+                  <option value="Bahria Town" />
+                  <option value="Wapda Town" />
+                  <option value="Cavalry Ground" />
+                  <option value="Cantt" />
+                </datalist>
               </div>
             </div>
 
