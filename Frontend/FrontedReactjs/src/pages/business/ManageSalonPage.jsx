@@ -324,18 +324,14 @@ export default function ManageSalonPage() {
                 </div>
               )}
 
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 gap-4">
                 <Input 
-                  label="Shop No" 
-                  placeholder="Suite 14B" 
-                  value={salonData.shop_no} 
-                  onChange={e => setSalonData({...salonData, shop_no: e.target.value})} 
-                />
-                <Input 
-                  label="Street Address" 
-                  placeholder="12 Main Boulevard" 
+                  label="Selected Location" 
+                  placeholder="Select location on map" 
                   value={salonData.street_address} 
-                  onChange={e => setSalonData({...salonData, street_address: e.target.value})} 
+                  readOnly 
+                  disabled 
+                  className="bg-surface-100 dark:bg-surface-800 text-surface-500 cursor-not-allowed"
                 />
               </div>
               <div className="grid grid-cols-2 gap-4 mt-4">
@@ -352,8 +348,7 @@ export default function ManageSalonPage() {
                     ...prev,
                     latitude: loc.latitude,
                     longitude: loc.longitude,
-                    // Optionally auto-fill area if you want, but letting them keep what they typed might be better,
-                    // or we append to street_address
+                    street_address: loc.address || prev.street_address
                   }))
                 }}
               />

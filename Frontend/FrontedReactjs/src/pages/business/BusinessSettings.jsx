@@ -251,12 +251,10 @@ export default function BusinessSettings() {
                 </div>
               )}
 
-              <Input label="Street Address" value={streetAddress} onChange={e => setStreetAddress(e.target.value)} placeholder="123 Fashion Ave" />
-              <div className="grid grid-cols-2 gap-4">
-                <Input label="Shop No." value={shopNo} onChange={e => setShopNo(e.target.value)} placeholder="Suite 200" />
-                <Input label="Zip Code" value={zipCode} onChange={e => setZipCode(e.target.value)} placeholder="54000" />
+              <div className="grid grid-cols-1 gap-4">
+                <Input label="Selected Location" value={streetAddress} readOnly disabled className="bg-surface-100 dark:bg-surface-800 text-surface-500 cursor-not-allowed" placeholder="Select location on map" />
               </div>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-4 mt-4">
                 <Input label="Country" value="Pakistan" readOnly disabled className="bg-surface-100 dark:bg-surface-800 text-surface-500 cursor-not-allowed" />
                 <Input label="City" value="Lahore" readOnly disabled className="bg-surface-100 dark:bg-surface-800 text-surface-500 cursor-not-allowed" />
               </div>
@@ -268,6 +266,7 @@ export default function BusinessSettings() {
                 onConfirm={(loc) => {
                   setLatitude(loc.latitude)
                   setLongitude(loc.longitude)
+                  if (loc.address) setStreetAddress(loc.address)
                 }}
               />
             </div>
