@@ -509,7 +509,7 @@ export default function LandingPage() {
                           type="text"
                           value={location}
                           onChange={(event) => setLocation(event.target.value)}
-                          placeholder="City or area"
+                          placeholder="Location in Lahore"
                           className="w-full bg-transparent text-sm font-semibold text-surface-950 outline-none placeholder:text-surface-400 dark:text-white"
                         />
                       </div>

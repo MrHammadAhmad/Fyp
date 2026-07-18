@@ -216,7 +216,7 @@ export default function BusinessDetailPage() {
             <h1 className="text-3xl md:text-5xl font-extrabold text-white mb-2">{business.name}</h1>
             <div className="flex flex-wrap items-center gap-4 text-white/90 text-sm font-medium">
               <span className="flex items-center gap-1.5"><Star className="w-4 h-4 text-amber-400 fill-amber-400" /> {business.rating} ({business.reviewCount})</span>
-              <span className="flex items-center gap-1.5"><MapPin className="w-4 h-4" /> {business.city || 'No City'}, {business.country || 'No Country'}</span>
+              <span className="flex items-center gap-1.5"><MapPin className="w-4 h-4" /> {business.city || 'No Area'}, Lahore</span>
               <span className="flex items-center gap-1.5"><Clock className="w-4 h-4" /> Open: {formatOpeningHours(business.opening_hours)}</span>
             </div>
           </div>
@@ -361,8 +361,8 @@ export default function BusinessDetailPage() {
                   <div>
                     <h4 className="font-semibold text-surface-900 dark:text-white mb-3">Location Details</h4>
                     <ul className="space-y-2 text-sm text-surface-600 dark:text-surface-400">
-                      <li><strong>Country:</strong> {business.country || '-'}</li>
-                      <li><strong>City:</strong> {business.city || '-'}</li>
+                      <li><strong>City:</strong> Lahore</li>
+                      <li><strong>Area:</strong> {business.city || '-'}</li>
                       <li><strong>Town:</strong> {business.town || '-'}</li>
                       <li><strong>Street:</strong> {business.street_address || '-'}</li>
                       <li><strong>Shop No:</strong> {business.shop_no || '-'}</li>
@@ -431,7 +431,7 @@ export default function BusinessDetailPage() {
                         {business.street_address || business.address || 'Address not listed'}
                       </p>
                       <p className="text-sm text-surface-500">
-                        {business.city ? `${business.city}, ` : ''}{business.country || ''}
+                        {business.city ? `${business.city}, ` : ''}Lahore, Pakistan
                       </p>
                     </div>
                   </div>

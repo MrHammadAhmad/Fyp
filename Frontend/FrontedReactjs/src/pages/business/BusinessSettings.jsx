@@ -122,10 +122,10 @@ export default function BusinessSettings() {
         contact_info: phone.trim(),
         street_address: streetAddress.trim(),
         city: city.trim(),
-        country: country.trim(),
-        town: town.trim(),
+        country: 'Pakistan',
+        town: city.trim(),
         shop_no: shopNo.trim(),
-        location: [city, country].filter(Boolean).join(', '),
+        location: [streetAddress.trim(), city.trim(), 'Lahore', 'Pakistan'].filter(Boolean).join(', '),
         opening_hours: JSON.stringify(hours),
         // Booking preferences
         enable_online_booking: bookingOnline,
@@ -225,12 +225,10 @@ export default function BusinessSettings() {
               <Input label="Street Address" value={streetAddress} onChange={e => setStreetAddress(e.target.value)} placeholder="123 Fashion Ave" />
               <div className="grid grid-cols-2 gap-4">
                 <Input label="Shop No." value={shopNo} onChange={e => setShopNo(e.target.value)} placeholder="Suite 200" />
-                <Input label="Town" value={town} onChange={e => setTown(e.target.value)} placeholder="Downtown" />
+                <Input label="Zip Code" value={zipCode} onChange={e => setZipCode(e.target.value)} placeholder="54000" />
               </div>
-              <div className="grid grid-cols-3 gap-4">
-                <Input label="City" value={city} onChange={e => setCity(e.target.value)} placeholder="New York" />
-                <Input label="Country" value={country} onChange={e => setCountry(e.target.value)} placeholder="USA" />
-                <Input label="Zip Code" value={zipCode} onChange={e => setZipCode(e.target.value)} placeholder="10001" />
+              <div className="grid grid-cols-1 gap-4 mt-4">
+                <Input label="Area in Lahore" value={city} onChange={e => setCity(e.target.value)} placeholder="e.g. Gulberg, DHA, Johar Town" />
               </div>
             </div>
           )}

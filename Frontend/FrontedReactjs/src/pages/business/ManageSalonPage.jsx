@@ -121,15 +121,15 @@ export default function ManageSalonPage() {
   // Handle core Save action
   const handleSaveSalon = async (e) => {
     e.preventDefault()
-    if (!salonData.name || !salonData.city || !salonData.country) {
-      showToast.error('Please enter Shop Name, City, and Country.')
+    if (!salonData.name || !salonData.city) {
+      showToast.error('Please enter Shop Name and Area in Lahore.')
       return
     }
 
     try {
       setSaving(true)
       // Form location string as street address, City, Country
-      const locationText = `${salonData.street_address || ''}, ${salonData.town || ''}, ${salonData.city}, ${salonData.country}`
+      const locationText = `${salonData.street_address || ''}, ${salonData.town || ''}, ${salonData.city}, Lahore, Pakistan`
       
       const payload = {
         name: salonData.name,
@@ -137,9 +137,9 @@ export default function ManageSalonPage() {
         cover_image: salonData.cover_image || 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=800',
         location: locationText,
         address: locationText,
-        country: salonData.country,
-        city: salonData.city,
-        town: salonData.town,
+        country: 'Pakistan',
+        city: 'Lahore',
+        town: salonData.city,
         shop_no: salonData.shop_no,
         street_address: salonData.street_address,
         opening_hours: '9:00 AM - 9:00 PM',
@@ -308,26 +308,12 @@ export default function ManageSalonPage() {
                   value={salonData.street_address} 
                   onChange={e => setSalonData({...salonData, street_address: e.target.value})} 
                 />
+              <div className="grid grid-cols-1 gap-4">
                 <Input 
-                  label="Town / District" 
-                  placeholder="Gulberg" 
-                  value={salonData.town} 
-                  onChange={e => setSalonData({...salonData, town: e.target.value})} 
-                />
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <Input 
-                  label="City" 
-                  placeholder="Faisalabad" 
+                  label="Area in Lahore" 
+                  placeholder="e.g. Gulberg, DHA, Johar Town" 
                   value={salonData.city} 
                   onChange={e => setSalonData({...salonData, city: e.target.value})} 
-                  required 
-                />
-                <Input 
-                  label="Country" 
-                  placeholder="Pakistan" 
-                  value={salonData.country} 
-                  onChange={e => setSalonData({...salonData, country: e.target.value})} 
                   required 
                 />
               </div>
