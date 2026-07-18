@@ -20,23 +20,24 @@ def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(securit
         if now - cached_time < CACHE_TTL:
             return user_data
 
-    # Retry logic for auth.get_user because of intermittent timeouts
-    retries = 3
-    user = None
-    last_error = None
-    for attempt in range(retries):
-        try:
-            # Ask Supabase to verify the token and return the user
-            response = supabase.auth.get_user(token)
-            user = response.user
-            if user:
-                break
-        except Exception as e:
-            last_error = e
-            time.sleep(1) # wait 1 second before retrying
-            
-    if user is None:
-        raise Exception(f"Invalid token, user not found, or request timed out: {str(last_error)}")
+    try:
+        # Retry logic for auth.get_user because of intermittent timeouts
+        retries = 3
+        user = None
+        last_error = None
+        for attempt in range(retries):
+            try:
+                # Ask Supabase to verify the token and return the user
+                response = supabase.auth.get_user(token)
+                user = response.user
+                if user:
+                    break
+            except Exception as e:
+                last_error = e
+                time.sleep(1) # wait 1 second before retrying
+                
+        if user is None:
+            raise Exception(f"Invalid token, user not found, or request timed out: {str(last_error)}")
             
         # Fetch the role, email and name from the public.Users table using the admin client (bypasses RLS)
         profile_res = supabase_admin.table("Users").select("role, email, name").eq("id", user.id).execute()
