@@ -169,10 +169,10 @@ export default function ReviewsPage() {
                 <div key={review.id} className="bg-white dark:bg-surface-900 border border-surface-200 dark:border-surface-800 rounded-2xl p-6">
                   <div className="flex items-start justify-between gap-4 mb-4">
                     <div className="flex items-center gap-3">
-                      <Avatar fallback={review.userName ? review.userName.charAt(0) : 'U'} size="md" />
+                      <Avatar fallback={review.customer_name ? review.customer_name.charAt(0) : 'C'} size="md" />
                       <div>
-                        <h4 className="font-bold text-surface-900 dark:text-white">{review.userName}</h4>
-                        <p className="text-xs text-surface-500">{new Date(review.date).toLocaleDateString()}</p>
+                        <h4 className="font-bold text-surface-900 dark:text-white">{review.customer_name || 'Customer'}</h4>
+                        <p className="text-xs text-surface-500">{review.created_at ? new Date(review.created_at).toLocaleDateString() : ''}</p>
                       </div>
                     </div>
                     <div className="flex">
@@ -182,27 +182,6 @@ export default function ReviewsPage() {
 
                   <p className="text-surface-700 dark:text-surface-300 text-sm leading-relaxed mb-4">
                     {review.comment}
-                    {/* Owner Reply */}
-                    {review.owner_reply ? (
-                      <div className="mt-4 p-4 rounded-xl bg-surface-50 dark:bg-surface-800/50 border border-surface-200 dark:border-surface-700">
-                        <div className="flex items-center gap-2 mb-2">
-                          <CheckCircle2 className="w-4 h-4 text-brand-500" />
-                          <span className="text-sm font-bold text-surface-900 dark:text-white">Your Reply</span>
-                        </div>
-                        <p className="text-sm text-surface-600 dark:text-surface-400">{review.owner_reply}</p>
-                      </div>
-                    ) : (
-                      <div className="mt-4 flex justify-end">
-                        <Button 
-                          variant="outline" 
-                          size="sm" 
-                          leftIcon={<Reply size={14} />}
-                          onClick={() => openReplyModal(review)}
-                        >
-                          Reply
-                        </Button>
-                      </div>
-                    )}
                   </p>
                 </div>
               ))
