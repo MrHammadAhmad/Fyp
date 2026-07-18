@@ -8,6 +8,7 @@ import { staffApi } from '../../api/services/staffApi'
 import Input from '../../components/ui/Input'
 import Button from '../../components/ui/Button'
 import showToast from '../../components/ui/Toast'
+import MapLocationPicker from '../../components/ui/MapLocationPicker'
 
 const GLOBAL_SERVICES_LIST = [
   { name: 'Haircut', defaultPrice: 30, defaultDuration: 30 },
@@ -33,8 +34,12 @@ export default function ManageSalonPage() {
     town: '',
     shop_no: '',
     street_address: '',
-    location: '' // fallback combined location string
+    location: '', // fallback combined location string
+    latitude: null,
+    longitude: null
   })
+
+  const [isMapPickerOpen, setIsMapPickerOpen] = useState(false)
 
   // Services state: list of { name, checked, price, duration }
   const [services, setServices] = useState(
@@ -72,7 +77,9 @@ export default function ManageSalonPage() {
             town: mySalon.town || '',
             shop_no: mySalon.shop_no || '',
             street_address: mySalon.street_address || '',
-            location: mySalon.location || ''
+            location: mySalon.location || '',
+            latitude: mySalon.latitude || null,
+            longitude: mySalon.longitude || null
           })
 
           // Load salon's registered services
@@ -142,6 +149,8 @@ export default function ManageSalonPage() {
         town: salonData.city,
         shop_no: salonData.shop_no,
         street_address: salonData.street_address,
+        latitude: salonData.latitude,
+        longitude: salonData.longitude,
         opening_hours: '9:00 AM - 9:00 PM',
         contact_info: 'Contact owner profile'
       }
@@ -294,7 +303,27 @@ export default function ManageSalonPage() {
 
             {/* Location Fields */}
             <div className="space-y-4 pt-4 border-t border-surface-100 dark:border-surface-800">
-              <h3 className="font-bold text-surface-900 dark:text-white text-sm flex items-center gap-1.5"><MapPin className="w-4 h-4 text-[#405742]" /> Location Details</h3>
+              <div className="flex items-center justify-between">
+                <h3 className="font-bold text-surface-900 dark:text-white text-sm flex items-center gap-1.5"><MapPin className="w-4 h-4 text-[#405742]" /> Location Details</h3>
+                <Button 
+                  type="button" 
+                  variant="outline" 
+                  size="sm" 
+                  onClick={() => setIsMapPickerOpen(true)}
+                  className="flex items-center gap-2"
+                >
+                  <MapPin className="w-4 h-4" />
+                  {salonData.latitude ? 'Update on Map' : 'Set on Map'}
+                </Button>
+              </div>
+
+              {salonData.latitude && (
+                <div className="bg-brand-500/10 text-brand-700 dark:text-brand-300 p-3 rounded-xl text-sm flex items-center gap-2">
+                  <MapPin className="w-4 h-4" />
+                  Location pinned on map
+                </div>
+              )}
+
               <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                 <Input 
                   label="Shop No" 
@@ -318,6 +347,22 @@ export default function ManageSalonPage() {
                   required 
                 />
               </div>
+              
+              <MapLocationPicker 
+                isOpen={isMapPickerOpen}
+                onClose={() => setIsMapPickerOpen(false)}
+                initialPosition={salonData.latitude ? { lat: salonData.latitude, lng: salonData.longitude } : null}
+                onConfirm={(loc) => {
+                  setSalonData(prev => ({
+                    ...prev,
+                    latitude: loc.latitude,
+                    longitude: loc.longitude,
+                    // Optionally auto-fill area if you want, but letting them keep what they typed might be better,
+                    // or we append to street_address
+                  }))
+                }}
+              />
+
             </div>
 
             <Button type="submit" fullWidth size="lg" disabled={saving} className="bg-[#405742] hover:bg-[#334d3b]">

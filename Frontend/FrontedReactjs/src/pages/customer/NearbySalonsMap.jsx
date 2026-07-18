@@ -88,13 +88,17 @@ export default function NearbySalonsMap() {
     
     const mapped = salons
       .map(salon => {
-        // Fallback: if salon lacks coordinates, generate dummy ones near Lahore
-        const lat = salon.latitude || (31.5204 + (Math.random() * 0.1 - 0.05))
-        const lng = salon.longitude || (74.3587 + (Math.random() * 0.1 - 0.05))
+        // Skip salons without coordinates, or default them strictly if necessary
+        // But since we want to use actual DB coordinates:
+        const lat = salon.latitude
+        const lng = salon.longitude
         
+        if (!lat || !lng) return null
+
         const dist = calculateDistance(userLoc.lat, userLoc.lng, lat, lng)
-        return { ...salon, latitude: lat, longitude: lng, distance: dist }
+        return { ...salon, distance: dist }
       })
+      .filter(Boolean)
       .sort((a, b) => a.distance - b.distance)
       
     setNearbySalons(mapped)

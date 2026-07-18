@@ -39,9 +39,25 @@ export default function AIAssistantPage() {
     setIsLoading(true)
 
     try {
+      // Fetch user location if not already fetched
+      let userLocStr = ''
+      try {
+        const pos = await new Promise((resolve, reject) => {
+          navigator.geolocation.getCurrentPosition(resolve, reject, { timeout: 5000 })
+        })
+        userLocStr = `My location is latitude ${pos.coords.latitude}, longitude ${pos.coords.longitude}. `
+      } catch (e) {
+        console.log('Location not available for AI context')
+      }
+
       // Create conversation history for context
       const history = messages.map(m => ({ role: m.role, content: m.content }))
-      history.push(userMsg)
+      // Append location to the user message context behind the scenes
+      const contextualizedMsg = { 
+        role: 'user', 
+        content: userLocStr ? `[Context: ${userLocStr}] ${userMsg.content}` : userMsg.content 
+      }
+      history.push(contextualizedMsg)
       
       const response = await aiApi.chatWithAI({ messages: history })
       addMessage({ role: 'ai', content: response.message || response.reply || 'Sorry, I couldn\'t process that.' })

@@ -5,6 +5,8 @@ import Button from '../../components/ui/Button'
 import Switch from '../../components/ui/Switch'
 import showToast from '../../components/ui/Toast'
 import { businessApi } from '../../api/services/businessApi'
+import MapLocationPicker from '../../components/ui/MapLocationPicker'
+import { MapPin } from 'lucide-react'
 
 const TABS = [
   { id: 'general', label: 'General Info', icon: Store },
@@ -39,6 +41,9 @@ export default function BusinessSettings() {
   const [town, setTown] = useState('')
   const [shopNo, setShopNo] = useState('')
   const [zipCode, setZipCode] = useState('')
+  const [latitude, setLatitude] = useState(null)
+  const [longitude, setLongitude] = useState(null)
+  const [isMapPickerOpen, setIsMapPickerOpen] = useState(false)
 
   // Booking Preferences
   const [bookingOnline, setBookingOnline] = useState(true)
@@ -76,6 +81,8 @@ export default function BusinessSettings() {
         setTown(salon.town || '')
         setShopNo(salon.shop_no || '')
         setZipCode(salon.zip_code || '')
+        setLatitude(salon.latitude || null)
+        setLongitude(salon.longitude || null)
 
         // Booking preferences from database
         if (salon.enable_online_booking !== undefined) setBookingOnline(salon.enable_online_booking)
@@ -126,6 +133,8 @@ export default function BusinessSettings() {
         town: city.trim(),
         shop_no: shopNo.trim(),
         location: [streetAddress.trim(), city.trim(), 'Lahore', 'Pakistan'].filter(Boolean).join(', '),
+        latitude: latitude,
+        longitude: longitude,
         opening_hours: JSON.stringify(hours),
         // Booking preferences
         enable_online_booking: bookingOnline,
@@ -221,7 +230,27 @@ export default function BusinessSettings() {
 
               <hr className="border-surface-100 dark:border-surface-800" />
 
-              <h2 className="text-lg font-bold text-surface-900 dark:text-white">Location</h2>
+              <div className="flex items-center justify-between">
+                <h2 className="text-lg font-bold text-surface-900 dark:text-white">Location</h2>
+                <Button 
+                  type="button" 
+                  variant="outline" 
+                  size="sm" 
+                  onClick={() => setIsMapPickerOpen(true)}
+                  className="flex items-center gap-2"
+                >
+                  <MapPin className="w-4 h-4" />
+                  {latitude ? 'Update on Map' : 'Set on Map'}
+                </Button>
+              </div>
+              
+              {latitude && (
+                <div className="bg-brand-500/10 text-brand-700 dark:text-brand-300 p-3 rounded-xl text-sm flex items-center gap-2">
+                  <MapPin className="w-4 h-4" />
+                  Location pinned on map
+                </div>
+              )}
+
               <Input label="Street Address" value={streetAddress} onChange={e => setStreetAddress(e.target.value)} placeholder="123 Fashion Ave" />
               <div className="grid grid-cols-2 gap-4">
                 <Input label="Shop No." value={shopNo} onChange={e => setShopNo(e.target.value)} placeholder="Suite 200" />
@@ -230,6 +259,16 @@ export default function BusinessSettings() {
               <div className="grid grid-cols-1 gap-4 mt-4">
                 <Input label="Area in Lahore" value={city} onChange={e => setCity(e.target.value)} placeholder="e.g. Gulberg, DHA, Johar Town" />
               </div>
+
+              <MapLocationPicker 
+                isOpen={isMapPickerOpen}
+                onClose={() => setIsMapPickerOpen(false)}
+                initialPosition={latitude ? { lat: latitude, lng: longitude } : null}
+                onConfirm={(loc) => {
+                  setLatitude(loc.latitude)
+                  setLongitude(loc.longitude)
+                }}
+              />
             </div>
           )}
 
