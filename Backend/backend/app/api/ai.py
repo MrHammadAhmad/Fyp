@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException, UploadFile, File, Depends
 from pydantic import BaseModel
-from app.services.gemini_service import get_chat_response, get_service_recommendation, analyze_face_shape_and_recommend, analyze_image_general
+from app.services.gemini_service import get_chat_response, get_service_recommendation, analyze_face_shape_and_recommend, analyze_hair_image_json, analyze_skin_image_json, analyze_image_general
 from app.services.supabase_db import supabase, supabase_admin
 from app.core.security import get_current_user
 from typing import List, Optional
@@ -220,18 +220,11 @@ async def hair_analysis(file: UploadFile = File(...), current_user: dict = Depen
             raise HTTPException(status_code=400, detail="Only image files are allowed.")
             
         contents = await file.read()
-        analysis = analyze_face_shape_and_recommend(contents, file.content_type)
+        analysis_dict = analyze_hair_image_json(contents, file.content_type)
         
-        # Log history
-        supabase_admin.table("RecommendationHistory").insert({
-            "user_id": current_user["id"],
-            "type": "hair",
-            "input_data": "Uploaded hair image",
-            "recommendation_result": analysis
-        }).execute()
-        
-        return {
-            "result": {
+        if not analysis_dict:
+            # Fallback if Gemini fails or returns invalid JSON
+            analysis_dict = {
                 "hairType": "Type 2B (Wavy)",
                 "condition": "Dry & Frizzy",
                 "healthScore": 65,
@@ -240,8 +233,19 @@ async def hair_analysis(file: UploadFile = File(...), current_user: dict = Depen
                 "suggestedServices": ["Keratin Treatment", "Deep Conditioning Spa"],
                 "suggestedTreatments": ["Hot Oil Massage", "Trim split ends"],
                 "suggestedProducts": ["Argan Oil Serum", "Sulfate-Free Shampoo"],
-                "explanation": analysis
+                "explanation": "Unable to parse image correctly. Please try another image."
             }
+        
+        # Log history
+        supabase_admin.table("RecommendationHistory").insert({
+            "user_id": current_user["id"],
+            "type": "hair",
+            "input_data": "Uploaded hair image",
+            "recommendation_result": analysis_dict.get("explanation", "")
+        }).execute()
+        
+        return {
+            "result": analysis_dict
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -253,18 +257,10 @@ async def skin_analysis(file: UploadFile = File(...), current_user: dict = Depen
             raise HTTPException(status_code=400, detail="Only image files are allowed.")
             
         contents = await file.read()
-        analysis = analyze_face_shape_and_recommend(contents, file.content_type)
+        analysis_dict = analyze_skin_image_json(contents, file.content_type)
         
-        # Log history
-        supabase_admin.table("RecommendationHistory").insert({
-            "user_id": current_user["id"],
-            "type": "skin",
-            "input_data": "Uploaded skin image",
-            "recommendation_result": analysis
-        }).execute()
-        
-        return {
-            "result": {
+        if not analysis_dict:
+            analysis_dict = {
                 "skinType": "Combination (T-Zone Oily)",
                 "hydrationLevel": 55,
                 "tone": "Medium Warm",
@@ -277,8 +273,19 @@ async def skin_analysis(file: UploadFile = File(...), current_user: dict = Depen
                 ],
                 "suggestedTreatments": ["HydraFacial", "LED Light Therapy"],
                 "suggestedProducts": ["Vitamin C Brightening Serum", "Hyaluronic Acid Moisturizer"],
-                "explanation": analysis
+                "explanation": "Unable to parse image correctly. Please try another image."
             }
+        
+        # Log history
+        supabase_admin.table("RecommendationHistory").insert({
+            "user_id": current_user["id"],
+            "type": "skin",
+            "input_data": "Uploaded skin image",
+            "recommendation_result": analysis_dict.get("explanation", "")
+        }).execute()
+        
+        return {
+            "result": analysis_dict
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))

@@ -82,3 +82,50 @@ def analyze_image_general(image_bytes: bytes, mime_type: str, user_prompt: str) 
         if "429" in str(e):
             return "Rate limit exceeded. Please wait 1 minute before analyzing another image."
         return f"Error from AI: {str(e)}"
+
+def analyze_hair_image_json(image_bytes: bytes, mime_type: str) -> dict:
+    import json
+    _ensure_model_available()
+    prompt = (
+        "Analyze this image of a person's hair. Provide a structured JSON response with the following keys EXACTLY: "
+        "\"hairType\" (e.g. Type 2B (Wavy)), "
+        "\"condition\" (e.g. Dry & Frizzy), "
+        "\"healthScore\" (integer 1-100), "
+        "\"scalpCondition\" (e.g. Mild Flaking), "
+        "\"damageLevel\" (e.g. Moderate), "
+        "\"suggestedServices\" (list of 2 strings), "
+        "\"suggestedTreatments\" (list of 2 strings), "
+        "\"suggestedProducts\" (list of 2 strings), "
+        "\"explanation\" (a brief paragraph explaining the analysis in plain English). "
+        "Do NOT include any markdown formatting like ```json. Return ONLY valid JSON."
+    )
+    try:
+        response = model.generate_content([{"mime_type": mime_type, "data": image_bytes}, prompt])
+        clean_text = response.text.replace('```json', '').replace('```', '').strip()
+        return json.loads(clean_text)
+    except Exception as e:
+        return None
+
+def analyze_skin_image_json(image_bytes: bytes, mime_type: str) -> dict:
+    import json
+    _ensure_model_available()
+    prompt = (
+        "Analyze this image of a person's face/skin. Provide a structured JSON response with the following keys EXACTLY: "
+        "\"skinType\" (e.g. Combination), "
+        "\"hydrationLevel\" (integer 1-100), "
+        "\"tone\" (e.g. Medium Warm), "
+        "\"concerns\" (list of 2 strings), "
+        "\"uvDamage\" (e.g. Low-Moderate), "
+        "\"healthScore\" (integer 1-100), "
+        "\"suggestedRoutine\" (list of 2 strings for AM/PM), "
+        "\"suggestedTreatments\" (list of 2 strings), "
+        "\"suggestedProducts\" (list of 2 strings), "
+        "\"explanation\" (a brief paragraph explaining the analysis). "
+        "Do NOT include any markdown formatting like ```json. Return ONLY valid JSON."
+    )
+    try:
+        response = model.generate_content([{"mime_type": mime_type, "data": image_bytes}, prompt])
+        clean_text = response.text.replace('```json', '').replace('```', '').strip()
+        return json.loads(clean_text)
+    except Exception as e:
+        return None
