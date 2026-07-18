@@ -160,13 +160,6 @@ export default function ReviewsPage() {
                 ))}
               </div>
             </div>
-
-            <div className="bg-white dark:bg-surface-900 border border-surface-200 dark:border-surface-800 rounded-2xl p-6">
-              <Button variant="outline" fullWidth leftIcon={<MessageCircle className="w-4 h-4" />}
-                onClick={() => showToast.info('Review request link copied to clipboard!')}>
-                Request Reviews
-              </Button>
-            </div>
           </div>
 
           {/* Right side — review list */}
