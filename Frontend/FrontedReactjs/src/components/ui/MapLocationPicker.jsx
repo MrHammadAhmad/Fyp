@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { MapContainer, TileLayer, Marker, useMap } from 'react-leaflet'
+import { MapContainer, TileLayer, Marker, useMap, useMapEvents } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import L from 'leaflet'
 import { MapPin, X, Loader2, Navigation2 } from 'lucide-react'
@@ -28,6 +28,11 @@ const pinIcon = new L.Icon({
   shadowSize: [41, 41]
 })
 
+export const LAHORE_BOUNDS = L.latLngBounds(
+  L.latLng(31.30, 74.10), // SouthWest
+  L.latLng(31.70, 74.50)  // NorthEast
+)
+
 // Helper to update map center when position changes
 function MapController({ position }) {
   const map = useMap()
@@ -36,6 +41,21 @@ function MapController({ position }) {
       map.setView(position, map.getZoom())
     }
   }, [position, map])
+  return null
+}
+
+function MapClickHandler({ setPosition, fetchAddress }) {
+  useMapEvents({
+    dblclick(e) {
+      const pos = e.latlng
+      if (!LAHORE_BOUNDS.contains(pos)) {
+        toast.error("You can only select a location within Lahore.")
+        return
+      }
+      setPosition({ lat: pos.lat, lng: pos.lng })
+      fetchAddress(pos.lat, pos.lng)
+    }
+  })
   return null
 }
 
@@ -86,6 +106,13 @@ export default function MapLocationPicker({
   const handleDragEnd = (e) => {
     const marker = e.target
     const pos = marker.getLatLng()
+    
+    if (!LAHORE_BOUNDS.contains(pos)) {
+      toast.error("You can only select a location within Lahore.")
+      marker.setLatLng([position.lat, position.lng])
+      return
+    }
+    
     setPosition({ lat: pos.lat, lng: pos.lng })
     fetchAddress(pos.lat, pos.lng)
   }
@@ -99,6 +126,11 @@ export default function MapLocationPicker({
     navigator.geolocation.getCurrentPosition(
       (pos) => {
         const newPos = { lat: pos.coords.latitude, lng: pos.coords.longitude }
+        if (!LAHORE_BOUNDS.contains(newPos)) {
+          toast.error("Your current location is outside Lahore.")
+          setLocating(false)
+          return
+        }
         setPosition(newPos)
         fetchAddress(newPos.lat, newPos.lng)
         setLocating(false)
@@ -133,7 +165,7 @@ export default function MapLocationPicker({
               <MapPin className="w-5 h-5 text-brand-500" />
               Pinpoint Your Salon
             </h2>
-            <p className="text-sm text-surface-500 mt-1">Drag the red pin to your exact location</p>
+            <p className="text-sm text-surface-500 mt-1">Drag the red pin or double click to your exact location in Lahore</p>
           </div>
           <button 
             onClick={onClose}
@@ -148,6 +180,10 @@ export default function MapLocationPicker({
           <MapContainer 
             center={[position.lat, position.lng]} 
             zoom={14} 
+            maxBounds={LAHORE_BOUNDS}
+            maxBoundsViscosity={1.0}
+            minZoom={11}
+            doubleClickZoom={false}
             style={{ height: '100%', width: '100%' }}
             className="z-0"
           >
@@ -156,6 +192,7 @@ export default function MapLocationPicker({
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
             <MapController position={position} />
+            <MapClickHandler setPosition={setPosition} fetchAddress={fetchAddress} />
             <Marker 
               position={position} 
               icon={pinIcon}

@@ -338,14 +338,9 @@ export default function ManageSalonPage() {
                   onChange={e => setSalonData({...salonData, street_address: e.target.value})} 
                 />
               </div>
-              <div className="grid grid-cols-1 gap-4">
-                <Input 
-                  label="Area in Lahore" 
-                  placeholder="e.g. Gulberg, DHA, Johar Town" 
-                  value={salonData.city} 
-                  onChange={e => setSalonData({...salonData, city: e.target.value})} 
-                  required 
-                />
+              <div className="grid grid-cols-2 gap-4 mt-4">
+                <Input label="Country" value="Pakistan" readOnly disabled className="bg-surface-100 dark:bg-surface-800 text-surface-500 cursor-not-allowed" />
+                <Input label="City" value="Lahore" readOnly disabled className="bg-surface-100 dark:bg-surface-800 text-surface-500 cursor-not-allowed" />
               </div>
               
               <MapLocationPicker 
