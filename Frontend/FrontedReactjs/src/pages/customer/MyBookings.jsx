@@ -12,6 +12,9 @@ export default function MyBookings() {
   const [bookings, setBookings] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [cancelConfirm, setCancelConfirm] = useState({ isOpen: false, bookingId: null })
+  const [reviewModal, setReviewModal] = useState({ isOpen: false, booking: null })
+  const [reviewForm, setReviewForm] = useState({ rating: 5, comment: '' })
+  const [isSubmittingReview, setIsSubmittingReview] = useState(false)
   const navigate = useNavigate()
   
   const tabs = [
@@ -55,6 +58,34 @@ export default function MyBookings() {
 
   const handleReschedule = (booking) => {
     navigate(`/dashboard/bookings/${booking.id}/reschedule`)
+  }
+
+  const handleOpenReview = (booking) => {
+    setReviewModal({ isOpen: true, booking })
+    setReviewForm({ rating: 5, comment: '' })
+  }
+
+  const submitReview = async () => {
+    if (!reviewModal.booking) return
+    setIsSubmittingReview(true)
+    try {
+      const payload = {
+        salon_id: reviewModal.booking.salonId || reviewModal.booking.salon_id,
+        rating: reviewForm.rating,
+        comment: reviewForm.comment,
+        customer_name: "Customer" // Could be fetched from auth context
+      }
+      // api from axios
+      const { default: api } = await import('../../api/axios')
+      await api.post('/api/reviews/', payload)
+      toast.success("Review submitted successfully!")
+      setReviewModal({ isOpen: false, booking: null })
+    } catch (error) {
+      console.error(error)
+      toast.error("Failed to submit review.")
+    } finally {
+      setIsSubmittingReview(false)
+    }
   }
 
   const filteredBookings = useMemo(() => {
@@ -116,6 +147,7 @@ export default function MyBookings() {
               appointment={booking} 
               onCancel={activeTab === 'upcoming' ? () => handleCancel(booking) : undefined}
               onReschedule={activeTab === 'upcoming' ? () => handleReschedule(booking) : undefined}
+              onReview={activeTab === 'past' ? () => handleOpenReview(booking) : undefined}
             />
           ))
         ) : (
@@ -134,6 +166,65 @@ export default function MyBookings() {
         confirmText="Cancel Appointment"
         isDestructive
       />
+
+      {/* Review Modal */}
+      {reviewModal.isOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
+          <div className="bg-white dark:bg-surface-900 rounded-2xl w-full max-w-md p-6 border border-surface-200 dark:border-surface-800 shadow-xl">
+            <h2 className="text-xl font-bold text-surface-900 dark:text-white mb-4">Leave a Review</h2>
+            <p className="text-sm text-surface-500 mb-6">How was your experience at {reviewModal.booking?.businessName}?</p>
+            
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-2">Rating</label>
+                <div className="flex gap-2">
+                  {[1, 2, 3, 4, 5].map((star) => (
+                    <button
+                      key={star}
+                      onClick={() => setReviewForm(prev => ({ ...prev, rating: star }))}
+                      className={`p-1 transition-colors ${
+                        star <= reviewForm.rating ? 'text-amber-400' : 'text-surface-300 dark:text-surface-700'
+                      }`}
+                    >
+                      <svg className="w-8 h-8 fill-current" viewBox="0 0 24 24">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                      </svg>
+                    </button>
+                  ))}
+                </div>
+              </div>
+              
+              <div>
+                <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-2">Comment</label>
+                <textarea
+                  value={reviewForm.comment}
+                  onChange={(e) => setReviewForm(prev => ({ ...prev, comment: e.target.value }))}
+                  className="w-full bg-surface-50 dark:bg-surface-800 border border-surface-200 dark:border-surface-700 rounded-xl px-4 py-3 text-surface-900 dark:text-white focus:ring-2 focus:ring-brand-500/20 focus:border-brand-500 transition-all resize-none h-32"
+                  placeholder="Share your experience..."
+                />
+              </div>
+            </div>
+
+            <div className="flex gap-3 mt-6">
+              <button
+                onClick={() => setReviewModal({ isOpen: false, booking: null })}
+                className="flex-1 py-2.5 font-semibold text-surface-700 dark:text-surface-300 bg-surface-100 dark:bg-surface-800 hover:bg-surface-200 dark:hover:bg-surface-700 rounded-xl transition-colors"
+                disabled={isSubmittingReview}
+              >
+                Cancel
+              </button>
+              <button
+                onClick={submitReview}
+                className="flex-1 py-2.5 font-semibold text-white bg-brand-600 hover:bg-brand-700 rounded-xl transition-colors flex items-center justify-center gap-2"
+                disabled={isSubmittingReview}
+              >
+                {isSubmittingReview && <Loader2 className="w-4 h-4 animate-spin" />}
+                Submit Review
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

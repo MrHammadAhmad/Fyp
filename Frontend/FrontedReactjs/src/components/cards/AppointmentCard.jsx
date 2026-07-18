@@ -11,6 +11,7 @@ export default function AppointmentCard({
   onCancel,
   onReschedule,
   onViewDetails,
+  onReview,
   className
 }) {
   const {
@@ -101,6 +102,17 @@ export default function AppointmentCard({
               Cancel
             </button>
           )}
+        </div>
+      )}
+
+      {status === 'completed' && onReview && (
+        <div className="flex gap-2 pt-3 border-t border-surface-100 dark:border-surface-800">
+          <button
+            onClick={() => onReview(appointment)}
+            className="flex-1 py-2 text-xs font-semibold rounded-xl bg-surface-100 dark:bg-surface-800 text-surface-900 dark:text-white hover:bg-surface-200 dark:hover:bg-surface-700 transition-colors"
+          >
+            Leave a Review
+          </button>
         </div>
       )}
     </motion.div>

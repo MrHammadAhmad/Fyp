@@ -24,12 +24,22 @@ export default function ReviewsPage() {
     async function fetchData() {
       try {
         setLoading(true)
-        // Empty initial data for reviews
-        const data = []
-
-        setReviews(data)
+        // First get the owner's salon
+        const perfRes = await api.get('/api/owner/reports/performance')
+        const salons = perfRes.data?.salons || []
+        
+        if (salons.length > 0) {
+          const sId = salons[0].id
+          setSalonId(sId)
+          // Fetch reviews for this salon
+          const revRes = await api.get(`/api/reviews/${sId}`)
+          setReviews(revRes.data || [])
+        } else {
+          setReviews([])
+        }
       } catch (err) {
         console.error(err)
+        showToast.error('Failed to load reviews')
       } finally {
         setLoading(false)
       }
@@ -45,7 +55,7 @@ export default function ReviewsPage() {
 
   // Filter logic
   const filteredReviews = reviews.filter(r => {
-    if (filter === 'unreplied') return !r.reply
+    if (filter === 'unreplied') return !r.owner_reply
     if (filter === 'positive') return r.rating >= 4
     if (filter === 'negative') return r.rating <= 2
     return true
@@ -64,17 +74,22 @@ export default function ReviewsPage() {
     if (!replyText.trim()) return showToast.error('Please enter your reply.')
 
     setSubmitting(true)
-    setTimeout(() => {
+    try {
+      await api.put(`/api/reviews/${replyingTo.id}/reply`, { reply: replyText.trim() })
       // Update the review in local state with the reply
       setReviews(prev => prev.map(r =>
-        r.id === replyingTo.id ? { ...r, reply: replyText.trim() } : r
+        r.id === replyingTo.id ? { ...r, owner_reply: replyText.trim() } : r
       ))
       showToast.success('Reply posted successfully!')
       setIsReplyModalOpen(false)
       setReplyText('')
       setReplyingTo(null)
+    } catch (err) {
+      console.error(err)
+      showToast.error('Failed to post reply')
+    } finally {
       setSubmitting(false)
-    }, 500)
+    }
   }
 
   // Star rating rendering helper
@@ -174,24 +189,28 @@ export default function ReviewsPage() {
 
                   <p className="text-surface-700 dark:text-surface-300 text-sm leading-relaxed mb-4">
                     {review.comment}
-                  </p>
-
-                  {review.reply ? (
-                    <div className="ml-8 mt-4 p-4 bg-surface-50 dark:bg-surface-800/50 rounded-xl border-l-2 border-brand-500">
-                      <div className="flex items-center gap-2 mb-2">
-                        <CheckCircle2 className="w-4 h-4 text-brand-500" />
-                        <span className="text-xs font-bold text-surface-900 dark:text-white">Your Reply</span>
+                    {/* Owner Reply */}
+                    {review.owner_reply ? (
+                      <div className="mt-4 p-4 rounded-xl bg-surface-50 dark:bg-surface-800/50 border border-surface-200 dark:border-surface-700">
+                        <div className="flex items-center gap-2 mb-2">
+                          <CheckCircle2 className="w-4 h-4 text-brand-500" />
+                          <span className="text-sm font-bold text-surface-900 dark:text-white">Your Reply</span>
+                        </div>
+                        <p className="text-sm text-surface-600 dark:text-surface-400">{review.owner_reply}</p>
                       </div>
-                      <p className="text-sm text-surface-600 dark:text-surface-400">{review.reply}</p>
-                    </div>
-                  ) : (
-                    <div className="flex justify-end mt-4">
-                      <Button variant="outline" size="sm" leftIcon={<Reply className="w-4 h-4" />}
-                        onClick={() => openReplyModal(review)}>
-                        Reply to Review
-                      </Button>
-                    </div>
-                  )}
+                    ) : (
+                      <div className="mt-4 flex justify-end">
+                        <Button 
+                          variant="outline" 
+                          size="sm" 
+                          leftIcon={<Reply size={14} />}
+                          onClick={() => openReplyModal(review)}
+                        >
+                          Reply
+                        </Button>
+                      </div>
+                    )}
+                  </p>
                 </div>
               ))
             ) : (
