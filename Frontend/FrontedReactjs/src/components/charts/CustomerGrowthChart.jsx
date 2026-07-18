@@ -2,21 +2,6 @@ import React from 'react'
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
 import { cn } from '../../utils/helpers'
 
-const defaultData = [
-  { name: 'Jan', customers: 120 },
-  { name: 'Feb', customers: 145 },
-  { name: 'Mar', customers: 190 },
-  { name: 'Apr', customers: 230 },
-  { name: 'May', customers: 280 },
-  { name: 'Jun', customers: 345 },
-  { name: 'Jul', customers: 390 },
-  { name: 'Aug', customers: 410 },
-  { name: 'Sep', customers: 470 },
-  { name: 'Oct', customers: 520 },
-  { name: 'Nov', customers: 590 },
-  { name: 'Dec', customers: 680 },
-]
-
 const CustomTooltip = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
     return (
@@ -31,12 +16,13 @@ const CustomTooltip = ({ active, payload, label }) => {
   return null
 }
 
-export default function CustomerGrowthChart({ data = defaultData, title = 'Customer Growth', className }) {
+export default function CustomerGrowthChart({ data, title = 'Customer Growth', className }) {
+  const chartData = data && data.length > 0 ? data : [];
   return (
     <div className={cn('bg-white dark:bg-surface-900 rounded-2xl border border-surface-100 dark:border-surface-800 p-6', className)}>
       <h3 className="text-base font-bold text-surface-900 dark:text-white mb-6">{title}</h3>
       <ResponsiveContainer width="100%" height={280}>
-        <LineChart data={data} margin={{ top: 5, right: 5, left: -20, bottom: 0 }}>
+        <LineChart data={chartData} margin={{ top: 5, right: 5, left: -20, bottom: 0 }}>
           <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" className="dark:opacity-20" />
           <XAxis
             dataKey="name"
