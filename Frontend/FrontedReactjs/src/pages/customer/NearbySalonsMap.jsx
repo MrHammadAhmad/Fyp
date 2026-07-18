@@ -128,7 +128,7 @@ export default function NearbySalonsMap() {
   }
 
   const handleBookNow = (salonId) => {
-    navigate(`/dashboard/salons/${salonId}`)
+    navigate(`/business/${salonId}`)
   }
 
   return (
