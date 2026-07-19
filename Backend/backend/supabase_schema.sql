@@ -23,7 +23,8 @@ create table public."Salons" (
     owner_id uuid references public."Users"(id) on delete cascade not null,
     is_approved boolean default false not null,
     image_url text,
-    created_at timestamp with time zone default timezone('utc'::text, now()) not null
+    created_at timestamp with time zone default timezone('utc'::text, now()) not null,
+    ai_aggregate_rating numeric
 );
 
 -- 3. Services Table
@@ -58,7 +59,8 @@ create table public."Reviews" (
     salon_id uuid references public."Salons"(id) on delete cascade not null,
     rating integer not null check (rating >= 1 and rating <= 5),
     comment text,
-    created_at timestamp with time zone default timezone('utc'::text, now()) not null
+    created_at timestamp with time zone default timezone('utc'::text, now()) not null,
+    ai_rating integer
 );
 
 -- 6. Announcements Table

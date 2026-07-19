@@ -18,6 +18,7 @@ class ReviewResponse(ReviewBase):
     user_id: str
     owner_reply: Optional[str] = None
     created_at: Optional[str] = None
+    ai_rating: Optional[int] = None
 
     class Config:
         from_attributes = True

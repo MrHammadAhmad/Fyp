@@ -63,6 +63,7 @@ class SalonResponse(SalonBase):
     id: str
     owner_id: str
     average_rating: Optional[float] = 0.0
+    ai_aggregate_rating: Optional[float] = None
     review_count: Optional[int] = 0
     services: Optional[List[dict]] = []
 

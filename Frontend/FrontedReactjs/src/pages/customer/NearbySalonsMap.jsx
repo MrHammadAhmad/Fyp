@@ -132,9 +132,24 @@ export default function NearbySalonsMap() {
   }
 
   return (
-    <div className="h-[calc(100vh-80px)] flex flex-col md:flex-row gap-6 -mx-6 -my-6 p-6 bg-surface-50 dark:bg-surface-950">
+    <div className="flex flex-col min-h-[calc(100vh-80px)] bg-surface-50 dark:bg-surface-950 p-6 -mx-6 -my-6">
       
-      {/* Sidebar: Nearby Salons List */}
+      <div className="flex justify-center mb-6 mt-4">
+        <div className="bg-surface-100 dark:bg-surface-800 p-1 rounded-2xl flex max-w-sm w-full">
+          <button 
+            onClick={() => navigate('/recommendations/salons')}
+            className="flex-1 py-3 text-sm font-bold text-surface-500 dark:text-surface-400 hover:text-surface-900 dark:hover:text-white rounded-xl transition-colors"
+          >
+            Search Salons
+          </button>
+          <button className="flex-1 py-3 text-sm font-bold bg-white dark:bg-surface-900 text-surface-900 dark:text-white rounded-xl shadow-sm">
+            Nearest Salons (Map)
+          </button>
+        </div>
+      </div>
+
+      <div className="flex flex-col md:flex-row gap-6 flex-1">
+        {/* Sidebar: Nearby Salons List */}
       <div className="w-full md:w-96 flex flex-col bg-white dark:bg-surface-900 rounded-3xl border border-surface-200 dark:border-surface-800 overflow-hidden shadow-sm">
         <div className="p-5 border-b border-surface-100 dark:border-surface-800">
           <div className="flex items-center gap-3 mb-1">
@@ -224,6 +239,7 @@ export default function NearbySalonsMap() {
         </MapContainer>
       </div>
 
+    </div>
     </div>
   )
 }

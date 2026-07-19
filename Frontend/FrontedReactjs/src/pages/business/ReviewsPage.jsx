@@ -11,6 +11,7 @@ export default function ReviewsPage() {
   const [reviews, setReviews] = useState([])
   const [loading, setLoading] = useState(true)
   const [salonId, setSalonId] = useState(null)
+  const [aiAggregateRating, setAiAggregateRating] = useState(null)
   const [filter, setFilter] = useState('all')
 
   // Reply modal state
@@ -31,6 +32,7 @@ export default function ReviewsPage() {
         if (salons.length > 0) {
           const sId = salons[0].id
           setSalonId(sId)
+          setAiAggregateRating(salons[0].ai_aggregate_rating)
           // Fetch reviews for this salon
           const revRes = await api.get(`/api/reviews/${sId}`)
           setReviews(revRes.data || [])
@@ -144,6 +146,38 @@ export default function ReviewsPage() {
               <p className="text-sm text-surface-500 dark:text-surface-400">Based on {reviewCount} review{reviewCount !== 1 ? 's' : ''}</p>
             </div>
 
+            {/* AI Text Sentiment Block */}
+            {aiAggregateRating !== null && aiAggregateRating !== undefined && (
+              <div className="bg-gradient-to-br from-purple-50 to-white dark:from-purple-900/20 dark:to-surface-900 border border-purple-100 dark:border-purple-800/50 rounded-2xl p-6 relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/10 dark:bg-purple-500/5 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none"></div>
+                
+                <div className="flex items-center justify-between mb-4 relative z-10">
+                  <h3 className="text-sm font-bold text-surface-900 dark:text-white flex items-center gap-1.5">
+                    <span className="text-lg">✨</span> AI Text Rating
+                  </h3>
+                  <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-white dark:bg-surface-800 text-purple-600 dark:text-purple-400 border border-purple-100 dark:border-purple-800">
+                    {aiAggregateRating}/10
+                  </span>
+                </div>
+                
+                <div className="relative z-10 flex flex-col items-center justify-center text-center py-2">
+                  <div className="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-500 dark:from-purple-400 dark:to-pink-300 drop-shadow-sm mb-1">
+                    {Math.round(aiAggregateRating * 10)}%
+                  </div>
+                  <div className="text-sm font-bold text-surface-700 dark:text-surface-200 tracking-wide uppercase mb-4">
+                    {aiAggregateRating >= 9 ? 'Excellent' : aiAggregateRating >= 7 ? 'Very Good' : aiAggregateRating >= 5 ? 'Average' : aiAggregateRating >= 3 ? 'Poor' : 'Very Poor'}
+                  </div>
+                  
+                  <div className="w-full bg-white dark:bg-surface-800 h-2.5 rounded-full overflow-hidden border border-purple-100/50 dark:border-purple-800/30">
+                    <div 
+                      className="h-full bg-gradient-to-r from-purple-500 to-pink-500 rounded-full" 
+                      style={{ width: `${Math.round(aiAggregateRating * 10)}%` }}
+                    ></div>
+                  </div>
+                </div>
+              </div>
+            )}
+
             {/* Rating Breakdown */}
             <div className="bg-white dark:bg-surface-900 border border-surface-200 dark:border-surface-800 rounded-2xl p-6">
               <h4 className="text-sm font-bold text-surface-900 dark:text-white mb-4">Rating Breakdown</h4>
@@ -183,6 +217,14 @@ export default function ReviewsPage() {
                   <p className="text-surface-700 dark:text-surface-300 text-sm leading-relaxed mb-4">
                     {review.comment}
                   </p>
+
+                  {review.ai_rating !== undefined && review.ai_rating !== null && (
+                    <div className="mb-4">
+                      <span className="inline-flex items-center gap-1.5 text-[11px] px-2.5 py-1 rounded-full bg-purple-50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 font-medium border border-purple-100 dark:border-purple-800">
+                        ✨ AI Sentiment: {Math.round(review.ai_rating * 10)}% - {review.ai_rating >= 9 ? 'Excellent' : review.ai_rating >= 7 ? 'Very Good' : review.ai_rating >= 5 ? 'Average' : review.ai_rating >= 3 ? 'Poor' : 'Very Poor'}
+                      </span>
+                    </div>
+                  )}
                 </div>
               ))
             ) : (

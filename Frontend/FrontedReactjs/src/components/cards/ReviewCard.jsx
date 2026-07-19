@@ -5,7 +5,7 @@ import Avatar from '../ui/Avatar'
 import { cn, formatDate, getStarArray } from '../../utils/helpers'
 
 export default function ReviewCard({ review, className }) {
-  const { userName, userAvatar, rating, title, comment, serviceName, date, helpful, ownerReply } = review
+  const { userName, userAvatar, rating, title, comment, serviceName, date, helpful, ownerReply, ai_rating } = review
 
   return (
     <motion.div
@@ -46,6 +46,15 @@ export default function ReviewCard({ review, className }) {
         <h5 className="font-semibold text-surface-900 dark:text-white text-sm mb-1">{title}</h5>
       )}
       <p className="text-sm text-surface-600 dark:text-surface-400 leading-relaxed mb-2">{comment}</p>
+
+      {/* AI Rating Badge */}
+      {ai_rating !== undefined && ai_rating !== null && (
+        <div className="flex items-center gap-1.5 mb-3">
+          <span className="inline-flex items-center gap-1 text-[11px] px-2 py-0.5 rounded-full bg-purple-50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 font-medium border border-purple-100 dark:border-purple-800">
+            ✨ AI Sentiment: {Math.round(ai_rating * 10)}% - {ai_rating >= 9 ? 'Excellent' : ai_rating >= 7 ? 'Very Good' : ai_rating >= 5 ? 'Average' : ai_rating >= 3 ? 'Poor' : 'Very Poor'}
+          </span>
+        </div>
+      )}
 
       {/* Service Tag */}
       {serviceName && (

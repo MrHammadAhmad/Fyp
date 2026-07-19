@@ -22,7 +22,8 @@ class AnalysisRequest(BaseModel):
 
 class SalonRecommendRequest(BaseModel):
     location: Optional[str] = None
-    budget: Optional[str] = None
+    rating: Optional[float] = None
+    aiRating: Optional[float] = None
     category: Optional[str] = None
     preferences: Optional[str] = None
 
@@ -85,16 +86,22 @@ def ai_recommendations(request: RecommendationRequest, current_user: dict = Depe
 @router.post("/recommend-salon")
 def ai_recommend_salon(request: SalonRecommendRequest, current_user: dict = Depends(get_current_user)):
     try:
-        salons_res = supabase_admin.table("Salons").select("id, name, location, average_rating").eq("is_approved", True).execute()
+        salons_res = supabase_admin.table("Salons").select("id, name, location, average_rating, ai_aggregate_rating").eq("is_approved", True).execute()
         salons_list = salons_res.data
         
         if request.location:
             salons_list = [s for s in salons_list if request.location.lower() in (s.get("location") or "").lower()]
             
+        if request.rating is not None:
+            salons_list = [s for s in salons_list if float(s.get("average_rating") or 0) >= request.rating]
+            
+        if request.aiRating is not None:
+            salons_list = [s for s in salons_list if float(s.get("ai_aggregate_rating") or 0) >= request.aiRating]
+            
         if not salons_list:
             return {"recommendations": []}
             
-        prompt = f"Based on location: {request.location or 'Any'}, budget: {request.budget or 'Any'}, category: {request.category or 'Any'}, and user preferences: '{request.preferences or 'None'}', pick the single best matching salon from this list: {salons_list}. Give a short, clean, plain English explanation (NO MARKDOWN LIKE * OR #) of why it's recommended. Format your ENTIRE response as a strictly valid JSON object with EXACTLY two keys: 'id' (the id of the chosen salon) and 'reason' (the explanation string). Do not include any other text or formatting."
+        prompt = f"Based on location: {request.location or 'Any'}, minimum rating: {request.rating or 'Any'}, category: {request.category or 'Any'}, and user preferences: '{request.preferences or 'None'}', pick the single best matching salon from this list: {salons_list}. Give a short, clean, plain English explanation (NO MARKDOWN LIKE * OR #) of why it's recommended. Format your ENTIRE response as a strictly valid JSON object with EXACTLY two keys: 'id' (the id of the chosen salon) and 'reason' (the explanation string). Do not include any other text or formatting."
         reply = get_chat_response(prompt)
         
         try:

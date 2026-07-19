@@ -40,7 +40,21 @@ export default function SalonRecommendationsPage() {
           <Sparkles size={16} /> AI Salon Matchmaker
         </div>
         <h1 className="text-4xl font-extrabold text-surface-900 dark:text-white mb-4">Find Your Perfect Salon</h1>
-        <p className="text-surface-500 max-w-2xl mx-auto">Let our AI analyze your preferences, budget, and past bookings to recommend the best salons tailored specifically for you.</p>
+        <p className="text-surface-500 max-w-2xl mx-auto">Let our AI analyze your preferences and past bookings to recommend the best salons tailored specifically for you.</p>
+      </div>
+
+      <div className="flex justify-center mb-8">
+        <div className="bg-surface-100 dark:bg-surface-800 p-1 rounded-2xl flex max-w-sm w-full">
+          <button className="flex-1 py-3 text-sm font-bold bg-white dark:bg-surface-900 text-surface-900 dark:text-white rounded-xl shadow-sm">
+            Search Salons
+          </button>
+          <button 
+            onClick={() => navigate('/dashboard/nearby')}
+            className="flex-1 py-3 text-sm font-bold text-surface-500 dark:text-surface-400 hover:text-surface-900 dark:hover:text-white rounded-xl transition-colors"
+          >
+            Nearest Salons (Map)
+          </button>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
@@ -55,41 +69,14 @@ export default function SalonRecommendationsPage() {
                   <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 text-surface-400" size={18} />
                   <input 
                     type="text"
-                    list="lahore-areas"
                     className="w-full bg-surface-50 dark:bg-surface-800 border border-surface-200 dark:border-surface-700 rounded-xl py-2.5 pl-10 pr-4 outline-none focus:border-brand-500"
                     placeholder="e.g. Model Town"
                     value={salonCriteria.location || ''}
                     onChange={(e) => setSalonCriteria({ location: e.target.value })}
                   />
-                  <datalist id="lahore-areas">
-                    <option value="Gulberg" />
-                    <option value="DHA" />
-                    <option value="Johar Town" />
-                    <option value="Model Town" />
-                    <option value="Bahria Town" />
-                    <option value="Wapda Town" />
-                    <option value="Cavalry Ground" />
-                    <option value="Cantt" />
-                  </datalist>
                 </div>
               </div>
               
-              <div>
-                <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-1.5">Budget Preference</label>
-                <div className="relative">
-                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-surface-400 font-bold text-sm">Rs</span>
-                  <select 
-                    className="w-full bg-surface-50 dark:bg-surface-800 border border-surface-200 dark:border-surface-700 rounded-xl py-2.5 pl-10 pr-4 outline-none focus:border-brand-500 appearance-none"
-                    value={salonCriteria.budget}
-                    onChange={(e) => setSalonCriteria({ budget: e.target.value })}
-                  >
-                    <option value="">Any Budget</option>
-                    <option value="low">Budget Friendly (Rs)</option>
-                    <option value="medium">Standard (Rs Rs)</option>
-                    <option value="high">Premium (Rs Rs Rs)</option>
-                  </select>
-                </div>
-              </div>
 
               <div>
                 <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-1.5">Minimum Rating</label>
@@ -104,6 +91,23 @@ export default function SalonRecommendationsPage() {
                     <option value="4.5">4.5 & Above</option>
                     <option value="4.0">4.0 & Above</option>
                     <option value="3.5">3.5 & Above</option>
+                  </select>
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-1.5">AI Text Rating</label>
+                <div className="relative">
+                  <Sparkles className="absolute left-3 top-1/2 -translate-y-1/2 text-surface-400" size={18} />
+                  <select 
+                    className="w-full bg-surface-50 dark:bg-surface-800 border border-surface-200 dark:border-surface-700 rounded-xl py-2.5 pl-10 pr-4 outline-none focus:border-brand-500 appearance-none"
+                    value={salonCriteria.aiRating || ''}
+                    onChange={(e) => setSalonCriteria({ aiRating: e.target.value })}
+                  >
+                    <option value="">Any AI Rating</option>
+                    <option value="8">8/10 & Above (Excellent)</option>
+                    <option value="6">6/10 & Above (Good)</option>
+                    <option value="4">4/10 & Above (Average)</option>
                   </select>
                 </div>
               </div>

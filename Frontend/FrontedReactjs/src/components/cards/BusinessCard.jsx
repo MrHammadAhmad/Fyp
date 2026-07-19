@@ -19,7 +19,7 @@ export default function BusinessCard({ business, variant = 'grid' }) {
     slug: business.slug || business.id,
     thumbnail: business.cover_image || business.image_url || business.thumbnail || 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=800',
     rating: business.average_rating !== undefined ? business.average_rating : (business.rating || 0.0),
-    reviewCount: business.reviewCount || 0,
+    reviewCount: business.review_count !== undefined ? business.review_count : (business.reviewCount || 0),
     location: business.location || business.city || 'Pakistan',
     tags: business.tags || ['Salon']
   }

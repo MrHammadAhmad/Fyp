@@ -3,6 +3,7 @@ from typing import List
 from app.schemas.review import ReviewCreate, ReviewResponse
 from app.services.supabase_db import supabase
 from app.core.security import get_current_user
+from app.services.gemini_service import analyze_review_sentiment
 
 router = APIRouter()
 
@@ -11,14 +12,29 @@ def create_review(review: ReviewCreate, current_user: dict = Depends(get_current
     try:
         data = review.model_dump()
         data["user_id"] = current_user["id"]
+        
+        # Calculate AI rating
+        if data.get("comment"):
+            ai_rating = analyze_review_sentiment(data["comment"])
+            if ai_rating is not None:
+                data["ai_rating"] = ai_rating
+
         response = supabase.table("Reviews").insert(data).execute()
         new_review = response.data[0]
         
-        # Calculate new average rating for the salon
-        reviews_res = supabase.table("Reviews").select("rating").eq("salon_id", data["salon_id"]).execute()
+        # Calculate new average ratings for the salon
+        reviews_res = supabase.table("Reviews").select("rating, ai_rating").eq("salon_id", data["salon_id"]).execute()
         if reviews_res.data:
             avg_rating = sum(r["rating"] for r in reviews_res.data) / len(reviews_res.data)
-            supabase.table("Salons").update({"average_rating": avg_rating}).eq("id", data["salon_id"]).execute()
+            
+            ai_ratings = [r["ai_rating"] for r in reviews_res.data if r.get("ai_rating") is not None]
+            
+            update_data = {"average_rating": avg_rating}
+            if ai_ratings:
+                avg_ai_rating = sum(ai_ratings) / len(ai_ratings)
+                update_data["ai_aggregate_rating"] = round(avg_ai_rating, 1)
+                
+            supabase.table("Salons").update(update_data).eq("id", data["salon_id"]).execute()
             
         return new_review
     except Exception as e:

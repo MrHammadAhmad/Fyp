@@ -415,6 +415,31 @@ export default function CustomerDashboard() {
           </div>
 
           <aside className="space-y-6">
+            <div className="rounded-[1.75rem] border border-surface-200 bg-white p-6 shadow-sm dark:border-surface-800 dark:bg-surface-900">
+              <div className="mb-4 flex items-center gap-3">
+                <div className={`flex h-11 w-11 items-center justify-center rounded-2xl ${brandGreenClassName}`}>
+                  <Clock3 className="h-5 w-5" />
+                </div>
+
+                <div>
+                  <h3 className="font-extrabold text-surface-950 dark:text-white">
+                    Need a quick booking?
+                  </h3>
+                  <p className="text-xs font-medium text-surface-500 dark:text-surface-400">
+                    Start with location and service search.
+                  </p>
+                </div>
+              </div>
+
+              <Link
+                to="/dashboard/nearby"
+                className={`inline-flex w-full items-center justify-center gap-2 ${brandGreenButtonClassName}`}
+              >
+                Find Nearby Salons
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
+
             <div className="rounded-[1.75rem] border border-surface-200 bg-white p-5 shadow-sm dark:border-surface-800 dark:bg-surface-900">
               <SectionHeader
                 title="Your favorites"
@@ -442,31 +467,6 @@ export default function CustomerDashboard() {
             </div>
 
             <TipCard />
-
-            <div className="rounded-[1.75rem] border border-surface-200 bg-white p-6 shadow-sm dark:border-surface-800 dark:bg-surface-900">
-              <div className="mb-4 flex items-center gap-3">
-                <div className={`flex h-11 w-11 items-center justify-center rounded-2xl ${brandGreenClassName}`}>
-                  <Clock3 className="h-5 w-5" />
-                </div>
-
-                <div>
-                  <h3 className="font-extrabold text-surface-950 dark:text-white">
-                    Need a quick booking?
-                  </h3>
-                  <p className="text-xs font-medium text-surface-500 dark:text-surface-400">
-                    Start with location and service search.
-                  </p>
-                </div>
-              </div>
-
-              <Link
-                to="/dashboard/nearby"
-                className={`inline-flex w-full items-center justify-center gap-2 ${brandGreenButtonClassName}`}
-              >
-                Find Nearby Salons
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-            </div>
           </aside>
         </section>
       </div>

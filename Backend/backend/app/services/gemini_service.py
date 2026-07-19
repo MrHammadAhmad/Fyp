@@ -129,3 +129,18 @@ def analyze_skin_image_json(image_bytes: bytes, mime_type: str) -> dict:
         return json.loads(clean_text)
     except Exception as e:
         return None
+
+def analyze_review_sentiment(review_text: str) -> int:
+    import json
+    _ensure_model_available()
+    if not review_text or not review_text.strip():
+        return None
+    prompt = f"Analyze the sentiment of this review and rate it on a scale of 1 to 10 (1 being extremely negative, 10 being extremely positive). IMPORTANT RULES: 1. Treat simple positive words/phrases like 'nice', 'good', 'great', 'awesome', 'perfect', or 'nice work' as a full 10 out of 10. 2. Treat simple negative words like 'bad', 'poor', or 'terrible' as a 1. 3. Treat constructive or mixed feedback (e.g., 'need improvements', 'okay', 'average') as moderate scores (e.g., 4, 5, or 6). Use the full scale appropriately for nuances. Review: '{review_text}'. Format your ENTIRE response as a strictly valid JSON object with EXACTLY one key: 'rating' (integer). Do not include any other text, markdown, or explanation."
+    try:
+        response = model.generate_content(prompt)
+        clean_reply = response.text.replace('```json', '').replace('```', '').strip()
+        parsed_reply = json.loads(clean_reply)
+        rating = int(parsed_reply.get('rating', 0))
+        return max(1, min(10, rating))
+    except Exception as e:
+        return None

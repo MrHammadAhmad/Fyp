@@ -7,9 +7,11 @@ import ServiceCard from '../../components/cards/ServiceCard'
 import StaffCard from '../../components/cards/StaffCard'
 import ReviewCard from '../../components/cards/ReviewCard'
 import AverageRatingWidget from '../../components/reviews/AverageRatingWidget'
+import AiTextRatingWidget from '../../components/reviews/AiTextRatingWidget'
 import { useAuthStore } from '../../store/authStore'
 import { businessApi } from '../../api/services/businessApi'
 import { membershipApi } from '../../api/services/membershipApi'
+import { reviewApi } from '../../api/services/reviewApi'
 import showToast from '../../components/ui/Toast'
 
 export default function BusinessDetailPage() {
@@ -23,6 +25,10 @@ export default function BusinessDetailPage() {
   const [memberships, setMemberships] = useState([])
   const [loading, setLoading] = useState(true)
   const [subscribing, setSubscribing] = useState(null)
+  
+  const [showReviewModal, setShowReviewModal] = useState(false)
+  const [reviewForm, setReviewForm] = useState({ rating: 5, comment: '' })
+  const [submittingReview, setSubmittingReview] = useState(false)
 
   useEffect(() => {
     async function loadBusinessData() {
@@ -205,6 +211,45 @@ export default function BusinessDetailPage() {
     }
   }
 
+  const handleSubmitReview = async (e) => {
+    e.preventDefault()
+    if (!isAuthenticated) {
+      setShowReviewModal(false)
+      setShowLoginModal(true)
+      return
+    }
+    if (role !== 'customer') {
+      showToast.error('Only customers can write reviews.')
+      return
+    }
+    if (!reviewForm.rating || reviewForm.rating < 1 || reviewForm.rating > 5) {
+      showToast.error('Please provide a valid rating between 1 and 5.')
+      return
+    }
+    
+    setSubmittingReview(true)
+    try {
+      const { user } = useAuthStore.getState()
+      await reviewApi.create({
+        salon_id: business.id,
+        rating: reviewForm.rating,
+        comment: reviewForm.comment,
+        customer_name: user?.full_name || user?.name || 'Customer'
+      })
+      showToast.success('Review submitted successfully!')
+      setShowReviewModal(false)
+      setReviewForm({ rating: 5, comment: '' })
+      // Reload business data to show new review
+      const data = await businessApi.getById(slug)
+      setBusiness(data)
+    } catch (err) {
+      console.error(err)
+      showToast.error(err.response?.data?.detail || 'Failed to submit review.')
+    } finally {
+      setSubmittingReview(false)
+    }
+  }
+
   return (
     <div className="min-h-screen bg-surface-50 dark:bg-surface-950 pt-16">
       {/* ===== HERO GALLERY ===== */}
@@ -333,21 +378,49 @@ export default function BusinessDetailPage() {
             )}
 
             {/* Reviews Tab */}
-            {activeTab === 'reviews' && (
-              <div className="space-y-6">
-                <AverageRatingWidget rating={business.rating} totalReviews={business.reviewCount} />
-
-                {reviews.length > 0 ? (
-                  reviews.map(review => (
-                    <ReviewCard key={review.id} review={review} />
-                  ))
-                ) : (
-                  <div className="text-center py-12 text-surface-500 dark:text-surface-400">
-                    No reviews yet. Be the first to review!
+            {activeTab === 'reviews' && (() => {
+              const breakdown = { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 }
+              reviews.forEach(r => {
+                if (r.rating >= 1 && r.rating <= 5) {
+                  breakdown[Math.floor(r.rating)] += 1
+                }
+              })
+              
+              return (
+                <div className="space-y-6">
+                  <div className="flex justify-between items-center">
+                    <h3 className="text-xl font-bold text-surface-900 dark:text-white">Customer Reviews</h3>
+                    <button 
+                      onClick={() => setShowReviewModal(true)}
+                      className="px-4 py-2 bg-[#405742] hover:bg-[#334d3b] text-white font-semibold rounded-lg text-sm transition-colors shadow-sm"
+                    >
+                      Write a Review
+                    </button>
                   </div>
-                )}
-              </div>
-            )}
+                  
+                  {reviews.length > 0 && (
+                    <AverageRatingWidget 
+                      rating={business.rating} 
+                      totalReviews={business.reviewCount} 
+                      breakdown={breakdown} 
+                    />
+                  )}
+                  {reviews.length > 0 && (
+                    <AiTextRatingWidget aiRating={business.ai_aggregate_rating || business.aiAggregateRating} />
+                  )}
+
+                  {reviews.length > 0 ? (
+                    reviews.map(review => (
+                      <ReviewCard key={review.id} review={review} />
+                    ))
+                  ) : (
+                    <div className="text-center py-12 text-surface-500 dark:text-surface-400">
+                      No reviews yet. Be the first to review!
+                    </div>
+                  )}
+                </div>
+              )
+            })()}
 
             {/* About Tab */}
             {activeTab === 'about' && (
@@ -419,6 +492,59 @@ export default function BusinessDetailPage() {
                           Login Now
                         </Link>
                       </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Review Modal */}
+                {showReviewModal && (
+                  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
+                    <div className="bg-white dark:bg-surface-900 rounded-2xl p-6 max-w-md w-full border border-surface-200 dark:border-surface-800 shadow-2xl">
+                      <h3 className="text-xl font-bold text-surface-900 dark:text-white mb-4">Write a Review</h3>
+                      <form onSubmit={handleSubmitReview} className="space-y-4">
+                        <div>
+                          <label className="block text-sm font-semibold text-surface-700 dark:text-surface-300 mb-1">Rating (1-5)</label>
+                          <div className="flex gap-2">
+                            {[1, 2, 3, 4, 5].map((star) => (
+                              <button
+                                type="button"
+                                key={star}
+                                onClick={() => setReviewForm(prev => ({ ...prev, rating: star }))}
+                                className="p-1 focus:outline-none"
+                              >
+                                <Star 
+                                  className={`w-8 h-8 ${star <= reviewForm.rating ? 'text-amber-400 fill-amber-400' : 'text-surface-300 dark:text-surface-700'}`} 
+                                />
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                        <div>
+                          <label className="block text-sm font-semibold text-surface-700 dark:text-surface-300 mb-1">Comment (Optional)</label>
+                          <textarea 
+                            value={reviewForm.comment}
+                            onChange={(e) => setReviewForm(prev => ({ ...prev, comment: e.target.value }))}
+                            className="w-full bg-surface-50 dark:bg-surface-950 border border-surface-200 dark:border-surface-800 rounded-xl px-4 py-3 text-surface-900 dark:text-white focus:ring-2 focus:ring-[#405742] outline-none transition-all resize-none h-28"
+                            placeholder="Share your experience..."
+                          ></textarea>
+                        </div>
+                        <div className="flex gap-3 mt-6">
+                          <button
+                            type="button"
+                            onClick={() => setShowReviewModal(false)}
+                            className="flex-1 py-3 rounded-xl border border-surface-200 dark:border-surface-700 text-surface-600 dark:text-surface-300 font-semibold hover:bg-surface-50 dark:hover:bg-surface-800 transition-all text-sm"
+                          >
+                            Cancel
+                          </button>
+                          <button
+                            type="submit"
+                            disabled={submittingReview}
+                            className="flex-1 py-3 rounded-xl bg-[#405742] hover:bg-[#334d3b] text-white font-semibold transition-all text-sm flex items-center justify-center disabled:opacity-50"
+                          >
+                            {submittingReview ? 'Submitting...' : 'Submit Review'}
+                          </button>
+                        </div>
+                      </form>
                     </div>
                   </div>
                 )}

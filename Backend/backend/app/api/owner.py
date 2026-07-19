@@ -9,7 +9,7 @@ router = APIRouter()
 def get_owner_performance(current_user: dict = Depends(get_current_owner)):
     try:
         # Get all salons owned by this owner
-        salons_res = supabase.table("Salons").select("id, name").eq("owner_id", current_user["id"]).execute()
+        salons_res = supabase.table("Salons").select("id, name, ai_aggregate_rating").eq("owner_id", current_user["id"]).execute()
         salons = salons_res.data
         if not salons:
             return {"total_earnings": 0, "appointments_count": 0, "salons": []}

@@ -64,7 +64,7 @@ export const businessApi = {
     // Fetch live reviews
     let reviews = []
     try {
-      const reviewsRes = await api.get(`/api/reviews/?salon_id=${salon.id}`)
+      const reviewsRes = await api.get(`/api/reviews/${salon.id}`)
       reviews = reviewsRes.data || []
     } catch (e) {
       reviews = []
@@ -98,7 +98,7 @@ export const businessApi = {
 
   getReviews: async (businessId) => {
     try {
-      const res = await api.get(`/api/reviews/?salon_id=${businessId}`)
+      const res = await api.get(`/api/reviews/${businessId}`)
       return res.data
     } catch (e) {
       return []

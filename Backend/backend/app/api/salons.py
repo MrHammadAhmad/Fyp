@@ -68,16 +68,20 @@ def get_salons(
                 if not services_res.data or not any(float(s["price"]) <= price_max for s in services_res.data):
                     continue
                     
+            # Dynamically calculate average_rating and review_count from Reviews table
+            reviews_res = supabase.table("Reviews").select("rating").eq("salon_id", salon["id"]).execute()
+            if reviews_res.data:
+                total_rating = sum([r["rating"] for r in reviews_res.data])
+                salon["review_count"] = len(reviews_res.data)
+                salon["average_rating"] = round(total_rating / len(reviews_res.data), 1)
+            else:
+                salon["review_count"] = 0
+                salon["average_rating"] = 0.0
+
             # 4. Rating filter
             if min_rating is not None:
-                reviews_res = supabase.table("Reviews").select("rating").eq("salon_id", salon["id"]).execute()
-                if not reviews_res.data:
-                    if min_rating > 0:
-                        continue
-                else:
-                    avg_rating = sum(r["rating"] for r in reviews_res.data) / len(reviews_res.data)
-                    if avg_rating < min_rating:
-                        continue
+                if salon["average_rating"] < min_rating:
+                    continue
                         
             filtered_salons.append(salon)
             

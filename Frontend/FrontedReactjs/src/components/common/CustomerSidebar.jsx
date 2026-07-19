@@ -4,13 +4,14 @@ import { motion, AnimatePresence } from 'framer-motion'
 import {
   LayoutDashboard, Calendar, Clock, Heart, Wallet, Bell,
   Settings, ChevronLeft, ChevronRight, Sparkles, User, Star, Gift,
-  Bot, Scissors, Microscope, FlaskConical, Building2, Crown, Headphones
+  Bot, Scissors, Microscope, FlaskConical, Building2, Crown, Headphones, Search
 } from 'lucide-react'
 import { useAuthStore } from '../../store/authStore'
 import { cn } from '../../utils/helpers'
 
 const customerNav = [
   { label: 'Dashboard', to: '/dashboard', icon: LayoutDashboard, exact: true },
+  { label: 'Find salons', to: '/dashboard/nearby', icon: Search },
   { label: 'My Bookings', to: '/dashboard/bookings', icon: Clock },
   { label: 'Favorites', to: '/dashboard/favorites', icon: Heart },
   { label: 'Wallet', to: '/dashboard/wallet', icon: Wallet },
