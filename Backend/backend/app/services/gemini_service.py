@@ -9,7 +9,7 @@ model = None
 if genai is not None and getattr(settings, "GEMINI_API_KEY", None):
     try:
         genai.configure(api_key=settings.GEMINI_API_KEY)
-        model = genai.GenerativeModel('gemini-3.1-flash-lite')
+        model = genai.GenerativeModel('gemini-1.5-flash')
     except Exception:
         model = None
 

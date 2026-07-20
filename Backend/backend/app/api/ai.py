@@ -47,7 +47,7 @@ def ai_chat(request: ChatRequest):
             raise HTTPException(status_code=400, detail="Either 'message' or 'messages' must be provided")
             
         # Fetch salons from DB to inject into AI context so it can recommend real locations
-        salons_res = supabase_admin.table("Salons").select("id, name, location, address, street_address, town, city, latitude, longitude, average_rating, review_count").eq("is_approved", True).execute()
+        salons_res = supabase_admin.table("Salons").select("id, name, location, address, street_address, town, city, latitude, longitude, average_rating").eq("is_approved", True).execute()
         salons_context = "Available Salons in our database (Use this data to recommend real salons based on user location):\n"
         for s in salons_res.data:
             salons_context += f"- {s['name']} at {s['location']} (lat: {s['latitude']}, lng: {s['longitude']}, rating: {s.get('average_rating', 0)})\n"
@@ -57,6 +57,8 @@ def ai_chat(request: ChatRequest):
         reply = get_chat_response(full_prompt)
         return {"reply": reply}
     except Exception as e:
+        import traceback
+        traceback.print_exc()
         raise HTTPException(status_code=500, detail=str(e))
 
 @router.post("/recommendations")
