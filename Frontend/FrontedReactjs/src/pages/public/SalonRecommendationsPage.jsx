@@ -30,7 +30,8 @@ export default function SalonRecommendationsPage() {
       
       setResults(response.recommendations || [])
     } catch (error) {
-      toast.error('Failed to get recommendations. Please try again.')
+      const errorMsg = error.response?.data?.detail || 'Failed to get recommendations. Please try again.';
+      toast.error(`AI Error: ${errorMsg}`);
       console.error(error)
     } finally {
       setIsLoading(false)
