@@ -20,8 +20,12 @@ export default function SalonRecommendationsPage() {
     e.preventDefault()
     setIsLoading(true)
     try {
-      // Mocking the payload
+      // Clean payload for backend (remove empty strings that cause 422 errors)
       const payload = { ...salonCriteria }
+      if (payload.rating === '') delete payload.rating
+      if (payload.aiRating === '') delete payload.aiRating
+      if (payload.location === '') delete payload.location
+      
       const response = await aiApi.getSalonRecommendations(payload)
       
       setResults(response.recommendations || [])

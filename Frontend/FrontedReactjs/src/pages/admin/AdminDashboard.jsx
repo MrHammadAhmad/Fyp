@@ -34,18 +34,24 @@ export default function AdminDashboard() {
     color: getLiveActivityColor(act.type)
   }))
 
-  const revenueData = report?.appointments?.monthly_revenue
-    ? Object.entries(report.appointments.monthly_revenue).map(([month, val]) => ({
-        name: month,
-        revenue: val
-      })).sort((a, b) => a.name.localeCompare(b.name))
+  const revenueData = report?.appointments?.daily_revenue
+    ? Object.entries(report.appointments.daily_revenue).map(([day, val]) => {
+        const d = new Date(day)
+        return {
+          name: d.toLocaleDateString('en-US', { weekday: 'short' }),
+          revenue: val
+        }
+      })
     : undefined
 
-  const growthData = report?.users?.monthly_growth
-    ? Object.entries(report.users.monthly_growth).map(([month, val]) => ({
-        name: month,
-        customers: val
-      })).sort((a, b) => a.name.localeCompare(b.name))
+  const growthData = report?.users?.daily_growth
+    ? Object.entries(report.users.daily_growth).map(([day, val]) => {
+        const d = new Date(day)
+        return {
+          name: d.toLocaleDateString('en-US', { weekday: 'short' }),
+          customers: val
+        }
+      })
     : undefined
 
   async function loadData() {
@@ -123,8 +129,8 @@ export default function AdminDashboard() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Charts Area */}
         <div className="lg:col-span-2 space-y-6">
-          <RevenueChart data={revenueData} title="Platform Gross Merchandise Value (GMV)" />
-          <CustomerGrowthChart data={growthData} title="User Registration Growth" />
+          <RevenueChart data={revenueData} title="Platform Gross Revenue (Last 7 Days)" />
+          <CustomerGrowthChart data={growthData} title="User Registration Growth (Last 7 Days)" />
         </div>
 
         {/* Sidebar Area */}

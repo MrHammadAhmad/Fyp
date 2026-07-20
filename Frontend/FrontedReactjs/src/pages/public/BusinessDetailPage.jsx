@@ -398,16 +398,23 @@ export default function BusinessDetailPage() {
                     </button>
                   </div>
                   
-                  {reviews.length > 0 && (
-                    <AverageRatingWidget 
-                      rating={business.rating} 
-                      totalReviews={business.reviewCount} 
-                      breakdown={breakdown} 
-                    />
-                  )}
-                  {reviews.length > 0 && (
-                    <AiTextRatingWidget aiRating={business.ai_aggregate_rating || business.aiAggregateRating} />
-                  )}
+                  {reviews.length > 0 && (() => {
+                    const reviewsWithAi = reviews.filter(r => r.ai_rating !== undefined && r.ai_rating !== null)
+                    const computedAiRating = reviewsWithAi.length > 0 
+                      ? reviewsWithAi.reduce((sum, r) => sum + r.ai_rating, 0) / reviewsWithAi.length
+                      : null
+                    
+                    return (
+                      <>
+                        <AverageRatingWidget 
+                          rating={business.rating} 
+                          totalReviews={business.reviewCount} 
+                          breakdown={breakdown} 
+                        />
+                        <AiTextRatingWidget aiRating={computedAiRating} />
+                      </>
+                    )
+                  })()}
 
                   {reviews.length > 0 ? (
                     reviews.map(review => (

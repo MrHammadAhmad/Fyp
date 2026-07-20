@@ -1,9 +1,11 @@
 import React from 'react'
 
 export default function AiTextRatingWidget({ aiRating }) {
-  if (aiRating === null || aiRating === undefined) return null
+  const hasAiRating = aiRating !== null && aiRating !== undefined
+  const ratingToUse = hasAiRating ? aiRating : 0
 
   const getAiText = (rating) => {
+    if (!hasAiRating) return 'No Data'
     if (rating >= 9) return 'Excellent'
     if (rating >= 7) return 'Very Good'
     if (rating >= 5) return 'Average'
@@ -11,7 +13,7 @@ export default function AiTextRatingWidget({ aiRating }) {
     return 'Very Poor'
   }
 
-  const percentage = Math.round(aiRating * 10)
+  const percentage = hasAiRating ? Math.round(ratingToUse * 10) : 0
 
   return (
     <div className="bg-gradient-to-br from-purple-50 to-white dark:from-purple-900/20 dark:to-surface-900 border border-purple-100 dark:border-purple-800/50 rounded-2xl p-6 relative overflow-hidden shadow-sm mt-6">
@@ -37,7 +39,7 @@ export default function AiTextRatingWidget({ aiRating }) {
                 {getAiText(aiRating)}
               </span>
               <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-white dark:bg-surface-800 text-purple-600 dark:text-purple-400 border border-purple-100 dark:border-purple-800 mt-1">
-                Score: {aiRating}/10
+                {hasAiRating ? `Score: ${aiRating}/10` : 'Score: N/A'}
               </span>
             </div>
           </div>

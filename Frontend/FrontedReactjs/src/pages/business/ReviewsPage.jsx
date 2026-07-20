@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Star, MessageCircle, Reply, CheckCircle2, Loader2, X } from 'lucide-react'
+import { Star, MessageCircle, Reply, CheckCircle2, Loader2, X, Sparkles } from 'lucide-react'
 import Button from '../../components/ui/Button'
 import Avatar from '../../components/ui/Avatar'
 import { businessApi } from '../../api/services/businessApi'
@@ -54,6 +54,12 @@ export default function ReviewsPage() {
   const averageRating = reviewCount > 0
     ? (reviews.reduce((sum, r) => sum + (r.rating || 0), 0) / reviewCount).toFixed(1)
     : '0.0'
+
+  const reviewsWithAi = reviews.filter(r => r.ai_rating !== undefined && r.ai_rating !== null)
+  const computedAiRating = reviewsWithAi.length > 0 
+    ? reviewsWithAi.reduce((sum, r) => sum + r.ai_rating, 0) / reviewsWithAi.length
+    : 0
+  const hasAiRating = reviewsWithAi.length > 0
 
   // Filter logic
   const filteredReviews = reviews.filter(r => {
@@ -147,36 +153,34 @@ export default function ReviewsPage() {
             </div>
 
             {/* AI Text Sentiment Block */}
-            {aiAggregateRating !== null && aiAggregateRating !== undefined && (
-              <div className="bg-gradient-to-br from-purple-50 to-white dark:from-purple-900/20 dark:to-surface-900 border border-purple-100 dark:border-purple-800/50 rounded-2xl p-6 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/10 dark:bg-purple-500/5 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none"></div>
-                
-                <div className="flex items-center justify-between mb-4 relative z-10">
-                  <h3 className="text-sm font-bold text-surface-900 dark:text-white flex items-center gap-1.5">
-                    <span className="text-lg">✨</span> AI Text Rating
-                  </h3>
-                  <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-white dark:bg-surface-800 text-purple-600 dark:text-purple-400 border border-purple-100 dark:border-purple-800">
-                    {aiAggregateRating}/10
-                  </span>
+            <div className="bg-gradient-to-br from-purple-50 to-white dark:from-purple-900/20 dark:to-surface-900 border border-purple-100 dark:border-purple-800/50 rounded-2xl p-6 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/10 dark:bg-purple-500/5 rounded-full blur-3xl -mr-10 -mt-10 pointer-events-none"></div>
+              
+              <div className="flex items-center justify-between mb-4 relative z-10">
+                <h3 className="text-sm font-bold text-surface-900 dark:text-white flex items-center gap-1.5">
+                  <span className="text-lg">✨</span> AI Text Rating
+                </h3>
+                <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-white dark:bg-surface-800 text-purple-600 dark:text-purple-400 border border-purple-100 dark:border-purple-800">
+                  {hasAiRating ? `${computedAiRating.toFixed(1)}/10` : 'N/A'}
+                </span>
+              </div>
+              
+              <div className="relative z-10 flex flex-col items-center justify-center text-center py-2">
+                <div className="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-500 dark:from-purple-400 dark:to-pink-300 drop-shadow-sm mb-1">
+                  {hasAiRating ? `${Math.round(computedAiRating * 10)}%` : '0%'}
+                </div>
+                <div className="text-sm font-bold text-surface-700 dark:text-surface-200 tracking-wide uppercase mb-4">
+                  {!hasAiRating ? 'No Data' : computedAiRating >= 9 ? 'Excellent' : computedAiRating >= 7 ? 'Very Good' : computedAiRating >= 5 ? 'Average' : computedAiRating >= 3 ? 'Poor' : 'Very Poor'}
                 </div>
                 
-                <div className="relative z-10 flex flex-col items-center justify-center text-center py-2">
-                  <div className="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-500 dark:from-purple-400 dark:to-pink-300 drop-shadow-sm mb-1">
-                    {Math.round(aiAggregateRating * 10)}%
-                  </div>
-                  <div className="text-sm font-bold text-surface-700 dark:text-surface-200 tracking-wide uppercase mb-4">
-                    {aiAggregateRating >= 9 ? 'Excellent' : aiAggregateRating >= 7 ? 'Very Good' : aiAggregateRating >= 5 ? 'Average' : aiAggregateRating >= 3 ? 'Poor' : 'Very Poor'}
-                  </div>
-                  
-                  <div className="w-full bg-white dark:bg-surface-800 h-2.5 rounded-full overflow-hidden border border-purple-100/50 dark:border-purple-800/30">
-                    <div 
-                      className="h-full bg-gradient-to-r from-purple-500 to-pink-500 rounded-full" 
-                      style={{ width: `${Math.round(aiAggregateRating * 10)}%` }}
-                    ></div>
-                  </div>
+                <div className="w-full bg-white dark:bg-surface-800 h-2.5 rounded-full overflow-hidden border border-purple-100/50 dark:border-purple-800/30">
+                  <div 
+                    className="h-full bg-gradient-to-r from-purple-500 to-pink-500 rounded-full" 
+                    style={{ width: `${hasAiRating ? Math.round(computedAiRating * 10) : 0}%` }}
+                  ></div>
                 </div>
               </div>
-            )}
+            </div>
 
             {/* Rating Breakdown */}
             <div className="bg-white dark:bg-surface-900 border border-surface-200 dark:border-surface-800 rounded-2xl p-6">

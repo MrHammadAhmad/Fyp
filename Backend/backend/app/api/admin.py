@@ -103,11 +103,20 @@ def block_user(user_id: str, block: UserBlockUpdate, current_user: dict = Depend
 @router.get("/reports/system")
 def get_system_report(current_user: dict = Depends(get_current_admin)):
     try:
-        # Get users breakdown and monthly trends
+        # Get users breakdown and trends
         users_res = supabase_admin.table("Users").select("role, created_at").execute()
         users = users_res.data
         roles_count = {"customer": 0, "owner": 0, "admin": 0}
         user_trends = {}
+        daily_growth = {}
+        
+        from datetime import datetime, timedelta
+        
+        # Initialize last 7 days
+        for i in range(6, -1, -1):
+            d = (datetime.now() - timedelta(days=i)).strftime("%Y-%m-%d")
+            daily_growth[d] = 0
+
         for u in users:
             r = u.get("role", "customer")
             if r in roles_count:
@@ -116,6 +125,10 @@ def get_system_report(current_user: dict = Depends(get_current_admin)):
             if cat_time:
                 month = cat_time[:7]  # YYYY-MM
                 user_trends[month] = user_trends.get(month, 0) + 1
+                
+                day = cat_time[:10]
+                if day in daily_growth:
+                    daily_growth[day] += 1
                 
         # Get salons breakdown
         salons_res = supabase_admin.table("Salons").select("is_approved").execute()
@@ -136,11 +149,17 @@ def get_system_report(current_user: dict = Depends(get_current_admin)):
             if s in appt_status:
                 appt_status[s] += 1
                 
-        # Get payments breakdown, total revenue, and monthly revenue trends
+        # Get payments breakdown, total revenue, and monthly/daily revenue trends
         pay_res = supabase_admin.table("Payments").select("amount, payment_status, created_at").execute()
         total_revenue = 0.0
         payment_status = {"pending": 0, "completed": 0, "failed": 0, "refunded": 0}
         revenue_trends = {}
+        daily_revenue = {}
+        
+        for i in range(6, -1, -1):
+            d = (datetime.now() - timedelta(days=i)).strftime("%Y-%m-%d")
+            daily_revenue[d] = 0.0
+
         for p in pay_res.data:
             status_val = p.get("payment_status", "pending")
             amt = float(p.get("amount", 0.0))
@@ -150,17 +169,30 @@ def get_system_report(current_user: dict = Depends(get_current_admin)):
                 if cat_time:
                     month = cat_time[:7]  # YYYY-MM
                     revenue_trends[month] = revenue_trends.get(month, 0.0) + amt
+                    
+                    day = cat_time[:10]
+                    if day in daily_revenue:
+                        daily_revenue[day] += amt
             if status_val in payment_status:
                 payment_status[status_val] += 1
                  
-        # Get monthly appointments trends
+        # Get monthly/daily appointments trends
         trends_res = supabase_admin.table("Appointments").select("date").execute()
         trends = {}
+        daily_bookings = {}
+        for i in range(6, -1, -1):
+            d = (datetime.now() - timedelta(days=i)).strftime("%Y-%m-%d")
+            daily_bookings[d] = 0
+            
         for row in trends_res.data:
             dt = row.get("date")
             if dt:
                 month = dt[:7] # YYYY-MM
                 trends[month] = trends.get(month, 0) + 1
+                
+                day = dt[:10]
+                if day in daily_bookings:
+                    daily_bookings[day] += 1
                  
         # Get support tickets breakdown
         tickets_res = supabase_admin.table("SupportTickets").select("status").execute()
@@ -194,7 +226,8 @@ def get_system_report(current_user: dict = Depends(get_current_admin)):
             "users": {
                 "total": len(users),
                 "breakdown": roles_count,
-                "monthly_growth": user_trends
+                "monthly_growth": user_trends,
+                "daily_growth": daily_growth
             },
             "salons": {
                 "total": len(salons),
@@ -205,8 +238,10 @@ def get_system_report(current_user: dict = Depends(get_current_admin)):
                 "status_breakdown": appt_status,
                 "payment_breakdown": payment_status,
                 "monthly_trends": trends,
+                "daily_trends": daily_bookings,
                 "total_revenue": total_revenue,
-                "monthly_revenue": revenue_trends
+                "monthly_revenue": revenue_trends,
+                "daily_revenue": daily_revenue
             },
             "support_tickets": {
                 "total": len(tickets),

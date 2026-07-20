@@ -169,6 +169,42 @@ export default function ReportsPage() {
     }
   }, [appointments])
 
+  const { last7DaysRevenue, last7DaysBookings } = useMemo(() => {
+    const revenueMap = {}
+    const bookingsMap = {}
+    
+    // Initialize last 7 days
+    for (let i = 6; i >= 0; i--) {
+      const d = new Date()
+      d.setDate(d.getDate() - i)
+      const dateStr = d.toISOString().split('T')[0]
+      const name = d.toLocaleDateString('en-US', { weekday: 'short' })
+      revenueMap[dateStr] = { name, dateStr, revenue: 0 }
+      bookingsMap[dateStr] = { name, dateStr, bookings: 0 }
+    }
+
+    appointments.forEach(b => {
+      if (b.status === 'cancelled') return
+      
+      let dateStr = ''
+      if (b.date) {
+        dateStr = b.date.split('T')[0]
+      } else if (b.created_at) {
+        dateStr = b.created_at.split('T')[0]
+      }
+      
+      if (revenueMap[dateStr]) {
+        revenueMap[dateStr].revenue += parseFloat(b.price || 0)
+        bookingsMap[dateStr].bookings += 1
+      }
+    })
+
+    return {
+      last7DaysRevenue: Object.values(revenueMap),
+      last7DaysBookings: Object.values(bookingsMap)
+    }
+  }, [appointments])
+
   return (
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -208,8 +244,8 @@ export default function ReportsPage() {
       )}
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <RevenueChart title="Gross Revenue" />
-        <BookingChart title="Total Bookings" />
+        <RevenueChart data={last7DaysRevenue} title="Gross Revenue (Last 7 Days)" />
+        <BookingChart data={last7DaysBookings} title="Total Bookings (Last 7 Days)" />
       </div>
 
       {/* Most Booked Services from API */}

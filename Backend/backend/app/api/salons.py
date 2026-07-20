@@ -42,10 +42,10 @@ def get_salons(
             # 2. Category search
             if category:
                 services_res = supabase.table("Services").select("name").eq("salon_id", salon["id"]).execute()
-                cat_lower = category.lower()
+                cat_lower = category.lower().replace('cat-', '')
                 keywords = [cat_lower]
                 if cat_lower in ['haircut', 'hair']:
-                    keywords = ['hair', 'cut', 'style', 'trim', 'keratin', 'color']
+                    keywords = ['hair', 'cut', 'fade', 'trim']
                 elif cat_lower in ['facial', 'skincare']:
                     keywords = ['facial', 'skin', 'mask', 'acne', 'peel', 'glow']
                 elif cat_lower == 'massage':
@@ -54,6 +54,10 @@ def get_salons(
                     keywords = ['nail', 'mani', 'pedi', 'gel', 'acrylic']
                 elif cat_lower == 'makeup':
                     keywords = ['makeup', 'make-up', 'bridal', 'lash', 'brow']
+                elif cat_lower == 'styling':
+                    keywords = ['style', 'styling', 'blow', 'dry', 'curl', 'color', 'iron', 'keratin']
+                elif cat_lower == 'beard':
+                    keywords = ['beard', 'shave', 'trim', 'groom', 'mustache']
                 
                 service_match = any(
                     any(kw in s["name"].lower() for kw in keywords)

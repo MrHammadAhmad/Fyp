@@ -72,6 +72,42 @@ export default function BusinessDashboard() {
     }))
   }, [report])
 
+  const { last7DaysRevenue, last7DaysBookings } = useMemo(() => {
+    const revenueMap = {}
+    const bookingsMap = {}
+    
+    // Initialize last 7 days
+    for (let i = 6; i >= 0; i--) {
+      const d = new Date()
+      d.setDate(d.getDate() - i)
+      const dateStr = d.toISOString().split('T')[0]
+      const name = d.toLocaleDateString('en-US', { weekday: 'short' })
+      revenueMap[dateStr] = { name, dateStr, revenue: 0 }
+      bookingsMap[dateStr] = { name, dateStr, bookings: 0 }
+    }
+
+    bookings.forEach(b => {
+      if (b.status === 'cancelled') return
+      
+      let dateStr = ''
+      if (b.date) {
+        dateStr = b.date.split('T')[0]
+      } else if (b.created_at) {
+        dateStr = b.created_at.split('T')[0]
+      }
+      
+      if (revenueMap[dateStr]) {
+        revenueMap[dateStr].revenue += (b.price || 0)
+        bookingsMap[dateStr].bookings += 1
+      }
+    })
+
+    return {
+      last7DaysRevenue: Object.values(revenueMap),
+      last7DaysBookings: Object.values(bookingsMap)
+    }
+  }, [bookings])
+
   const quickActions = [
     { label: 'Manage Salon Details', icon: Scissors, to: '/business/manage-salon', bgColor: 'bg-brand-50 dark:bg-brand-900/30', iconColor: 'text-brand-600 dark:text-brand-400' },
     { label: 'View Calendar', icon: CalendarIcon, to: '/business/calendar', bgColor: 'bg-emerald-50 dark:bg-emerald-900/30', iconColor: 'text-emerald-600 dark:text-emerald-400' },
@@ -137,8 +173,8 @@ export default function BusinessDashboard() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Charts Area */}
         <div className="lg:col-span-2 space-y-6">
-          <RevenueChart title="Revenue Trend (Last 7 Days)" />
-          <BookingChart title="Bookings by Day" />
+          <RevenueChart data={last7DaysRevenue} title="Revenue Trend (Last 7 Days)" />
+          <BookingChart data={last7DaysBookings} title="Bookings by Day" />
         </div>
 
         {/* Sidebar Area */}
