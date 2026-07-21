@@ -45,8 +45,21 @@ from typing import Optional
 @router.get("/{salon_id}")
 def get_reviews(salon_id: str):
     try:
+        from app.services.supabase_db import supabase_admin
         response = supabase.table("Reviews").select("*").eq("salon_id", salon_id).order("created_at", desc=True).execute()
-        return response.data
+        reviews = response.data
+        
+        # Fetch user names for the reviews
+        user_ids = [r["user_id"] for r in reviews if r.get("user_id")]
+        if user_ids:
+            users_res = supabase_admin.table("Users").select("id, name").in_("id", user_ids).execute()
+            if users_res.data:
+                users_map = {u["id"]: u["name"] for u in users_res.data if u.get("name")}
+                for r in reviews:
+                    if r.get("user_id") and not r.get("customer_name"):
+                        r["customer_name"] = users_map.get(r["user_id"])
+                        
+        return reviews
     except Exception as e:
         if isinstance(e, HTTPException):
             raise e

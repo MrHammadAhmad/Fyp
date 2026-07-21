@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException, UploadFile, File, Depends
 from pydantic import BaseModel
-from app.services.gemini_service import get_chat_response, get_service_recommendation, analyze_face_shape_and_recommend, analyze_hair_image_json, analyze_skin_image_json, analyze_image_general
+from app.services.gemini_service import groq_client, get_chat_response, get_groq_chat_response, get_service_recommendation, analyze_face_shape_and_recommend, analyze_hair_image_json, analyze_skin_image_json, analyze_image_general
 from app.services.supabase_db import supabase, supabase_admin
 from app.core.security import get_current_user
 from typing import List, Optional
@@ -34,32 +34,64 @@ class ServiceRecommendRequest(BaseModel):
 @router.post("/chat")
 def ai_chat(request: ChatRequest):
     try:
-        prompt = request.message
-        if not prompt and request.messages:
-            history_str = ""
+        # Prepare messages in Groq/OpenAI format: [{"role": "system"/"user"/"assistant", "content": "..."}]
+        messages = []
+        
+        # System prompt with salon context
+        system_prompt = "You are a helpful and professional beauty AI assistant. "
+        salons_context = ""
+        try:
+            salons_res = supabase_admin.table("Salons").select("id, name, location, city, town, latitude, longitude").execute()
+            if salons_res.data:
+                salons_context = "Available Salons in our database (recommend real salons by location):\n"
+                for s in salons_res.data:
+                    name = s.get('name', 'Unknown')
+                    loc = s.get('location') or s.get('city') or s.get('town') or 'Unknown location'
+                    lat = s.get('latitude', 'N/A')
+                    lng = s.get('longitude', 'N/A')
+                    salons_context += f"- {name} at {loc} (lat: {lat}, lng: {lng})\n"
+                system_prompt += salons_context
+        except Exception as salon_err:
+            print(f"Warning: Could not fetch salons for AI context: {salon_err}")
+            
+        messages.append({"role": "system", "content": system_prompt})
+        
+        # Add history
+        if request.messages:
             for msg in request.messages:
-                role = "User" if msg.get("role") == "user" else "Assistant"
+                # Ensure roles are 'user' or 'assistant' (Groq expects these)
+                role = "user" if msg.get("role") == "user" else "assistant"
                 content = msg.get("content", "")
-                history_str += f"{role}: {content}\n"
-            prompt = history_str + "\nAssistant:"
-        
-        if not prompt:
+                messages.append({"role": role, "content": content})
+                
+        # Add the current prompt if provided separately
+        if request.message:
+            messages.append({"role": "user", "content": request.message})
+            
+        if len(messages) <= 1:
             raise HTTPException(status_code=400, detail="Either 'message' or 'messages' must be provided")
-            
-        # Fetch salons from DB to inject into AI context so it can recommend real locations
-        salons_res = supabase_admin.table("Salons").select("id, name, location, address, street_address, town, city, latitude, longitude, average_rating").eq("is_approved", True).execute()
-        salons_context = "Available Salons in our database (Use this data to recommend real salons based on user location):\n"
-        for s in salons_res.data:
-            salons_context += f"- {s['name']} at {s['location']} (lat: {s['latitude']}, lng: {s['longitude']}, rating: {s.get('average_rating', 0)})\n"
-        
-        full_prompt = salons_context + "\n" + prompt
-            
-        reply = get_chat_response(full_prompt)
+
+        reply = get_groq_chat_response(messages)
         return {"reply": reply}
     except Exception as e:
-        import traceback
-        traceback.print_exc()
-        raise HTTPException(status_code=500, detail=str(e))
+        print(f"AI Chat error: {e}")
+        # Fallback to Gemini if Groq fails
+        try:
+            print("Falling back to Gemini...")
+            prompt = request.message
+            if not prompt and request.messages:
+                history_str = ""
+                for msg in request.messages:
+                    role = "User" if msg.get("role") == "user" else "Assistant"
+                    content = msg.get("content", "")
+                    history_str += f"{role}: {content}\n"
+                prompt = history_str + "\nAssistant:"
+            full_prompt = salons_context + "\n" + prompt
+            reply = get_chat_response(full_prompt)
+            return {"reply": reply}
+        except Exception as fallback_e:
+            print(f"Fallback Gemini error: {fallback_e}")
+            raise HTTPException(status_code=500, detail=str(e))
 
 @router.post("/recommendations")
 def ai_recommendations(request: RecommendationRequest, current_user: dict = Depends(get_current_user)):
@@ -104,20 +136,33 @@ def ai_recommend_salon(request: SalonRecommendRequest, current_user: dict = Depe
             return {"recommendations": []}
             
         prompt = f"Based on location: {request.location or 'Any'}, minimum rating: {request.rating or 'Any'}, category: {request.category or 'Any'}, and user preferences: '{request.preferences or 'None'}', pick the single best matching salon from this list: {salons_list}. Give a short, clean, plain English explanation (NO MARKDOWN LIKE * OR #) of why it's recommended. Format your ENTIRE response as a strictly valid JSON object with EXACTLY two keys: 'id' (the id of the chosen salon) and 'reason' (the explanation string). Do not include any other text or formatting."
-        reply = get_chat_response(prompt)
         
         try:
-            # Strip ```json if it exists
-            clean_reply = reply.replace('```json', '').replace('```', '').strip()
-            parsed_reply = json.loads(clean_reply)
+            if groq_client is not None:
+                completion = groq_client.chat.completions.create(
+                    model="llama-3.3-70b-versatile",
+                    messages=[{"role": "user", "content": prompt}],
+                    response_format={"type": "json_object"}
+                )
+                parsed_reply = json.loads(completion.choices[0].message.content)
+            else:
+                reply = get_chat_response(prompt)
+                clean_reply = reply.replace('```json', '').replace('```', '').strip()
+                start = clean_reply.find('{')
+                end = clean_reply.rfind('}')
+                if start != -1 and end != -1:
+                    clean_reply = clean_reply[start:end+1]
+                parsed_reply = json.loads(clean_reply)
+                
             chosen_id = parsed_reply.get('id')
             reason = parsed_reply.get('reason', 'Great choice based on your preferences.')
             
             # Find the chosen salon
             chosen_salon = next((s for s in salons_list if s["id"] == chosen_id), salons_list[0])
-        except Exception:
+        except Exception as e:
+            print(f"Salon Recommendation JSON Parse error: {e}")
             chosen_salon = salons_list[0]
-            reason = reply.replace('*', '').replace('#', '')
+            reason = "Based on your preferences, this is one of our top-rated matching salons."
         
         return {
             "recommendations": [
@@ -126,7 +171,7 @@ def ai_recommend_salon(request: SalonRecommendRequest, current_user: dict = Depe
                     "name": chosen_salon["name"],
                     "slug": chosen_salon.get("slug"),
                     "matchPercentage": 98,
-                    "score": float(chosen_salon.get("average_rating") or 4.9),
+                    "score": float(chosen_salon.get("average_rating")) if chosen_salon.get("average_rating") is not None else 4.9,
                     "location": chosen_salon["location"],
                     "whyRecommended": reason,
                     "tags": ["Best Match"]
@@ -156,7 +201,7 @@ def ai_recommend_salon(request: SalonRecommendRequest, current_user: dict = Depe
                         "name": chosen_salon["name"],
                         "slug": chosen_salon.get("slug"),
                         "matchPercentage": 90,
-                        "score": float(chosen_salon.get("average_rating") or 4.9),
+                        "score": float(chosen_salon.get("average_rating")) if chosen_salon.get("average_rating") is not None else 4.9,
                         "location": chosen_salon["location"],
                         "whyRecommended": "Based on your preferences, this is one of our top-rated matching salons.",
                         "tags": ["Top Rated", "Fallback Match"]
@@ -174,7 +219,18 @@ def ai_recommend_service(request: ServiceRecommendRequest, current_user: dict = 
     try:
         concerns_str = ", ".join(request.concerns)
         prompt = f"The user has the following beauty/skin/hair concerns: {concerns_str}. What treatments or services do you recommend for them? Provide a well-thought-out, highly effective list of recommendations. Present them as a numbered list (1., 2., 3.). Put the name of the treatment in **bold** using markdown. Keep your explanation concise, easy to read, and helpful. Do NOT use hashtags (#)."
-        reply = get_chat_response(prompt)
+        
+        try:
+            if groq_client is not None:
+                completion = groq_client.chat.completions.create(
+                    model="llama-3.3-70b-versatile",
+                    messages=[{"role": "user", "content": prompt}]
+                )
+                reply = completion.choices[0].message.content
+            else:
+                reply = get_chat_response(prompt)
+        except Exception:
+            reply = get_chat_response(prompt)
         
         # Strip any remaining # just in case, but KEEP asterisks for bolding
         reply = reply.replace('#', '')

@@ -63,8 +63,7 @@ export default function AIAssistantPage() {
       addMessage({ role: 'ai', content: response.message || response.reply || 'Sorry, I couldn\'t process that.' })
       requestAnimationFrame(scrollToBottom)
     } catch (error) {
-      const errorMsg = error.response?.data?.detail || 'Failed to get AI response. Please try again later.';
-      toast.error(`AI Error: ${errorMsg}`);
+      toast.error('Failed to get AI response. Please try again later.')
       console.error(error)
     } finally {
       setIsLoading(false)

@@ -57,9 +57,9 @@ export default function HairAnalysisPage() {
         suggestedProducts: ['Argan Oil Serum', 'Sulfate-Free Moisture Shampoo']
       })
     } catch (error) {
-      const errorMsg = error.response?.data?.detail || 'Failed to analyze image.';
-      toast.error(`AI Model Error: ${errorMsg}`);
-      console.error(error)
+      const errMsg = error.response?.data?.detail || error.message || 'Unknown error';
+      toast.error(`Failed: ${errMsg}`);
+      console.error(error);
     } finally {
       setIsLoading(false)
     }

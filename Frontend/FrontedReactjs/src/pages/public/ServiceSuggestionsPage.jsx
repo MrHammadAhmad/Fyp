@@ -74,8 +74,7 @@ export default function ServiceSuggestionsPage() {
         }
       ])
     } catch (error) {
-      const errorMsg = error.response?.data?.detail || 'Failed to get service suggestions.';
-      toast.error(`AI Error: ${errorMsg}`);
+      toast.error('Failed to get service suggestions.')
       console.error(error)
     } finally {
       setIsLoading(false)

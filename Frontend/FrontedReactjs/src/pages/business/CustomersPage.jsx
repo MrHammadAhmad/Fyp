@@ -24,7 +24,7 @@ function deriveCustomers(appointments) {
     const key = apt.customer_phone?.trim() || apt.user_id || apt.id
     if (!key) return
 
-    const name = apt.customer_name || apt.businessName || 'Unknown Customer'
+    const name = apt.customer_name || apt.customerName || 'Registered Customer'
     const phone = apt.customer_phone || '—'
     const price = parseFloat(apt.price || 0)
 

@@ -390,12 +390,6 @@ export default function BusinessDetailPage() {
                 <div className="space-y-6">
                   <div className="flex justify-between items-center">
                     <h3 className="text-xl font-bold text-surface-900 dark:text-white">Customer Reviews</h3>
-                    <button 
-                      onClick={() => setShowReviewModal(true)}
-                      className="px-4 py-2 bg-[#405742] hover:bg-[#334d3b] text-white font-semibold rounded-lg text-sm transition-colors shadow-sm"
-                    >
-                      Write a Review
-                    </button>
                   </div>
                   
                   {reviews.length > 0 && (() => {

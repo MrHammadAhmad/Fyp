@@ -77,6 +77,17 @@ def enrich_appointment_data(apt: dict) -> dict:
         staff_res = supabase_admin.table("Staff").select("name").eq("id", apt["staff_id"]).execute()
         staff = staff_res.data[0] if staff_res.data else {}
         
+    customer_name = apt.get("customer_name")
+    
+    # If customer_name is missing but we have a user_id, fetch from Users table
+    if not customer_name and apt.get("user_id"):
+        try:
+            user_res = supabase_admin.table("Users").select("name").eq("id", apt["user_id"]).execute()
+            if user_res.data and user_res.data[0].get("name"):
+                customer_name = user_res.data[0]["name"]
+        except Exception:
+            pass
+            
     return {
         "id": apt["id"],
         "user_id": apt["user_id"],
@@ -87,7 +98,7 @@ def enrich_appointment_data(apt: dict) -> dict:
         "booking_type": apt["booking_type"],
         "status": apt["status"],
         "payment_status": apt["payment_status"],
-        "customer_name": apt.get("customer_name"),
+        "customer_name": customer_name,
         "customer_phone": apt.get("customer_phone"),
         "staff_id": apt.get("staff_id"),
         "notes": apt.get("notes"),

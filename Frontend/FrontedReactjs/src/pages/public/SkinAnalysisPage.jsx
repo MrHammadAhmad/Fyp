@@ -60,9 +60,9 @@ export default function SkinAnalysisPage() {
         suggestedProducts: ['Vitamin C Brightening Serum', 'Hyaluronic Acid Moisturizer', 'Azelaic Acid Spot Treatment'],
       })
     } catch (error) {
-      const errorMsg = error.response?.data?.detail || 'Failed to analyze image.';
-      toast.error(`AI Model Error: ${errorMsg}`);
-      console.error(error)
+      const errMsg = error.response?.data?.detail || error.message || 'Unknown error';
+      toast.error(`Failed: ${errMsg}`);
+      console.error(error);
     } finally {
       setIsLoading(false)
     }
