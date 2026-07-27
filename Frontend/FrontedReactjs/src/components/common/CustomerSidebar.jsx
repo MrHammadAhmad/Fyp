@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { NavLink, Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
-  LayoutDashboard, Calendar, Clock, Heart, Wallet, Bell,
+  LayoutDashboard, Calendar, Clock, Heart, Wallet,
   Settings, ChevronLeft, ChevronRight, Sparkles, User, Star, Gift,
   Bot, Scissors, Microscope, FlaskConical, Building2, Crown, Headphones, Search
 } from 'lucide-react'
@@ -16,7 +16,6 @@ const customerNav = [
   { label: 'Favorites', to: '/dashboard/favorites', icon: Heart },
   { label: 'Wallet', to: '/dashboard/wallet', icon: Wallet },
   { label: 'Memberships', to: '/dashboard/memberships', icon: Crown },
-  { label: 'Notifications', to: '/dashboard/notifications', icon: Bell },
   { label: 'Support', to: '/dashboard/support', icon: Headphones },
   { label: 'Settings', to: '/dashboard/settings', icon: Settings },
 ]

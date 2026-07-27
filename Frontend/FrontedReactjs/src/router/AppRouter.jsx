@@ -33,7 +33,6 @@ const CustomerDashboard = lazy(() => import('../pages/customer/CustomerDashboard
 const MyBookings = lazy(() => import('../pages/customer/MyBookings'))
 const Favorites = lazy(() => import('../pages/customer/Favorites'))
 const Wallet = lazy(() => import('../pages/customer/Wallet'))
-const CustomerNotifications = lazy(() => import('../pages/customer/Notifications'))
 const ProfileSettings = lazy(() => import('../pages/customer/ProfileSettings'))
 const RescheduleAppointmentPage = lazy(() => import('../pages/customer/RescheduleAppointmentPage'))
 const PaymentHistoryPage = lazy(() => import('../pages/customer/PaymentHistoryPage'))
@@ -147,7 +146,6 @@ export default function AppRouter() {
             <Route path="payment-history" element={<PaymentHistoryPage />} />
             <Route path="payment-verification" element={<PaymentVerificationPage />} />
             <Route path="memberships" element={<CustomerMemberships />} />
-            <Route path="notifications" element={<CustomerNotifications />} />
             <Route path="support" element={<CustomerSupport />} />
             <Route path="settings" element={<ProfileSettings />} />
           </Route>
