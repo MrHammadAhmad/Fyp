@@ -76,6 +76,9 @@ export default function SkinAnalysisPage() {
         </div>
         <h1 className="text-4xl font-extrabold text-surface-900 dark:text-white mb-4">Skin Condition Analysis</h1>
         <p className="text-surface-500 max-w-2xl mx-auto">Upload a clear photo of your face to receive an instant AI-powered skin assessment and a personalized care routine.</p>
+        <div className="mt-4 p-3 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg text-sm text-yellow-800 dark:text-yellow-200 max-w-2xl mx-auto flex items-start gap-2 text-left">
+          <span className="font-bold shrink-0">Note:</span> This is an AI-generated idea and recommendation. You should always consult with a doctor or certified dermatologist for professional medical advice.
+        </div>
       </div>
 
       <div className="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
