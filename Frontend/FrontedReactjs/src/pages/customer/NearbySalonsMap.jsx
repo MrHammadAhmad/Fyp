@@ -120,10 +120,19 @@ export default function NearbySalonsMap() {
         setLocating(false)
         toast.success('Location found!')
       },
-      () => {
+      (error) => {
         setLocating(false)
-        toast.error('Unable to retrieve your location')
-      }
+        if (error.code === 1) {
+          // Permission denied - use Lahore center as fallback
+          toast.error('Location access denied. Showing salons in Lahore.')
+          setUserLoc({ lat: 31.5204, lng: 74.3587 }) // Lahore center
+        } else if (error.code === 2) {
+          toast.error('Location unavailable. Please check your GPS or network.')
+        } else {
+          toast.error('Location request timed out. Please try again.')
+        }
+      },
+      { timeout: 10000, maximumAge: 60000 }
     )
   }
 
