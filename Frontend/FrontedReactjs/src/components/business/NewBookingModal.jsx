@@ -72,28 +72,8 @@ export default function NewBookingModal({ isOpen, onClose }) {
           const svcRes = await businessApi.getRealServices(mySalon.id).catch(() => [])
           const staffRes = await businessApi.getStaff(mySalon.id).catch(() => [])
           
-          let finalServices = (svcRes && svcRes.length > 0) ? svcRes : servicesData.filter((s) => s.businessId === 'b1')
-          const finalStaff = (staffRes && staffRes.length > 0) ? staffRes : staffData.filter((s) => s.businessId === 'b1')
-          
-          const globalCategories = useCategoryStore.getState().categories;
-          const existingCategoryIds = new Set(finalServices.map(s => s.category || s.categoryId));
-          const existingServiceNames = new Set(finalServices.map(s => s.name.toLowerCase()));
-          
-          const mockServices = globalCategories
-            .filter(cat => !existingCategoryIds.has(cat.id) && !existingServiceNames.has(cat.name.toLowerCase()))
-            .map((cat, idx) => ({
-              id: `mock-s-${cat.id}`,
-              businessId: mySalon.id,
-              categoryId: cat.id,
-              name: cat.name,
-              description: `Professional ${cat.name} treatment`,
-              price: 30 + (idx * 5),
-              duration: 30
-            }));
-          finalServices = [...finalServices, ...mockServices];
-
-          setServices(finalServices)
-          setStaff(finalStaff)
+          setServices(svcRes || [])
+          setStaff(staffRes || [])
         }
       } catch (e) {
         showToast.error('Failed to load salon data.')

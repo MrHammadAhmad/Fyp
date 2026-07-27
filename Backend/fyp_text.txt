@@ -1,0 +1,4803 @@
+ 
+Project Name
+Beauty Personalized By Ai
+Submitted By
+Mujtaba Bilal Bela F2022065105
+Muhammad Anas F2022065165
+Hammad Ahmad F2022065091
+Quratulain F2022065053
+Session
+Fall 2022
+Project Supervisor
+Mam Asma Arshad
+Department NameSoftware Engineering
+School of Systems and Technology
+University of Management and Technology
+C-II Johar Town Lahore Pakistan
+Dedication
+This work is dedicated to our families, mentors, and everyone who has faith in the ability of technology to make a difference.We also dedicate this project every person who has supported us throughout our studies at the University of Management and Technology.
+Final Approval
+Project Name
+Beauty Personalized By Ai
+Panel of Examiners
+Head of Department______________________
+Department of Software Engineering
+University of Management and Technology
+Lahore
+Program Director ( Final Year Projects)______________________
+Department of Software Engineering
+University of Management and Technology 
+Lahore 
+Supervisor ______________________
+Department of Software Engineering
+University of Management and Technology 
+Lahore
+Co-Supervisor ______________________
+(If any)
+Documentation Evaluator ______________________
+Acknowledgment
+It is a matter of great pleasure for us to express our heartiest thanks to our project supervisor, Ms. Asma Arshad, for her continued help, encouragement, and valuable feedback during this project. It is due to her constructive criticism and professional guidance that we were able to complete this Final Year Project.
+We are grateful to the Department of Software Engineering, University of Management and Technology (UMT) for providing us with all the necessary facilities and resources required for this project.
+Lastly, we are thankful to our mentors, classmates, and friends for encouraging us and motivating us all through this journey. Their faith and consistent encouragement kept us motivated to complete this project.
+Project Title : Beauty Personalized By Ai 
+Objective :
+To develop an AI-powered salon booking and management platform that connects customers and salon owners through a unified digital solution with personalized beauty recommendations.
+Undertaken by:
+Mujtaba Bilal Bela (F2022065105), Hammad Ahmad (F2022065091), Muhammad Anas (F2022065165), Quratulain (F2022065053)
+Supervised by : Mam. Asma Arshad
+Starting Date: 09 September 2025
+Completion Date: 25 June 2026
+Tools Used : React.js, Dart/Flutter, FastAPI, SupaBase, Render Gemini API/ Grok api
+Operating System : Mobile App/Web Based
+Documentation : MS Word,
+Plagairism Report
+Declaration Form
+I have carefully examined the documentation of the Final Year Project titled “Beauty Personalized By Ai”; and I endorse that this documentation complies with the standards of an undergraduate level Final Year Project report.
+The document has been checked for plagiarism through Turnitin software available in UMT Library. The similarities of the document are within acceptable range. 
+Moreover, the accompanying CDs contain PDF of the documentation, as well as the source code and binaries with user manual and installation guide. 
+FYP Supervisor Name: ______________________________
+Signature: __________________Date:___________________
+Abstract
+The beauty and salon business is really taking off. A lot of salons still do things the old way when it comes to making appointments and dealing with clients. This old way of doing things causes problems like scheduling mistakes, long waits and clients who're not happy. To fix these problems we came up with Beauty Personalized by AI, which's a website and mobile app that uses artificial intelligence to make booking and managing the salon easier.
+Customers can use Beauty Personalized by AI to find salons look at the services they offer book appointments pay for things online and even get beauty tips based on their face shape, skin color, hair and what they like. Salon owners can use a dashboard to manage their services, appointments, promotions and client list. The people in charge can keep an eye on the website from their own dashboard. We built the website with the help of Reactjs, FastAPI, Supabase and Render. So Beauty Personalized by AI makes things easy, for clients. Automates the process making it secure.
+Keywords: Artificial Intelligence, Salon Booking System, Beauty Recommendation System, Flutter,Render, FastAPI, Supabase, Appointment Management.
+Revision Chart
+Version
+Primary Author(s)
+Description of Version
+Date Completed
+Draft
+Mujtaba Bilal Bela
+Initial draft created for distribution and review comments
+06 Oct 2025
+Preliminary
+Mujtaba Bilal Bela
+Second draft incorporating initial review comments, distributed for final review
+10 Nov 2025
+Final
+Mujtaba Bilal Bela
+First complete draft, which is placed under change control
+15 Dec 2025
+Revision 1(vr-1)
+Mujtaba Bilal Bela
+Revised draft, revised according to the change control process and maintained under change control
+26 Jan 2026
+Revision 2 (vr-2)
+Mujtaba Bilal Bela
+Revised draft, revised according to the change control process and maintained under change control
+02 Mar 2026
+Revision 3 (vr-3)
+Mujtaba Bilal Bela
+Revised according to the change control process and maintained under change control
+06 Apr 2026
+Final (vr-4)
+Mujtaba Bilal Bela
+Final approved version, fully verified 
+19 July 2026
+Table of Contents
+i
+Table of Contentsx
+Definitions and Acronymsxiii
+List of Figuresxv
+List of Tablesxvi
+1.Introduction1
+1.1Problem Statement1
+1.2Objectives2
+1.3Scope of the Project2
+In Scope:2
+Out of Scope:2
+1.4Significance of the Project3
+1.5Artiificial Intelligence features3
+1.6Project Deliverables3
+2.Domain Analysis4
+2.1Customer4
+2.2Stakeholders4
+2.3Affected Groups with social or economic impact5
+2.4Dependencies/ External Systems6
+2.5Related Projects with feature comparision6
+2.5.1Related Projects6
+2.5.2Feature Comparison6
+2.6Context Diagram7
+2.7Data Flow Diagram Level 09
+3.Requirements analysis10
+3.1List of Actors10
+3.2Product Backlog10
+3.2.1Salon Catalog11
+3.2.2Account Management11
+3.2.3Service Creation12
+3.2.4Booking Services12
+3.2.5Salon Admin Control13
+3.2.6Viewing Services13
+3.2.7Appointment Completion14
+3.2.8Miscellaneous14
+3.2.9Forms14
+3.2.10Announcements14
+3.2.11AI Features15
+3.2.12Non-Functional Requirements16
+3.2.13Affiliates16
+3.2.14Comments / Reviews17
+3.2.15Service Evaluation17
+3.2.16Reporting17
+3.2.17Payment System18
+3.2.18Notifications18
+4.Project Planning and Execution using Sprints37
+4.1 Jira37
+4.3 Github Repository37
+4.4 Sprints37
+Sprint 1 Planning Meeting Minutes37
+Sprint 1 Planning Meeting Minutes37
+Sprint 1 Backlog39
+Sprint 1 Design Class Diagram40
+Sprint 1 Sequence Diagram41
+Sprint 1 Decision Table42
+Sprint 1 Extended Test Cases42
+Sprint 1 Review Meeting43
+Sprint 1 Retrospective Meeting46
+Sprint 247
+Sprint 2 Planning Meeting Minutes47
+Sprint 2 Backlog48
+Sprint 2 Design Class Diagram49
+Sprint 2 Sequence Diagram50
+Sprint 2 Decision Table50
+Sprint 2 Extended Test Cases51
+Sprint 2 Review Meeting52
+Sprint 2 Retrospective Meeting Sprint:54
+Retrospective Date: 11 Nov 202554
+Sprint 355
+Sprint 3 Planning Meeting Minutes55
+Sprint 3 Backlog56
+Sprint 3 Design Class Diagram57
+Sprint 3 Sequence Diagram58
+Sprint 3 Decision Table58
+Sprint 3 Extended Test Cases59
+Sprint 3 Review Meeting59
+Sprint 462
+Sprint 4 Planning Meeting Minutes62
+Sprint 4 Backlog63
+Sprint 4 Design Class Diagram64
+Sprint 4 Decision Table65
+Sprint 4 Extended Test Cases66
+Sprint 4 Review Meeting67
+Sprint 4 Retrospective Meeting69
+Sprint 570
+Sprint 5 Planning Meeting Minutes70
+Sprint 5 Backlog71
+Sprint 5 Design Class Diagram72
+Sprint 5 Sequence Diagram73
+Sprint 5 Decision Table73
+Sprint 5 Extended Test Cases74
+Sprint 5 Review Meeting74
+Sprint 5 Retrospective Meeting76
+Sprint 677
+Sprint 6 Pnning Meeting Minutes77
+Sprint 6 Backlog78
+Sprint 6 Design Class Diagram79
+Sprint 6 Sequence Diagram80
+Sprint 6 Decision Table80
+Sprint 6 Extended Test Cases81
+Sprint 6 Review Meeting81
+Sprint 6 Retrospective Meeting83
+Sprint 784
+Sprint 7 Planning Meeting Minutes84
+Sprint 7 Backlog85
+Sprint 7 Design Class Diagram87
+Sprint 7 Sequence Diagram88
+Sprint 7 Decision Table88
+Sprint 7 Extended Test Cases89
+Sprint 7 Review Meeting90
+Sprint 7 Retrospective Meeting92
+5.System Architecture94
+5.1System context Diagram94
+5.2System Container Diagram95
+5.3Component Diagram96
+5.4Code Diagrams97
+5.5ERD98
+5.6Data Dictionary99
+6.Implementation details100
+6.1Development Setup100
+6.2 Deployment Setup101
+7.Project Monitoring, control and traceability103
+7.1.1Requirements vs Prototype (PB-ID vs Sprint)103
+7.1.2Requirements vs Test Cases (PB-ID vs TID)106
+8.Conclusion110
+9.Future work112
+10.Bibliography113
+10.1Books113
+10.2Journals113
+10.3Articles113
+10.4Research papers113
+10.5Other References114
+11.Appendix115
+11.1Glossary of terms115
+11.2Pre-requisites117
+Definitions and Acronyms
+Table 1 : List of acronyms and definitions
+Acronyms
+Definition
+AI
+Artificial Intelligence the simulation of human intelligence by computer systems, used in this project for face shape detection, skin tone analysis, hairstyle recommendations, and the chatbot feature
+API
+Application Programming Interface a set of defined rules that allows different software systems to communicate with each other
+DB
+Database an organised collection of structured data stored and managed electronically
+ERD
+Entity Relationship Diagram a visual representation of the data entities and the relationships between them in a database
+FAQ
+Frequently Asked Questions a page or section providing answers to common user queries
+FR
+Functional Requirement a requirement that defines what a system must do or what behaviour it must exhibit
+FYP
+Final Year Project the capstone project submitted by undergraduate students at UMT as part of their degree programme
+HTTP / HTTPS
+HyperText Transfer Protocol / Secure the protocol used for communication between web clients and servers; HTTPS adds encryption via TLS
+JSON
+JavaScript Object Notation a lightweight data interchange format used for sending data between the FastAPI backend and the frontends
+MVP
+Minimum Viable Product the earliest version of the product with just enough features to be usable and testable
+NFR
+Non-Functional Requirement a requirement that specifies how a system must behave (e.g. performance, security, scalability)
+PB-ID
+Product Backlog Identifier a unique code assigned to each user story in the product backlog (e.g. AM-01, BK-03)
+PKR
+Pakistani Rupee the currency used throughout the system for all pricing and payment references
+RBAC
+Role-Based Access Control a method of restricting system access based on the roles assigned to users: Customer, Salon Owner, and Admin
+REST
+Representational State Transfer an architectural style for designing networked applications; the FastAPI backend follows REST principles
+RLS
+Row-Level Security a Supabase/PostgreSQL feature that enforces data access rules at the individual row level based on user roles
+SDK
+Software Development Kit a set of tools and libraries for building applications for a specific platform
+SQL
+Structured Query Language the standard language for managing and querying relational databases; used with Supabase (PostgreSQL)
+TC
+Test Case a document that specifies the steps, inputs, and expected results used to verify a specific feature or requirement
+UI
+User Interface the visual elements through which users interact with the application
+UML
+Unified Modeling Language a standardised set of diagrams for visualising, specifying, and documenting software systems
+UMT
+University of Management and Technology the institution where this Final Year Project was developed and submitted
+UX
+User Experience the overall experience a user has when interacting with the application
+List of Figures
+Figure 1: Context Diagram - Chemical Tracking System [1]16
+Figure 2: Data Flow Diagram - Chemical Tracking System[1]17
+Figure 3: Epic vs User Story in Product Backlog [1]19
+Figure 4: Prototype - PID1- Sign Up Page UI37
+Figure 5: Prototype - PID2- Sign In Page UI38
+Figure 6: Prototype - PID3- Home Page UI  Partial39
+Figure 7: Prototype - PID4- Course Listing Page40
+Figure 8: Prototype - PID5- Course Details Page41
+Figure 9: Prototype - PID6- Cart Page42
+Figure 10: Prototype - PID7- Checkout Page43
+Figure 11: Prototype - PID8- Instructor Registration Page44
+Figure 12: Prototype - PID9- Instructor Listing Page45
+Figure 13: Prototype - PID10- Instructor Detail Page46
+Figure 14: Prototype - PID11- Student Registration Page47
+Figure 15: Prototype - PID12- Pricing Page48
+Figure 16: Prototype - PID13- Event Listing Page49
+Figure 17: Prototype - PID14- Event Detail Page50
+Figure 18: Prototype - PID14- 404 Page51
+Figure 19: Prototype - PID14- FAQs Page52
+Figure 20: Class diagram of Sprint 1 features 58
+Figure 21: Sprint 1 Sequence diagram 59
+Figure 22: Sprint 1 Sequence diagram 60
+Figure 23: Sample Sprint 1 Decision Table Chemical Tracking System60
+Figure 24: System context Diagram [5]66
+Figure 25: System container Diagram [5]67
+Figure 26: Component Diagram [5]68
+Figure 27: Component Diagram [5]69
+Figure 28: ER Diagram for University Scenario [3]71
+Figure 29: Data Dictionary of Chemical Tracking System [1]72
+List of Tables
+Table 1 : List of acronyms and definitions13
+Table 2: List of Stakeholders19
+Table 3: Feature comparison of our product with competitors21
+Introduction
+Technological changes have also brought transformations in how various services are used, such as salon and beauty services. Currently, there is an increased preference for online portals where one can quickly locate salons, compare various services offered, schedule appointments and make payments. However, some salons still use manual ways of making appointments and management such as calling, recording everything manually, and walk-ins. This causes issues such as booking problems, wait times, and record keeping.
+Beauty Personalized by AI is an application on web and mobile phones that facilitates the process of salon booking and management. Customers will be able to search salons, look for services offered, make appointments, make payment, and get personalized recommendations on hairstyle and beauty related services based on Artificial Intelligence. This is made possible by analysis of the users' skin tone, facial features, hair type, and personal preferences. 
+The salon owners can manage their profiles, services offered, booking, prices and promotions, as well as the customer information from a single dashboard. Meanwhile, administrators can take care of users, salons, and the whole system.
+Problem Statement
+The main problems with salons are:
+Manual booking is an issue because it causes scheduling conflicts and people have to wait for a long time to get an appointment.
+Customers have a time comparing different salons and the services they offer and they also have to check prices and available time slots which is not easy.
+Most salon platforms do not use intelligence to give customers personalized suggestions.
+Salon owners do not have one system to manage everything like appointments and payments and customer information.
+Doing things manually leads to mistakes. It slows down the business.
+So we really need an AI-powered salon booking and management platform to make things easier for salons and their customers and to give people personalized beauty recommendations and to make booking appointments simpler and to automate how salons do things. That is why we need an AI-powered salon booking and management platform, for salon operation
+Objectives
+This project is about creating a salon booking and management platform that uses intelligence to make things better for customers and help salon owners run their business in a smarter way.
+The main goals of this project are:
+We need to make a website and a mobile app that customers, salon owners and people who manage the system can use.
+We want customers to be able to look for salons check out the services they offer and book a time to go online.
+The salon booking and management platform will use intelligence to give customers ideas for hairstyles, beauty services and salons that are a good fit for them.
+The platform will have a way for customers to pay online and get reminders about their bookings. Salon owners will be able to use the salon booking and management platform to control the services they offer the appointments they have how much they charge any deals they want to offer and the information they have, about their customers.
+Scope of the Project
+In Scope:
+There is an online platform (React.js) and mobile app (Flutter) for customers and salon owners.
+Sign up of salon, salon profile and service features management.
+Recommendations for beauty using Ai: face shape detection, skin tone, hairstyle, and Chatbot assistance.
+Appointment booking which can be done in real time, with real-time slot availability.
+Integration of secure payments through Stripe payment gateway.
+Reviews and ratings of salons and their services from customers.
+Management panel to manage users and monitor the system.
+Out of Scope:
+E-commerce part delivery of physical beauty products.
+Integration of third-party logistic or courier services.
+Hardware management of the salons.
+Regulatory data integration
+Significance of the Project
+This application is a solution, for customers and salon owners and administrators. It helps make the booking process better and cuts down on work.
+For Customers: You can use this application to find salons, book appointments pay your bills and get tips on how to look good using Artificial Intelligence.
+For Salon Owners: This application helps you manage the services you offer the appointments you have your customers, the promotions you do and how your business is doing all in one place.
+For Administrators: This application gives you the tools you need to manage the people who use the system the salons, the appointments and keep an eye on everything.
+For Beauty Industry: This application helps the beauty industry by making things digital, which makes the services better and helps salons use their time and do business better.
+ Artiificial Intelligence features
+This project has something cool called Artificial Intelligence. It helps people make choices by giving them suggestions that are just right, for them.
+The Artificial Intelligence features are:
+Face shape detection.
+Skin tone analysis.
+Hair type analysis.
+Artificial Intelligence gives users personalized hairstyle recommendations.
+It also gives beauty service recommendations.
+The Artificial Intelligence helps users find salons they will like.
+There is chatbot to answer questions and help users out.
+Project Deliverables
+The deliverables that will be delivered through this project include:
+A mobile app developed using Flutter framework.
+A backend developed using FastAPI.
+Database to store application data using Supabase.
+AI models that generate personalized beauty suggestions.
+Dashboards for customer, salon owner, and administrator.
+Domain Analysis
+Customer
+This project has been built for no specific clients. The project named Beauty Personalized by AI has been built for both clients and salon owners from Pakistan.
+The target clients for this project are:
+Individual Clients: Individuals who need an easy solution for finding salons, comparing their services, making appointments, making secure payments, and getting beauty advice through artificial intelligence.
+Salon Owners: Small and medium salon business owners who would like to manage their appointments, services, and customers through a digital platform.
+Stakeholders
+Table 2: List of Stakeholders
+Stakeholder
+Role in System
+Customer
+Registers on the platform, searches for salons and services, books appointments, receives AI-based beauty recommendations, makes online payments, and provides ratings and reviews.
+Salon Owner
+Creates and manages salon profile, adds and updates services and pricing, manages bookings, views customer feedback, and accesses business analytics through the dashboard.
+Admin
+Manages users, approves salons, monitors system activities, and generates reports.
+AI System
+Provides face shape detection, skin tone analysis, hairstyle recommendations, salon suggestions, and chatbot support..
+Payment Gateway
+Processes secure online transactions between customers and salon owners. Handles payment confirmations, refunds, and transaction records.
+Government/Regulatory
+Bodies (External)
+Ensure the platform follows data protection and e-commerce regulations..
+Affected Groups with social or economic impact
+Individual Customers:
+Social Impact:
+Easy access to salon services anytime.
+Better booking experience with personalized AI recommendations.
+Saves time by comparing salons and online services.
+Economic Impact:
+Helps customers compare prices and choose affordable services.
+Reduces travel and unnecessary expenses.
+Salon Owners / Small Business Operators:
+Social Impact:
+Builds a stronger online presence.
+Helps small businesses compete in the digital market.
+Economic Impact:
+Increases bookings and business revenue.
+Reduces missed appointments and improves business efficiency.
+Beauty Industry Workforce:
+Social Impact:
+Encourages the use of digital technology in the beauty industry.
+Improves service quality through customer ratings and reviews.
+Economic Impact:
+Creates more business opportunities.
+Increases demand for skilled beauty professionals.  
+General Public / Communities:
+Social Impact:
+Promotes digital services and transparent salon information.
+Makes beauty services more accessible and convenient for everyone.
+ Dependencies/ External Systems
+The system depends on the following external services:
+Gemini API: AI chatbot, face shape detection, skin tone analysis, and beauty recommendations.
+Google Maps API: Finds nearby salons based on the user's location.
+Payment Gateway: Handles secure online payments like visa , easypaisa etc.
+Supabase: User authentication, database, and cloud storage.
+Render: Deployed and hosted the FastAPI backend, making the APIs accessible online.
+Notification Service: Sends booking confirmations, reminders, and updates through email or SMS.
+Related Projects with feature comparision
+Related Projects
+Gharpar App:
+Gharpar is a Pakistani beauty services provider, whose main beauty services are home based. It allows customers to find beauty service providers, but it is not a multi-salon marketplace or features powered by Ai.
+Groom Up App:
+Groom Up provides you with minimum salon booking in Pakistan. But it doesn't have AI-powered suggestions, face shape analysis and superior personalization aspects that make our proposed system stand out.
+Cosmo Salon Website:
+Cosmo Salon can only handle services for its salon chain. It is not like our platform, where it combines various salons and makes it possible to compare different prices. It also does not provide beauty recommendations by the help of AI.
+Feature Comparison
+Table 3: Feature comparison of our product with competitors
+Feature
+Beauty Personalized by AI (Ours)
+Gharpar
+Groom Up
+Cosmo Salon
+Multi-Salon Marketplace
+✔
+✖
+Partial
+✖
+Online Appointment Booking
+✔
+✔
+✔
+✔
+AI Beauty Recommendations
+✔
+✖
+✖
+✖
+ Haircut Analysis
+✔
+✖
+✖
+✖
+Skin Tone Analysis
+✔
+✖
+✖
+✖
+AI Chatbot
+✔
+✖
+✖
+✖
+Online Payment 
+✔
+✔
+Partial
+✖
+Review & Rating System
+✔
+✔
+✔
+Partial
+Salon Owner Dashboard
+✔
+Partial
+Partial
+✔
+Mobile App (Android/iOS)
+✔
+✔
+✔
+✖
+Price Comparison
+✔
+✖
+✖
+✖
+Admin Panel
+✔
+✖
+✖
+Partial
+Context Diagram
+The Context Diagram shows the overall view of the system. It explains how different users and external services interact with the system and exchange information.
+Figure 1: Context Diagram Beauty Personalized By Ai [1]
+Data Flow Diagram Level 0
+The Level 0 Data Flow Diagram shows the main processes of the system and how data moves between users, the system, and the database.
+Figure 2: Data Flow Diagram Beauty Personalized By Ai]
+The Level 1 Data Flow Diagram explains the main processes in more detail by showing the flow of data between different system functions.
+Requirements analysis
+List of Actors
+Primary Actors:
+Customer: Signs up and logs in, searches salons, and services, books appointments, receives AI recommendations, makes payments, submits ratings and reviews.
+Has all the tools to create and manage salon profile with services and pricing, access bookings, see customer feedback, have access to business analytics.
+Admin: Controls Users, Salons, approving/denying salon registration, monitoring system actions and creating reports.
+Secondary Actors:
+AI System – Advises on maintaining appearance and hair style based on the face shape and skin tone, with the help of Gemini API.
+Payment Gateway – Facilitates and verifies secure online transactions.
+Product Backlog
+The Product Backlog contains all the main features and user stories planned for the project. These features are arranged according to their priority and are completed throughout different sprints.
+Figure 3: Epic vs User Story in Product Backlog
+Salon Catalog
+PB-ID
+User Story / Requirement
+Priority
+Acceptance Criteria
+Story Points
+Status
+SC-01
+As a salon owner, I can create a salon profile
+High
+Profile includes name, services, and location
+5
+Completed
+SC-02
+As a customer, I can browse salons
+High
+List of salons displayed
+5
+Completed
+SC-03
+As a customer, I can view salon details
+High
+Shows services, prices, reviews
+3
+Completed
+SC-04
+As a customer, I can filter salons
+Medium
+Filter by rating, price, location works
+3
+Completed
+SC-05
+As a salon owner, I can update salon details
+Medium
+Updated information saved and displayed
+3
+Completed
+Account Management
+PB-ID
+User Story
+Priority
+Acceptance Criteria
+Story Points
+Status
+AM-01
+As a user, I can register/login
+High
+User authenticated
+successfully
+5
+Completed
+AM-02
+As a user, I can update profile
+Medium
+Profile updated correctly
+3
+Completed
+AM-03
+As a user, I can reset password
+Medium
+Reset email sent
+3
+Completed
+AM-04
+As admin, I can manage users
+High
+Admin can block/edit
+users
+8
+Completed
+AM-05
+As a system, I can enforce role-based authentication
+High
+Users access features
+based on role
+5
+Completed
+Service Creation
+PB-ID
+User Story
+Priority
+Acceptance Criteria
+Story Points
+Status
+SV-01
+As salon owner, I can add services
+High
+Service added
+successfully
+5
+Completed
+SV-02
+As salon owner, I can update services
+Medium
+Changes saved
+3
+Completed
+SV-03
+As salon owner, I can upload images
+Medium
+Images displayed
+correctly
+3
+Completed
+SV-04
+As a salon owner, I can delete services
+Medium
+Service removed
+successfully
+3
+Completed
+SV-05
+As a salon owner, I can set service price
+High
+Price saved correctly
+2
+Completed
+SV-06
+As a salon owner, I can set service duration
+High
+Duration saved correctly
+2
+Completed
+Booking Services
+PB-ID
+User Story
+Priority
+Acceptance Criteria
+Story Points
+Status
+BK-01
+As a customer, I can book an appointment
+High
+Booking confirmed with
+reference number sent via email
+8
+Completed
+BK-02
+As a customer, I can select a time slot
+High
+Available slots shown in
+real-time calendar view
+5
+Completed
+BK-03
+As a customer, I can make payment
+High
+Payment processed securely
+via selected gateways
+8
+Completed
+BK-04
+As a customer, I can cancel a booking
+Medium
+Bookingcancelled and
+refund policy applied
+5
+Completed
+BK-05
+As a customer, I can reschedule appointments
+Medium
+New appointment time
+saved and confirmation sent
+5
+Completed
+BK-06
+As a system, I prevent double bookings
+High
+Conflicting bookings are
+rejected with an error
+message
+8
+Completed
+Salon Admin Control
+PB-ID
+User Story
+Priority
+Acceptance Criteria
+Story Points
+Status
+SA-01
+As admin, I can approve salons
+High
+Salon status changes to approved/rejected on admin action
+5
+Completed
+SA-02
+As admin, I can block users
+High
+User access restricted immediately after blocking
+5
+Completed
+SA-03
+As admin, I can monitor system activities
+Medium
+Dashboard shows real-time data and logs
+5
+Completed
+Viewing Services
+PB-ID
+User Story
+Priority
+Acceptance Criteria
+Story Points
+Status
+VS-01
+As a customer, I can view all available services
+High
+Complete service list displayed with details
+3
+Completed
+VS-02
+As a customer, I can view service prices
+High
+Price clearly visible on each service listing
+2
+Completed
+VS-03
+As a customer, I can view slot availability
+Medium
+Available and booked slots shown in calendar
+3
+Completed
+Appointment Completion
+PB-ID
+User Story
+Priority
+Acceptance Criteria
+Story Points
+Status
+AC-01
+As system, mark appointment as complete
+High
+Appointment status automatically updated after service time
+3
+Completed
+AC-02
+As a customer, I can view completed bookings history
+Medium
+Full booking history visible in user profile
+3
+Completed
+Miscellaneous
+PB-ID
+User Story
+Priority
+Acceptance Criteria
+Story Points
+Status
+MS-01
+As a customer, I can receive booking notifications
+Medium
+Email/SMS notification sent upon booking confirmation
+3
+Completed
+MS-02
+As a customer, I can view FAQ page
+Low
+FAQ page loads with relevant help content
+2
+Completed
+Forms
+PB-ID
+User Story
+Priority
+Acceptance Criteria
+Story Points
+Status
+FO-01
+As a customer, I can submit feedback
+Medium
+Feedback stored in database and visible to admin
+3
+Completed
+FO-02
+As a customer, I can contact support
+Medium
+Support message delivered to admin team
+3
+Completed
+Announcements
+PB-ID
+User Story
+Priority
+Acceptance Criteria
+Story Points
+Status
+AN-01
+As a salon owner, I can post offers
+Medium
+Promotional offer displayed on salon profile
+3
+Completed
+AN-02
+As a customer, I can view promotions
+Medium
+Current salon promotions visible to browsing customers
+2
+Completed
+AI Features
+PB-ID
+User Story
+Priority
+Acceptance Criteria
+Story Points
+Status
+AI-01
+As a customer, I can get hairstyle recommendations
+High
+AI suggests hairstyles
+based on detected face
+shape
+8
+Completed
+AI-02
+ As a customer, I can use the AI chatbot
+High
+Chatbot responds
+accurately to service and booking queries
+8
+Completed
+AI-03
+ As system, detect user's face 
+High
+Face shape detection
+works with accuracy
+above 70%
+8
+Completed
+AI-04
+As a customer, I can receive service recommendations
+High
+Relevant services
+suggested based on profile
+5
+Completed
+AI-06
+As a system, I can analyze skin tone
+High
+Skin tone detected correctly
+8
+Completed
+AI-07
+As a system, I can analyze hair type
+High
+Hair type detected correctly
+8
+Completed
+AI-08
+As a system, I can analyze user preferences
+Medium
+Preferences used in 
+recommendations
+5
+Completed
+AI-09
+As a customer, I can receive salon recommendations
+High
+Suitable salons suggested
+5
+Completed
+AI-10
+As a customer, I can receive service recommendations from AI
+High
+AI suggests matching
+ services
+5
+Completed
+Non-Functional Requirements
+PB-ID
+User Story
+Priority
+Acceptance Criteria
+Story Points
+Status
+NFR-01
+Performance Systems should
+respond quickly
+High
+Page load and booking
+response time under 3
+seconds
+5
+Completed
+NFR-02
+Security Data protection and
+encryption
+High
+All user data encrypted
+SupaBase rules applied
+8
+Completed
+NFR-03
+Scalability Handle concurrent
+users
+Medium
+System handles 1000+ users
+without degradation
+5
+Completed
+NFR-04
+Supabase Authentication Security
+High
+Authentication handled 
+securely
+5
+Completed
+NFR-05
+Role-Based Access Control
+High
+Access permissions
+enforced correctly
+5
+Completed
+Affiliates
+PB-ID
+User Story
+Priority
+Acceptance Criteria
+Story Points
+Status
+AF-01
+As a customer, I can refer users to
+the platform
+Low
+Referral tracked and 
+associated with partner
+account
+3
+Completed
+AF-02
+As system, I can manage affiliate
+rewards
+Low
+Reward points calculated
+and displayed to affiliate
+partner
+3
+Completed
+Comments / Reviews
+PB-ID
+User Story
+Priority
+Acceptance Criteria
+Story Points
+Status
+CM-01
+As a customer, I can rate a salon
+High
+Rating saved and shown in
+salon's overall score
+3
+Completed
+CM-02
+As a customer, I can write a
+review
+Medium
+Review displayed publicly
+on salon profile page
+3
+Completed
+CM-03
+As a system, I calculate average
+ratings
+Medium
+Average rating displayed
+correctly
+3
+Completed
+Service Evaluation
+PB-ID
+User Story
+Priority
+Acceptance Criteria
+Story Points
+Status
+EV-01
+As a customer, I can evaluate a
+service
+Medium
+Service evaluation feedback
+stored in the system
+3
+Completed
+EV-02
+As admin, I can analyze
+evaluation feedback
+Medium
+Reports generated from
+service evaluations
+5
+Completed
+Reporting
+PB-ID
+User Story
+Priority
+Acceptance Criteria
+Story Points
+Status
+RP-01
+As admin, I can view system
+reports
+High
+Reports generated with
+filtering by date, salon, and
+service
+5
+Completed
+RP-02
+As a salon owner, I can view
+earnings report
+High
+Monthly and weekly
+earnings clearly displayed in
+dashboard
+5
+Completed
+RP-03
+As an admin, I can view booking
+statistics
+High
+Booking analytics displayed
+5
+Completed
+RP-04
+As a salon owner, I can view salon
+performance reports
+High
+Performance metrics
+displayed
+5
+Completed
+Payment System
+PB-ID
+User Story
+Priority
+Acceptance Criteria
+Story Points
+Status
+PY-01
+As a customer, I can select cash on service payment
+Medium
+Cash payment option 
+available
+3
+Completed
+PY-02
+  As a system, I can verify payments
+High
+Payment status verified
+ successfully
+5
+Completed
+PY-03
+As a customer, I can view
+payment history
+Medium
+Payment records displayed
+3
+Completed
+Notifications
+PB-ID
+User Story
+Priority
+Acceptance Criteria
+Story Points
+Status
+NT-01
+As a customer, I receive
+booking confirmations
+High
+Confirmation notification sent
+3
+Completed
+NT-02
+As a customer, I receive
+payment success alerts
+Medium
+Alert sent after
+successful payment
+3
+Completed
+NT-03
+As a customer, I receive
+appointment reminders
+Medium
+Reminder sent before appointment
+3
+Completed
+Figma UI/UX Designs
+Figure 1: Prototype Sign Up Page
+Figure 2: Prototype Sign up Page
+Figure 3: Prototype - Email Verification Page 
+Figure 4: Prototype -Explore  Page
+Figure 5: Prototype -Customer Dashboard Page
+Figure 6: Prototype Chatbot/Assistant Page
+Figure 7: Prototype Support Tab/Page
+Figure 8: Prototype Business Owner Tab/Page
+Figure 9: Prototype Saloon Finding Tab/Page
+’
+Figure 10: Prototype Saloon Location Tab/Page
+Figure 11: Prototype Services adding Tab/Page
+Figure 12: Prototype Services Tab/Page
+Figure 13: Prototype Appointment Tab/Page
+Figure 14: Prototype Service booking Tab/Page
+Figure 15: Prototype Business Customization Page
+Figure 16: Prototype Membership Customization Tab/Page
+Figure 17: Prototype Owner Dashboard Tab/Page
+Figure 18: Prototype Subscription Plans Tab/Page
+Figure 19: Prototype Home Screen 
+Figure 20: Prototype Ai Hub Screen 
+Figure 21: Services Booking Screen 
+Figure 22: Prototype Hair Analyzer Screen
+Project Planning and Execution using Sprints
+4.1 Jira
+https://umt-team-1.atlassian.net/jira/software/projects/KAN/list?jql=project+%3D+KAN+ORDER+BY+cf%5B10019%5D+ASC&atlOrigin=eyJpIjoiYWNlMWFkNDI2OTMwNDU1N2EyYTQwNjdkZDY3NzhmNDgiLCJwIjoiaiJ9 4.2 Slack
+Students would enter the link and credentials of their slack communication, there they would be managing their project communication.
+4.3 Github Repository
+Students would share the link and credentials of their Github repo where they would be working on their code Baselines.
+4.4 Sprints
+The initial Sprint will focus on fundamental features such as user logins, dashboard, and user profiles.
+Sprint 1 Planning Meeting Minutes
+Sprint 1 Planning Meeting Minutes
+Project Name: Beauty Personalized By Ai
+Sprint Name:  Sprint 1 Initial Setup & Core Architecture
+Sprint Duration: 09 Sep 2025– 06 Oct 2025 (4 weeks)
+Meeting Date: 08 Sep 2025
+Facilitated by: Ms. Asma Arshad (FYP Supervisor, Product Owner)
+Attendees: Mujtaba Bilal Bela, Hammad Ahmad, Muhammad Anas, Quratulain
+Backlog Items with high priority, high risk and Architecturaly Significant:
+Product Backlog contains all the following features.All of the following features are included in Product Backlog.
+Table 4: Selected Features of Product Backlog
+PB-ID
+User Story
+Priority
+Acceptance Criteria
+Story Points
+Status
+AM-01
+As a user, I can register and login
+High
+User authenticated
+successfully with role-based
+access
+5
+Planned
+AM-03
+As a user, I can reset my password
+Medium
+Reset email sent and link
+expires after 24 hours
+3
+Planned
+SC-01
+As a salon owner, I can create a
+salon profile
+High
+Profile includes name,
+services, location, and
+images
+5
+Planned
+SC-02
+ As a customer, I can browse salons
+High
+List of salons displayed with
+location-based filtering
+5
+Planned
+SC-03
+As a customer, I can view salon
+details
+High
+Shows services, prices,
+reviews, and contact info
+3
+Planned
+Team Capacity:
+Achievements for next week: Team members and capacity as follows:
+Table 5: Team Capacity Sprint 1
+Team Member
+Days Available
+Hours/Day
+Total Hours
+Mujtaba Bilal Bela
+15
+5
+75
+Hammad Ahmad
+15
+5
+75
+Muhammad Anas
+14
+4
+56
+Quratulain
+15
+4
+60
+Action Items before Sprint Starts:
+Github Repository creation & Branching strategy: Mujtaba Bilal Bela
+Project and Authentication Set Up in Supabase : Mujtaba Bilal Bela
+Designing the login screen, registration screen, and profile screen in Figma for the salon: Muhammad Anas.
+Set up FastAPI backend skeleton and database schema: Hammad Ahmad
+Create and assign Jira tasks for Sprint 1: Mujtaba Bilal Bela
+Sprint 1 Backlog
+The following tasks are removed from Product Backlog feature )
+Table 6: Sprint 1 Backlog
+PB-ID
+User Story
+Priority
+Acceptance Criteria
+Story Points
+Status
+AM-01
+As a user, I can register with
+email and password as a
+Customer or Salon Owner
+High
+User registered, role
+assigned, and welcome email
+sent
+5
+Completed
+AM-01a
+As a user, I can login with my
+credentials and access role-based
+dashboard
+High
+User redirected to correct
+dashboard based on role
+(Customer/Owner/Admin)
+3
+Completed
+AM-03
+As a user, I can request a
+password reset link via email
+Medium
+Reset email sent within 30
+seconds, link expires in 24
+hours
+3
+Completed
+SC-01
+As a salon owner, I can create and
+publish a salon profile with
+details
+High
+Profile live with name,
+address, contact, images, and
+service categories
+5
+Completed
+SC-02
+As a customer, I can browse a list
+of available salons on the
+platform
+High
+All approved salons listed
+with basic info (name, rating,
+distance)
+5
+Completed
+SC-03
+As a customer, I can view
+detailed profile of a specific salon
+High
+Full salon page shows
+services, prices, photos,
+ratings, and contact info
+3
+Completed
+Sprint 1 Design Class Diagram
+The Sprint 1 Class Diagram shows the classes, attributes, methods, and relationships for the features developed during Sprint 1. It represents the system structure for the selected user stories.
+Figure 20: Class diagram of Sprint 1 features
+Sprint 1 Sequence Diagram
+The Sprint 1 Sequence Diagram shows how different objects communicate with each other to complete the features implemented during Sprint 1. It explains the order of interactions between users and system components.
+Figure 21: Sample Sprint 1 Sequence diagram 
+Sprint 1 Decision Table
+Figure 23: Sample Sprint 1 Decision Table the login authentication logic
+The decision table below captures the decision logic for login authentication of Sprint 1:
+Condition / Action
+Case 1
+Case 2
+Case 3
+Case 4
+Valid Email?
+Yes
+Yes
+No
+Yes
+Valid Password?
+Yes
+No
+Yes
+Yes
+Account Exists?
+Yes
+Yes
+Yes
+No
+Grant Access
+Yes
+No
+No
+No
+Show Error: Wrong
+Password
+No
+Yes
+No
+No
+Show Error: Invalid Email
+Format
+No
+No
+Yes
+No
+Show Error: Account Not
+Found
+No
+No
+No
+Yes
+Sprint 1 Extended Test Cases
+Separate Test cases should be made against each user story to test the functionality.
+Table 7: Sprint 1 Exteneded Test Case
+TID
+PB-ID
+Test Scenario
+Test Steps
+Expected Result
+Actual Result / Status
+TC-01
+AM-01
+Valid user registration
+with correct data
+1. Open app 
+2. Click Register
+3.Fill valid name,
+email and password 
+4. Select role 
+5. Click Submit
+Account created,
+email sent, user
+redirected to
+dashboard
+Pass
+TC-02
+AM-01
+Registration with
+existing email
+1.Register with an
+already-registered
+email
+System shows error:
+Email already in use'
+Pass
+TC-03
+AM-01
+Registration with
+weak password
+1.Enter password
+Less than 6 
+characters
+System shows error:
+'Password must be at
+least 6 characters'
+Pass
+TC-04
+AM-01a
+Login with valid
+credentials
+1. Enter correct email and password 
+2. Click Login
+User logged in and
+redirected to role
+based dashboard
+Pass
+TC-05
+AM-01a
+Login with wrong
+password
+1. Enter correct email but wrong password
+Error message
+displayed: 'Incorrect
+password'
+Pass
+TC-06
+AM-03
+Password reset with
+valid email
+1.Click forgot
+Password'.
+2.Enter registered
+email
+3. Click Send
+Reset email received
+within 60 seconds
+Pass
+TC-07
+SC-01
+Salon owner creates
+complete salon profile
+1.Login as Salon Owner 
+2. Navigate to Create Profile 
+3. Fill all fields 
+4. Upload images 
+5. Submit
+Profile saved with
+status 'Pending
+Approval'
+Pass
+TC-08
+SC-02
+Customer browses
+available salons
+1. Login as Customer
+2. Navigate to Explore
+3. View salon listings
+List of approved
+salons displayed with
+name, rating, and
+distance
+Pass
+TC-09
+SC-03
+Customer views
+detailed salon profile
+1. Click on a salon
+from listing 
+2. View full profile
+page
+Complete salon
+Details shown
+services, prices, photos
+ reviews
+Pass
+TC-10
+SC-01
+Salon profile without
+required fields
+1. Attempt to submit
+ profile without
+entering salon name
+or location
+Error: 'Required
+fields cannot be
+empty'
+Pass
+Sprint 1 Review Meeting
+Sprint: Bringing together Authentication, Salon Profile & Core Setup
+Review Date: 06 Oct 2025
+Duration: 1 hour
+Product Owner: Ms. Asma Arshad (FYP Supervisor / Product Owner)
+Ms. Asma Arshad, Mujtaba Bilal Bela, Hammad Ahmad, Muhammad Anas and Quratulain graced the occasion with their presence.
+Table 8: Status of Sprint 1 Backlog
+ID
+Task Name
+Related PB-ID
+Owner
+Status
+Notes
+S1-1
+Design login and 
+registration UI (Figma to
+code)
+AM-01
+Mujtaba
+Completed
+UI mockup complete and converted
+to React components
+S1-2
+Implement Supabase
+Authentication
+AM-01
+Hammad
+Completed
+Tested authentication f
+S1-3
+Develop customer
+dashboard UI
+AM-02
+Muhammad Anas
+Completed
+React component completed with
+routing
+S1-4
+Integrate backend with
+customer dashboard
+AM-02
+Quratulain
+Completed
+Integration done and tested successfully
+S1-5
+Develop salon owner
+profile creation feature
+SC-01
+Hammad
+Completed
+Profile form with image upload
+working
+S1-6
+Test salon profile
+management module
+SC-01
+Quratulain
+Completed
+All test cases passed
+S1-7
+Create email notification
+Templates
+AM-01
+Mujtaba
+Completed
+Welcome and verification email
+templates created
+S1-8
+Develop notification
+service (email)
+AM-01
+Mujtaba
+Completed
+Notification mechanism integrated
+with Supabase
+S1-9
+Implement image upload
+for salon profile
+SC-01
+Muhammad Anas
+Completed
+Upload mechanism working and
+secure
+S1-10
+Test image upload
+functionality
+SC-01
+Quratulain
+Completed
+Tested for various file types and sizes
+S1-11
+Set up development
+Environment and project
+Structure
+N/A
+Mujtaba
+Completed
+Environment set up and shared with
+all team members
+S1-12
+Design DB schema for
+users and salon profiles
+AM-01, SC-01
+Hammad
+Completed
+Firestore collections created with
+required fields
+S1-13
+Create static landing 
+page (Figma to code Web)
+AM-01, SC-02
+Muhammd Anas
+Completed
+Responsive landing page created 
+and deployed
+S1-14
+Develop salon browsing
+and detail view UI
+SC-02, SC-03
+Quratulain
+Completed
+Pages done and delivered
+S1-15
+Setup Git repository 
+N/A
+Hammad
+Completed
+Repo configured with branch 
+protection rules
+Demo Highlights:
+User Authentication: Live demo of user signup / login using Supabase Authentication with role-based redirection (Customer / Salon Owner / Admin).
+Salon Landing Page: Muhammad Anas shows the mobile responsive salon browsing homepage.
+Sprint Goal Achievement:
+All Core Sprint 1 Objectives were achieved on schedule. 24 story points are reviewed and are done.
+Feedback from Stakeholders:
+Feedback Source
+Comments
+Internal QA (Quratulain)
+Registration form could use better input validation and error messages
+Supervisor / Product Owner (Ms. Asma Arshad)
+DB schema is clean and extendable; add Google Maps for location
+selection in Sprint 2
+Metrics Overview:
+Metric
+Value
+Committed Story Points
+24
+Completed Story Points
+24
+Carryover Items
+0
+Bugs Reported/ Resolved
+2 / 2
+What Went Well:
+Team collaboration and communication during the sprint was good.
+Daily stand-up processes in Slack were highly effective, focused and aligned the team.
+What Could Be Improved:
+Have less clarity on how things are to be displayed consistently on other pages and/or components.
+More comprehensive testing needed for backend API endpoints.
+Action Items / Next Steps:
+Action Item
+Owner
+Implement frontend form validation for all forms
+Quratulain
+Add API documentation to FastAPI
+backend
+Hammad Ahmad
+Create shared UI component style library
+Muhammad Anas
+Wrap-up:
+Collaborate to enter Sprint 2  Booking System, Payment Gateway and Admin Panel Elements. The next Sprint 2 planning will be on February 4, 2026.
+Sprint 1 Retrospective Meeting
+Sprint: Sprint 1 Authentication, Salon Profile & Core Setup
+Retrospective Date: 07 Oct 2025
+Duration: 1 hour
+Facilitator: Ms. Asma Arshad (FYP Supervisor / Product Owner)
+Attendees: Mujtaba Bilal Bela, Hammad Ahmad, Muhammad Anas, Quratulain
+Sprint Overview:
+Why: To build the basic structure of the Beauty Personalized By Ai platform and create the basic user authentication and salon profile functionality.
+Sprint Duration: 09 Sep 2025 – 06 Oct 2025 (4 Weeks)
+What Went Well:
+User authentication using Supabase Auth and role-based access control was implemented successfully.
+Team responded and worked together in daily stand-ups on Slack.
+Clean schema of Firestore database provided a solid and scalable base for future sprints.
+What Didn't Go Well:
+UI validation rules varied for various UI components.
+Back end API endpoints: Test coverage was limited due to time constraints.
+Acceptance criteria for some user stories were not clear, leading to rework in the integration phase.
+Suggestions for Improvement:
+Develop a UI component library for consistency in look and feel across all pages.
+Test case planning; add to story grooming prep sessions in advance of each sprint.
+Add more measurable and clearer user story acceptance criteria.
+Pair programming in backend logic to minimize bugs and enhance code quality.
+Action Items:
+Action Item
+Owner
+Draft shared UI component style guide
+Muhammad Anas
+Add test planning checklist to sprint grooming
+Document
+Quratulain
+Refine user story templates with clearer acceptance
+criteria
+Mujtaba Bilal Bela
+Team Health Check:
+Team Morale: Good everybody is happy with the delivery for Sprint 1.
+Communication: Good, using slacks daily stand up and meetings with the supervisor weekly.
+Tools and resources: Adequate, UI design guidance and shared component library required for Sprint 2.
+Wrap-up:
+Overall, team was pleased with the results of Sprint 1 and has 100 percent consensus on areas for improvement. The team is excited about Sprint 2, and feels confident in the foundation from Sprint 1. Sprint2
+Sprint 2
+Allow salon owners to create and manage salon profiles and services.
+Sprint 2 Planning Meeting Minutes
+Project Name: Beauty Personalized By Ai
+Sprint Name: Sprint 2 Salon & Service Management
+Sprint Duration: 07 Oct 2025 – 10 Nov 2025 (5 Weeks)
+Meeting Date: 07 Oct 2025 
+Facilitated by: Ms. Asma Arshad (FYP Supervisor, Product Owner)
+Attendees: Mujtaba Bilal Bela, Hammad Ahmad, Muhammad Anas, Quratulain
+Backlog Items with high priority, high risk and Architecturally Significant:
+Product Backlog consists of the items below:
+Table 9: Selected Features of Product Backlog
+PB-ID
+User Story
+Priority
+Acceptance Criteria
+Story Points
+Status
+SV-01
+As a salon owner, I can add
+services to my salon
+High
+New service is saved 
+and visible in salon
+profile
+5
+Planned
+SV-05
+As a salon owner, I can set
+service price
+High
+Price is saved and
+displayed to customers
+3
+Planned
+SV-06
+As a salon owner, I can set
+service duration
+High
+Duration is saved and
+used for slot calculation
+3
+Planned
+SC-05
+As a salon owner, I can update
+salon details
+Medium
+Updated details are
+reflected immediately
+5
+Planned
+Team Capacity:
+Below are the team members and their capacity:
+Table 10: Team Capacity Sprint 2
+Team Member
+Days Available
+Hours/Day
+Total Hours
+Mujtaba Bilal Bela
+30
+4
+120
+Hammad Ahmad
+30
+4
+120
+Muhammad Anas
+30
+4
+120
+Quratulain
+30
+4
+120
+Action Items before Sprint Starts:
+Implement service and salon profile tables in Supabase, complete the schema and do the necessary adjustments to the database.
+Develop Figma wireframes for Salon service management screens.
+Set up image storage bucket in Supabase for service images
+Sprint 2 Backlog
+The following tasks are pulled from Product Backlog features.
+Table 11: Sprint 2 Backlog
+PB-ID
+User Story
+Priority
+Acceptance Criteria
+Story Points
+Status
+SC-01
+As a salon owner, I can update
+salon details
+Medium
+Salon name, address, contact and
+timing can be edited and saved
+5
+Completed
+SV-02
+As a salon owner, I can add
+services to my salon
+High
+Service name, description, category
+saved correctly
+5
+Completed
+SV-03
+As a salon owner, I can update
+services
+Medium
+Updated service details are saved
+and reflected
+3
+Completed
+SV-04
+As a salon owner, I can upload
+service images
+Medium
+Image uploaded and displayed with
+the service
+3
+Completed
+SV-05
+As a salon owner, I can delete
+services
+Medium
+Service removed from listing 
+after confirmation
+2
+Completed
+SV-06
+As a salon owner, I can set
+service price
+High
+Price stored with two-decimal
+accuracy and shown to customers
+3
+Completed
+Sprint 2 Design Class Diagram
+The Sprint 2 Class Diagram shows the classes and relationships created for the features selected from the Sprint 2 backlog 
+Figure 30: Class diagram of Sprint 2 features
+Sprint 2 Sequence Diagram
+The Sprint 2 Sequence Diagram illustrates how the system components interact to complete the user stories implemented in Sprint 2.
+Figure 31: Sample Sprint 2 Sequence diagram
+Sprint 2 Decision Table
+Figure 32: Sample Sprint 2 Decision Table – Service Creation Validation Logic
+The decision table (below) shows the service creation validation logic for Sprint 2:
+Condition / Action
+Case 1
+Case 2
+Case 3
+Case 4
+Service Name Provided
+Yes
+Yes
+No
+No
+Price > 0
+Yes
+No
+Yes
+No
+Duration > 0
+Yes
+Yes
+Yes
+No
+Action
+Service Saved
+Error: Invalid Price
+Error: Missing
+Name
+Error: Missing
+Fields
+Sprint 2 Extended Test Cases
+Test cases should be created separately per each user story for testing the functionality.
+Table 12: Sprint 2 Extended Test Case
+TID
+PB-ID
+Test Scenario
+Test Steps
+Expected Result
+Actual Result / Status
+TC-201
+SV-01
+Add a new service
+With valid data
+Owner fills service
+form and submits
+Service appears in
+ salon's service list
+Passed
+TC-202
+SV-05
+Set price to a negative
+value
+Owner enters -50
+as price
+System rejects with
+ validation error
+Passed
+TC-203
+SV-06
+Set duration to 0
+minutes
+Owner enters 0 as
+duration
+System rejects with
+ validation error
+Passed
+TC-204
+SV-03
+Upload an
+oversized image
+Owner uploads an
+15MB image
+System rejects with 
+size limit error
+Passed
+TC-205
+SV-04
+  Delete an existing
+  Service
+  Owner selects 
+  Delete and confirms
+  Service removed
+  from list and database
+Passed
+TC-206
+SC-05
+Update salon contact
+number
+Owner edits 
+Contact field and
+saves
+New number saved 
+and displayed
+Passed
+Sprint 2 Review Meeting
+Sprint: Sprint 2 – Salon & Service Management
+Review Date: Date: 10 Nov 2025 
+Duration: 1 hour
+Facilitator: Ms. Asma Arshad (FYP Supervisor / Product Owner)
+Attendees: Ms. Asma Arshad, Mujtaba Bilal Bela, Hammad Ahmad, Muhammad Anas, Quratulain
+The following table shows the status of tasks assigned to team members in the Sprint planning meeting.
+Table 13: Status of Sprint 2 Backlog
+ID
+Task Name
+Related PB-ID
+Owner
+Status
+Notes
+1
+Design service & salon
+DB schema
+SC-05/SV-01
+Mujtaba Bilal Bela
+Completed
+Schema reviewed and
+approved
+2
+Build salon profile
+update API
+SC-05
+Hammad Ahmad
+Completed
+Tested with Postman
+3
+Build add/update service
+API
+SV-01/SV-02
+Hammad Ahmad
+Completed
+Integrated with Supabase
+4
+Implement service
+image upload
+SV-03
+Mujtaba Bilal Bela
+Completed
+Used Supabase storage
+bucket
+5
+Implement delete
+service flow
+SV-04
+Muhammad Anas
+Completed
+Confirmation modal added
+6
+Build service price
+And duration UI
+SV-05/SV-06
+Muhammad Anas
+Completed
+Validation added on
+frontend
+7
+  QA & regression testing
+All Sprint 2 items
+Quratulain
+Completed
+No critical bugs found
+Demo Highlights:
+Ready-made service listings can be created and edited from end-to-end by salon owners.
+Images of services are uploaded and displayed properly in salon dashboard
+Price/Time fields are validated on both Front and Back-end.
+Sprint Goal Achievement:
+This Sprint 2 goal was met in its entirety. salon owners can now do operations like creating service catalog, updating service catalog and managing the catalog plus pricing, duration and images.
+Feedback from Stakeholders:
+Feedback Source
+Comments
+Supervisor
+Appreciated the clean UI for service management and suggested adding bulk
+service upload in a future iteration
+Peer Review
+  Recommended adding image compression before upload to reduce storage costs
+Team
+Felt confident about the Supabase storage integration pattern for future media 
+uploads
+Metrics Overview:
+Metric
+Value
+Planned Story Points
+21
+Completed Story Points
+21
+Bugs Found
+3
+Bugs Resolved
+3
+What Went Well:
+There were no significant blocking issues during service operations.
+Storage integration with Supabase went nicely since it was not anticipated.
+What Could Be Improved:
+The addition of image upload validation should be done earlier along the workflow.
+Dashboard needs more polish to ensure the user interface is user-friendly.
+Action Items / Next Steps:
+Action Item
+Owner
+Add image compression utility
+Mujtaba Bilal Bela
+Document service API endpoints
+Hammad Ahmad
+Wrap-up:
+Sprint 2 was deemed a success with all the features planned completed and the supervisor accepting them.
+Sprint 2 Retrospective Meeting Sprint:
+Retrospective Date: 11 Nov 2025
+Duration: 1 hour
+Facilitator: Ms. Asma Arshad (FYP Supervisor / Product Owner)
+Attendees: Mujtaba Bilal Bela, Hammad Ahmad, Muhammad Anas, Quratulain
+Sprint Overview:
+Goal: Salon owners are able to add and run salon profile/service.
+Sprint Duration: 07 Oct 2025 – 10 Nov 2025 (5 Weeks)
+What Went Well:
+Clear separation of back end and front end work increased velocity
+Regular response on Slack made for quick problem resolution
+What Didn't Go Well:
+Late Edge cases in image upload were found in testing
+Suggestions for Improvement:
+Before building, create test cases for file upload restrictions.
+Inject one or more automated tools to identify validation gaps earlier
+Action Items:
+Action Item
+Owner
+Add upload validation test cases
+Quratulain
+Set up rules for mobile app
+Muhammad Anas
+Team Health Check:
+Team members are happy with the team's accomplishments following a productive sprint
+The workload was perceived as shared equitably among everyone
+Wrap-up:
+The team has taken this lesson making sure they test the edge cases for handling files forward to Sprint 3.
+Sprint 3
+Enable customers to discover salons and make appointments.
+Sprint 3 Planning Meeting Minutes
+Project Name: Beauty Personalized By Ai
+Sprint Name: Sprint 3 Salon Discovery & Appointment Booking
+Sprint Duration: 11 Nov 2025 – 15 Dec 2025 (5 Weeks) 
+Meeting Date: 11 Nov 2025
+Facilitated by: Ms. Asma Arshad (FYP Supervisor, Product Owner)
+Attendees: Mujtaba Bilal Bela, Hammad Ahmad, Muhammad Anas, Quratulain
+Backlog Items with high priority, high risk and Architecturally Significant:
+The following features are taken from Product Backlog
+Table 14: Selected Features of Product Backlog
+PB-ID
+User Story
+Priority
+Acceptance Criteria
+Story Points
+Status
+VS-01
+As a customer, I can 
+view services offered by a salon
+High
+All active services are
+listed with details
+3
+Planned
+BK-01
+As a customer, I can book 
+an appointment
+High
+Booking is saved with 
+selected service and time
+8
+Planned
+BK-02
+As a customer, I can select
+a time slot
+High
+Only available slots are 
+Selectable
+5
+Planned
+SC-04
+As a customer, I can filter
+salons
+Medium
+Filtered results match
+selected criteria
+3
+Planned
+Team Capacity:
+Team Members and their abilities are listed below:
+Table 15: Team Capacity Sprint 3
+Team Member
+Days Available
+Hours/Day
+Total Hours
+Mujtaba Bilal Bela
+30
+4
+120
+Hammad Ahmad
+30
+4
+120
+Muhammad Anas
+30
+4
+120
+Quratulain
+30
+4
+120
+Action Items before Sprint Starts:
+Implement the search and filter logic for salons using Fast Api.
+Create available data in Supabase from the Booking Data Model
+Propose ways to check for slot-conflicts to the team
+Compile sample data for the salon and services for test discovery flows.
+Sprint 3 Backlog
+The following tasks are pulled from the Product Backlog features.
+Table 16: Sprint 3 Backlog
+PB-ID
+User Story
+Priority
+Acceptance Criteria
+Story Points
+Status
+SC-04
+As a customer, I can
+filter salons
+Medium
+Salons filtered by
+location, rating and
+category
+3
+Completed
+VS-01
+As a customer, I can view
+services offered by a salon
+High
+Service list with price and
+duration is shown
+3
+Completed
+VS-02
+As a customer, I can view
+service prices
+Medium
+Prices displayed clearly
+per service
+2
+Completed
+VS-03
+As a customer, I can view
+availability
+Medium
+Available time slots
+shown per service
+5
+Completed
+BK-01
+As a customer, I can book an
+appointment
+High
+Booking confirmed and
+stored with status pending
+8
+Completed
+BK-02
+As a customer, I can select a
+time slot
+High
+Selected slot is locked and
+removed from availability
+5
+Completed
+Sprint 3 Design Class Diagram
+The Sprint 3 Class Diagram presents the classes, attributes, methods, and relationships developed for the Sprint 3 features.
+Figure 33: Class diagram of Sprint 3 features 
+Sprint 3 Sequence Diagram
+The Sprint 3 Sequence Diagram shows the interaction between system objects while performing the features completed during Sprint 3.
+Figure 34: Sample Sprint 3 Sequence diagram
+Sprint 3 Decision Table
+Figure 35: Sample Sprint 3 Decision Table – Appointment Slot Availability Logic
+The following decision table shows how the appointment slot availability logic will be handled for Sprint 3:
+Condition / Action
+Case 1
+Case 2
+Case 3
+Case 4
+Slot already booked
+Yes
+Yes
+No
+No
+Slot within salon hours
+Yes
+No
+Yes
+No
+Action
+Error: Slot
+Unavailable
+Error: Outside
+Hours
+Slot Reserved
+Error: Outside
+Hours
+Sprint 3 Extended Test Cases
+Test cases to test the functionality should be made separately for each user story.
+Table 17: Sprint 3 Extended Test Case
+TID
+PB-ID
+Test Scenario
+Test Steps
+Expected Result
+Actual Result / Status
+TC-301
+BK-01
+Book an
+appointment for an
+available slot
+Customer selects
+service and time,
+confirms booking
+Booking created
+with status pending
+Passed
+TC-302
+BK-02
+Select an already
+booked slot
+Customer attempts
+to select a taken slot
+System shows slot
+ unavailable error
+Passed
+TC-303
+VS-03
+View availability
+for a fully booked
+day
+Customer opens
+calendar for a full
+day
+No slots shown,
+day marked
+unavailable
+Passed
+TC-304
+SC-04
+Filter salons by
+category
+Customer applies
+'Hair' category
+filter
+Only hair salons
+displayed
+Passed
+TC-305
+VS-02
+View price for a
+service with
+discount
+Customer opens
+service details
+Discounted price
+displayed correctly
+Passed
+TC-306
+BK-01
+Attempt booking
+with no service
+selected
+Customer tries to
+confirm without
+choosing a service
+System blocks
+booking with
+validation message
+Passed
+Sprint 3 Review Meeting
+Sprint: Sprint 3 Salon Discovery & Appointment Booking
+Review Date: 15 Dec 2025
+Duration: 1 hour
+Facilitator: Ms. Asma Arshad (FYP Supervisor / Product Owner)
+Attendees: Ms. Asma Arshad, Mujtaba Bilal Bela, Hammad Ahmad, Muhammad Anas, Quratulain
+Below is a table listing the tasks assigned to the team members in the Sprint planning meeting.
+Table 18: Status of Sprint 3 Backlog
+ID
+Task Name
+Related PB-ID
+Owner
+Status
+Notes
+1
+Build salon search 
+and filter UI
+SC-04
+Muhammad Anas
+Completed
+Filters tested with sample
+data
+2
+Build service listing 
+and pricing UI
+VS-01/VS-02
+Muhammad Anas
+Completed
+Matches Figma design
+3
+Implement availability
+calendar logic
+VS-03
+Mujtaba Bilal Bela
+Completed
+Handles salon working
+hours
+4
+Build booking creation
+API
+BK-01
+Hammad Ahmad
+Completed
+Stores booking with
+pending status
+5
+Implement slot locking
+mechanism
+BK-02
+Hammad Ahmad
+Completed
+Prevents double selection
+6
+  QA & regression testing
+All Sprint 3 items
+  Quratulain
+Completed
+Edge cases verified
+Demo Highlights:
+Customers are able to search and filter salons based on their type and rating
+Re-Mapeo enables the end-to-end flow from service selection to confirmation to operate well and be user-friendly at all points.
+calendar availability is proper in respect to booking/availability.
+Sprint Goal Achievement:
+The Sprint 3 target was completely met. People can now find salons, check out the services, availability and can even reserve an appointment.
+Feedback from Stakeholders:
+Feedback Source
+Comments
+Supervisor
+Praised the smooth booking flow and suggested adding a loading
+indicator during slot checks
+Team
+Agreed the slot-locking logic needs to be reused for the rescheduling
+feature in Sprint 4
+Metrics Overview:
+Metric
+Value
+Planned Story Points
+26
+Completed Story Points
+26
+Bugs Found
+4
+Bugs Resolved
+4
+What Went Well:
+Booking and slot-locking logic was correct on first integration test.
+In workload allocation where the supervisor can search and filter the user interface was accepted.
+What Could Be Improved:
+Improvements are needed in the loading states during availability checks
+Action Items / Next Steps:
+Action Item
+Owner
+Add loading indicators for 
+slot checks
+Muhammad Anas
+Refactor slot-locking logic
+into reusable service
+Hammad Ahmad
+Wrap-up:
+Sprint 3 was reviewed as successful with complete discovery/booking flow in place.
+Sprint: Sprint 3 Salon Discovery & Appointment Booking
+Retrospective Date: 16 Dec 2025
+Duration: 1 hour
+Facilitator: Ms. Asma Arshad (FYP Supervisor / Product Owner)
+Attendees: Mujtaba Bilal Bela, Hammad Ahmad, Muhammad Anas, Quratulain
+Sprint Overview:
+Goal: Enable customers to discover salons and make appointments.
+Sprint Duration: 11 Nov 2025 – 15 Dec 2025 (5 Weeks)
+What Went Well:
+The re-use of decisions made during the design of the database accelerated development.
+Slot-conflict issues were identified during pair testing, between back-end and QA, at an early stage
+What Didn't Go Well:
+Some UI loading states were not represented until the review meeting.
+Suggestions for Improvement:
+Routes out the UI checklist for loading / error state to be part of sprint Definition of Done.
+Action Items:
+Action Item
+Owner
+Add loading/error states to
+Definition of Done
+Muhammad Anas
+Team Health Check:
+Team carries on with backend and frontend collaboration in an effective way.
+No Burnout sign reported by team members
+Wrap-up:
+A Slots locking mechanism which can be reused in Sprint 4 for the rescheduling feature is added to the team.
+Sprint 4
+Adopt an appointment system and payment system.
+Sprint 4 Planning Meeting Minutes
+Project Name: beauty Personalized By Ai
+Sprint Name: Sprint 4 – Payment & Appointment Management
+Sprint Duration: 16 Dec 2025 – 26 Jan 2026 (6 Weeks)
+Meeting Date: 16 Dec 2025
+Facilitated by: Ms. Asma Arshad (FYP Supervisor, Product Owner)
+Attendees: Mujtaba Bilal Bela, Hammad Ahmad, Muhammad Anas, Quratulain
+Backlog Items with high priority, high risk and Architecturally Significant:
+Product Backlog features are the following characteristics that are withdrawn from the Product Backlog
+Table 19: Selected Features of Product Backlog
+PB-ID
+User Story
+Priority
+Acceptance Criteria
+Story Points
+Status
+BK-03
+As a customer, I can make
+a payment
+High
+Payment recorded
+against the booking
+8
+Completed
+BK-06
+As a system, I prevent 
+double bookings
+High
+Conflicting 
+bookings rejected
+8
+Completed
+PY-02
+As a system, I can 
+verify payments
+High
+Payment status
+verified before
+confirmation
+5
+Completed
+AC-01
+As a salon owner, I can
+mark appointment complete
+High
+Status updated to
+completed after service
+3
+Completed
+Team Capacity:
+The team members and their capacity are given below:
+Table 20: Team Capacity Sprint 4
+Team Member
+Days Available
+Hours/Day
+Total Hours
+Mujtaba Bilal Bela
+30
+4
+120
+Hammad Ahmad
+30
+4
+120
+Muhammad Anas
+30
+4
+120
+Quratulain
+30
+4
+120
+Action Items before Sprint Starts:
+Clarify with the team what each payment status represents and how it flows from one to the other
+Integrate payment gateway APIs into the backend
+Review double booking prevention logic from Sprint 3
+To create test cases for cancellation and rescheduling
+Sprint 4 Backlog
+The below tasks are pulled from Product Backlog features.
+Table 21: Sprint 4 Backlog
+PB-ID
+User Story
+Priority
+Acceptance Criteria
+Story Points
+Status
+BK-03
+As a customer, I can make
+a payment
+High
+Payment recorded 
+with method and amount
+8
+Completed
+BK-04
+As a customer, I can cancel
+an appointment
+Medium
+Appointment marked
+cancelled and slot
+released
+3
+Completed
+BK-05
+As a customer, I can 
+reschedule an appointment
+Medium
+New time saved and
+confirmation sent
+5
+Completed
+BK-06
+As a system, I prevent
+double bookings
+High
+Conflicting bookings
+rejected with error
+message
+8
+Completed
+PY-01
+As a customer, I can pay
+via Provided Payment
+Medium
+Cash payment option
+ recorded at checkout
+3
+Completed
+PY-02
+As a system, I can
+verify payments
+High
+Payment status verified
+before marking
+confirmed
+5
+Completed
+PY-03
+As a customer, I can 
+view payment history
+Medium
+All past payments listed
+with amount and date
+3
+Completed
+AC-01
+As a salon owner, I can
+mark appointment complete
+High
+Status changes to
+completed after service
+delivery
+3
+Completed
+AC-02
+  As a customer, I can view
+  booking history
+Medium
+  Past and upcoming
+  bookings listed
+3
+Completed
+Sprint 4 Design Class Diagram
+The Sprint 4 Class Diagram represents the system classes and their relationships for the features implemented during Sprint 4.
+Figure 36: Class diagram of Sprint 4 features 
+ Sprint 4 Sequence Diagram
+The Sprint 4 Sequence Diagram explains the sequence of messages exchanged between system objects for the Sprint 4 functionality.
+Figure 37: Sample Sprint 4 Sequence diagram [2]
+Sprint 4 Decision Table
+Figure 38: Sample Sprint 4 Decision Table – Payment Verification Logic
+The payment verification logic for Sprint 4: is recorded in the decision table below:
+Condition / Action
+Case 1
+Case 2
+Case 3
+Case 4
+Payment Method Valid
+Yes
+Yes
+No
+No
+Amount Matches Booking
+Yes
+No
+Yes
+No
+Action
+Payment Confirmed
+Error: Amount 
+Mismatch
+Error: Invalid
+ Method
+Error: Invalid
+ Method
+Sprint 4 Extended Test Cases
+Separate test cases should be made against each user story to test the functionality.
+Table 22: Sprint 4 Extended Test Case
+TID
+PB-ID
+Test Scenario
+Test Steps
+Expected Result
+Actual Result / Status
+TC-401
+BK-06
+Attempt to book an already-booked slot
+Two customers try to
+book the same slot
+simultaneously
+Second booking
+Rejected with conflict error
+Passed
+TC-402
+BK-03
+Make a payment with valid card details
+Customer completes
+checkout with valid info
+Payment 
+recorded and
+booking confirmed
+Passed
+TC-403
+PY-02
+Verify a payment with mismatched amount
+System receives a
+payment notification with
+wrong amount
+Payment marked
+failed and 
+flagged
+Passed
+TC-404
+BK-04
+Cancel a confirmed appointment
+Customer cancels from
+booking history
+Appointment marked cancelled, slot
+released
+Passed
+TC-405
+BK-05
+Reschedule to an unavailable slot
+Customer selects a
+taken slot while
+rescheduling
+System rejects
+ with unavailable
+slot error
+Passed
+TC-406
+AC-01
+Mark an appointment complete before scheduled time
+Owner marks completed
+early
+System allows
+with confirmation
+prompt
+Passed
+TC-407
+PY-03
+View payment history with no past payments
+New customer Opens
+payment history
+Empty state
+message displayed
+Passed
+Sprint 4 Review Meeting
+Sprint: Sprint 4 Payment & Appointment Management
+Review Date: 26 Jan 2026
+Duration: 1 hour
+Facilitator: Ms. Asma Arshad (FYP Supervisor / Product Owner)
+Attendees: Ms. Asma Arshad, Mujtaba Bilal Bela, Hammad Ahmad, Muhammad Anas, Quratulain
+The table below has some tasks that are scheduled to be assigned to members of the team and whose status is provided from the Sprint planning meeting.
+Table 23: Status of Sprint 4 Backlog
+ID
+Task Name
+Related PB-ID
+Owner
+Status
+Notes
+1
+Implement payment
+recording API
+BK-03/PY-01
+Hammad Ahmad
+Completed
+Supports cash and card
+methods
+2
+Implement payment
+ verification logic
+PY-02
+Mujtaba Bilal Bela
+Completed
+Validated against booking
+amount
+3
+Implement double
+booking prevention
+BK-06
+Mujtaba Bilal Bela
+Completed
+Reused Sprint 3 slot-locking
+service
+4
+Build cancel and
+reschedule
+flows
+BK-04/BK-05
+Hammad Ahmad
+Completed
+Slot released correctly on
+Cancel
+5
+Build appointment
+completion UI
+AC-01
+Muhammad Anas
+Completed
+Owner dashboard updated
+6
+Build booking and
+payment history UI
+AC-02/PY-03
+Muhammad Anas
+Completed
+Matches Figma design
+7
+  QA & regression testing
+All Sprint 4
+items
+  Quratulain
+Completed
+Payment edge cases verified
+Demo Highlights:
+Customers can complete payments via provide payemt methods and view their full payment history.
+Doublebooking successful - prevent conflicting reservations.
+Cancellation and rescheduling operates as it should affecting slot availability.
+Sprint Goal Achievement:
+Goal 4 – To achieve the full alignment of the Sprint 4 was achieved in full. Now the appointment lifecycle management and payment are working end to end.
+Feedback from Stakeholders:
+Feedback Source
+Comments
+Supervisor
+Approved the payment verification flow and recommended adding email
+receipts in a later sprint
+Team
+Confirmed the reused slot-locking service worked well for both booking and
+rescheduling
+Metrics Overview:
+Metric
+Value
+Planned Story Points
+41
+Completed Story Points
+41
+Bugs Found
+5
+Bugs Resolved
+5
+What Went Well:
+The slot-locking service had been developed for Sprint 3 and reused, furthering development time savings.
+All edge case tests run on payment verification logic were passed.
+What Could Be Improved:
+The cancelation flow should have more confirm messages for consumers
+Action Items / Next Steps:
+Action Item
+Owner
+Due Date
+Improve cancellation confirmation
+messaging
+Muhammad Anas
+Sprint 5 start
+Add email receipt placeholder for
+future sprint
+Hammad Ahmad
+Backlog
+Wrap-up:
+Sprint 4 passed review with the complete booking to payment cycle now being reliable.
+Sprint 4 Retrospective Meeting
+Payment & Appointment Management
+Retrospective Date: June 9, 2026
+Duration: 1 hour
+Facilitator: Ms. Asma Arshad (FYP Supervisor / Product Owner)
+Attendees: Mujtaba Bilal Bela, Hammad Ahmad, Muhammad Anas, Quratulain
+Sprint Overview:
+Objective: Put in place appointment scheduling and payment systems.
+Sprint Duration: 16 Dec 2025 – 26 Jan 2026 (6 Weeks)
+What Went Well:
+Cross-sprint re-use of components is improving team velocity
+QA found Payment mismatch bugs prior to review meeting.
+What Didn't Go Well:
+UX feedback about the cancellation was received late in the sprint.
+Suggestions for Improvement:
+Mid-sprint UX supervisor check on flows to the customer
+Action Items:
+Action Item
+Owner
+Due Date
+Schedule a mid-sprint UX check-in
+Mujtaba Bilal Bela
+Sprint 5
+Team Health Check:
+Team continues to stay motivated and the core functionality of books is quickly coming together.
+The workload is now distributed fairly amongst members.
+Wrap-up:
+Starting in Sprint 5, the team will be implementing a mid-sprint UX check-in to get a sense of the issues earlier, as they'll impact the customer.
+Sprint 5
+Ensure administrative control, reviewing, rating and reporting.
+Sprint 5 Planning Meeting Minutes
+Project Name: Beauty Personalized By Ai
+Sprint Name: Administration, Reviews & Reporting
+Sprint Duration: 27 Jan 2026 – 02 Mar 2026 (5 Weeks)
+Meeting Date: 27 Jan 2026
+Facilitated by: Ms. Asma Arshad (FYP Supervisor, Product Owner)
+Attendees: Mujtaba Bilal Bela, Hammad Ahmad, Muhammad Anas, Quratulain
+Backlog Items with high priority, high risk and Architecturally Significant:
+- the product owner adheres to the vision and constantly evaluates it, but does not own it in any capacity.
+Table 24: Selected Features of Product Backlog
+PB-ID
+User Story
+Priority
+Acceptance Criteria
+Story Points
+Status
+SA-01
+As an admin, I can approve
+salons
+High
+Salon status changes to
+approved
+5
+Completed
+RP-01
+As an admin, I can view
+reports
+High
+Reports display accurate
+aggregated data
+5
+Completed
+RP-02
+As a salon owner, I can view
+earnings reports
+High
+Earnings shown by date
+range
+5
+Completed
+CM-01
+As a customer, I can rate a
+salon
+High
+Rating saved and reflected
+ in average
+3
+Completed
+Team Capacity:
+Below are the team member and their capacity
+Table 25: Team Capacity Sprint 5
+Team Member
+Days Available
+Hours/Day
+Total Hours
+Mujtaba Bilal Bela
+30
+4
+120
+Hammad Ahmad
+30
+4
+120
+Muhammad Anas
+30
+4
+120
+Quratulain
+30
+4
+120
+Action Items before Sprint Starts:
+Supabase integration includes the ability to add admin roles and permissions as per Supabase.
+Design Salon approved wireframes for the admin dashboard for monitoring purposes.
+In this lecture, students will learn the logic used to calculate average ratings and to aggregate them by plan.
+Reporting dashboards are vital for understanding how an organization is doing.Reporting dashboards are essential for tracking an organization's progress.
+Sprint 5 Backlog
+The below tasks are pulled from Product Backlog features.
+Table 26: Sprint 5 Backlog
+PB-ID
+User Story
+Priority
+Acceptance Criteria
+Story Points
+Status
+AM-04
+As an admin, I can manage
+users
+High
+Admin can view, edit and
+deactivate user accounts
+5
+Completed
+SA-01
+As an admin, I can approve
+salons
+High
+Pending salons reviewed
+and approved/rejected
+5
+Completed
+SA-02
+As an admin, I can block users
+Medium
+Blocked users lose access
+immediately
+3
+Completed
+CM-01
+As a customer, I can rate a
+salon
+High
+Rating between 1-5 saved
+against the salon
+3
+Completed
+CM-02
+As a customer, I can write a
+review
+Medium
+Review text saved and
+displayed publicly
+3
+Completed
+CM-03
+As a system, I calculate
+average ratings
+Medium
+Average recalculated after
+each new rating
+3
+Completed
+RP-01
+As an admin, I can view
+ reports
+High
+Platform-wide reports
+ available to admin
+5
+Completed
+RP-02
+As a salon owner, I can view
+earnings reports
+High
+Earnings broken down by
+service and date
+5
+Completed
+RP-03
+As an admin, I can view
+booking statistics
+High
+Booking trends visualized
+over time
+5
+Completed
+RP-04
+As a salon owner, I can view
+salon performance reports
+High
+Performance metrics
+shown per salon
+5
+Completed
+Sprint 5 Design Class Diagram
+The Sprint 5 Class Diagram illustrates the classes and relationships required for the features completed in Sprint 5. 
+Figure 39: Class diagram of Sprint 5 features 
+Sprint 5 Sequence Diagram
+The Sprint 5 Sequence Diagram shows how different objects work together to perform the Sprint 5 features. 
+Figure 40: Sample Sprint 5 Sequence diagram [2]
+Sprint 5 Decision Table
+Figure 41: Sample Sprint 5 Decision Table – Salon Approval Workflow Logic
+The logic for the salon approval process is recorded on the decision table below for Sprint 5:
+Condition / Action
+Case 1
+Case 2
+Case 3
+Case 4
+Required Documents
+Submitted
+Yes
+Yes
+No
+No
+Admin Reviews Profile
+Approved
+Rejected
+Approved
+Rejected
+Action
+Salon Activated
+Salon Rejected,
+Notified
+Error: Missing
+Documents
+Salon Rejected,
+notified
+Sprint 5 Extended Test Cases
+Separate test cases should be made against each user story to test the functionality.
+Table 27: Sprint 5 Extended Test Case
+TID
+PB-ID
+Test Scenario
+Test Steps
+Expected Result
+Actual Result / Status
+TC-501
+SA-01
+Approve a salon
+with complete
+documents
+Admin reviews and
+approves a pending
+salon
+Salon status
+changes to active
+Passed
+TC-502
+SA-02
+Block a user with
+active bookings
+Admin blocks a
+user who has
+upcoming bookings
+User blocked,
+existing bookings
+remain visible to
+salon
+Passed
+TC-503
+CM-01
+Submit a rating
+outside 1-5 range
+Customer attempts
+to submit a rating
+of 7
+System rejects with validation error
+Passed
+TC-504
+CM-03
+  Calculate average
+  after multiple ratings
+  Three ratings of 4,
+  5, 3 are submitted
+  Average displayed
+  as 4.0
+Passed
+TC-505
+RP-02
+View earnings
+report for a date
+range with no
+bookings
+Salon owner selects
+an empty date
+range
+Report shows zero
+earnings, no errors
+Passed
+TC-506
+RP-03
+View booking
+statistics for the
+platform
+Admin opens the
+statistics dashboard
+Charts render with
+correct booking
+counts
+Passed
+Sprint 5 Review Meeting
+Sprint: Administration, Reviews & Reporting
+Review Date: 02 Mar 2026
+Duration: 1 hour
+Facilitator: Ms. Asma Arshad (FYP Supervisor / Product Owner)
+Attendees: Ms. Asma Arshad, Mujtaba Bilal Bela, Hammad Ahmad, Muhammad Anas, Quratulain
+The status of tasks assigned to the team members at the Sprint planning meeting is as shown in the following table.
+Table 28: Status of Sprint 5 Backlog
+ID
+Task Name
+Related PB-ID
+Owner
+Status
+Notes
+1
+Build admin user
+management screen
+AM-04/SA-02
+Muhammad Anas
+Completed
+Includes block/unblock
+actions
+2
+Build salon approval
+workflow
+SA-01
+Hammad Ahmad
+Completed
+Notifies salon owner on
+ decision
+3
+Implement activity
+logging
+SA-03
+Mujtaba Bilal Bela
+Completed
+Logs key admin and user
+actions
+4
+Implement rating and
+review system
+CM-01/CM-02/CM-03
+Hammad Ahmad
+Completed
+Average recalculates on new
+rating
+5
+Build reporting
+dashboards
+RP-01/RP-02/RP-03/ RP-04
+Mujtaba Bilal Bela
+Completed
+Charts built with tested
+queries
+6
+  QA & regression testing
+All Sprint 5 items
+  Quratulain
+  Completed
+Verified 
+Demo Highlights:
+The admin dashboard paves the way for complete salon approvals and user control.
+Customers have the ability to rate and also compose reviews of salons as well as get instant updates of the averages.
+Reporting dashboards provide clear performance information to admins and salon owners
+Sprint Goal Achievement:
+Goal of Sprint 5 fully achieved. Administrative controls, review process, reporting dashboard complete and in place and operational.
+Feedback from Stakeholders:
+Feedback Source
+Comments
+Supervisor
+Highlighted the reporting dashboards as a strong addition and
+suggested exporting reports as PDF in future work
+Team
+Noted that rules simplified enforcing admin-only actions
+Metrics Overview:
+Metric
+Value
+Planned Story Points
+42
+Completed Story Points
+42
+Bugs Found
+4
+Bugs Resolved
+4
+What Went Well:
+There were a few outstanding challenges that needed to be addressed in the early releases of Sprint, but as of Sprint 1, restrictions could be set up to affect administrator accounts only.
+Report queries had good performance with sample levels of data volume
+What Could Be Improved:
+Web reporting export functionality should be in-scope for a future sprint
+Action Items / Next Steps:
+Action Item
+Owner
+Due Date
+Add PDF export to reporting backlog
+Mujtaba Bilal Bela
+Backlog
+Document RBAC rules used across admin screens
+Hammad Ahmad
+Sprint 6 start
+Wrap-up:
+Sprint 5 reviewed successful with all administration, review and reports completed.
+Sprint 5 Retrospective Meeting
+Sprint: Administration, Reviews & Reporting
+Retrospective Date: 03 Mar 2026
+Duration: 1 hour
+Facilitator: Ms. Asma Arshad (FYP Supervisor / Product Owner)
+Attendees: Mujtaba Bilal Bela, Hammad Ahmad, Muhammad Anas, Quratulain
+Sprint Overview:
+Goal: Administrative control/review/rating/reporting.
+Sprint Duration: 27 Jan 2026 – 02 Mar 2026 (5 Weeks)
+What Went Well:
+Good partnership between back-end and QA for RBAC testing
+Well received Dashboard charts - No major rework required
+What Didn't Go Well:
+Some report queries that had to be MUCH later optimized for performance
+Suggestions for Improvement:
+Run profile report queries earlier in the sprint, using realistic number of data volumes
+Action Items:
+Action Item
+Owner
+Due Date
+Add query performance checks to Definition of Done
+Mujtaba Bilal Bela
+Sprint 6
+Team Health Check:
+Though this is for an engagement focused sprint, the team's confidence is high.
+No issues with scheduling this sprint
+Wrap-up:
+Performance for report queries across the team will be profiled earlier in future sprints and not at the end to avoid late sprint optimization.
+Sprint 6
+Enhance user interaction and communication.
+Sprint 6 Pnning Meeting Minutes
+Project Name: Beauty Personalize By Ai
+Sprint Name: Notifications, Support & Customer Engagement
+Sprint Duration: 03 Mar 2026 – 06 Apr 2026 (5 Weeks)
+Meeting Date: 03 Mar 2026 
+Facilitated by: Ms. Asma Arshad (FYP Supervisor, Product Owner)
+Attendees: Mujtaba Bilal Bela, Hammad Ahmad, Muhammad Anas, Quratulain
+Backlog Items with high priority, high risk and Architecturally Significant:
+Targets to release and maintain a variety of features extracted partially from the Product Backlog.
+Table 29: Selected Features of Product Backlog
+PB-ID
+User Story
+Priority
+Acceptance Criteria
+Story Points
+Status
+NT-01
+As a customer, I receive
+booking confirmations
+High
+Notification sent
+Immediately after booking
+3
+Completed
+MS-01
+As a user, I receive in-app
+notifications
+Medium
+Notifications appear
+In the notification center
+5
+Completed
+FO-02
+  As a user, I can contact support
+Medium
+Support request is 
+submitted and logged
+3
+Completed
+AN-01
+As a salon owner, I can post
+promotional offers
+Medium
+Offer is published
+and visible to customers
+5
+Completed
+Team Capacity:
+The team members are given below along with their capacity
+Table 30: Team Capacity Sprint 6
+Team Member
+Days Available
+Hours/Day
+Total Hours
+Mujtaba Bilal Bela
+30
+4
+120
+Hammad Ahmad
+30
+4
+120
+Muhammad Anas
+30
+4
+120
+Quratulain
+30
+4
+120
+Action Items before Sprint Starts:
+Set up notification dispatch service (SMS/WhatsApp/Email/in-app)
+Create FAQ and support contact screens in Figma.
+Use the Reward Data Modelling environment to define referral and rewards data model.
+Plan feedback and service evaluation forms
+Sprint 6 Backlog
+The following work items are pulled from the Product Backlog features:
+Table 31: Sprint 6 Backlog
+PB-ID
+User Story
+Priority
+Acceptance Criteria
+Story Points
+Status
+FO-01
+As a user, I can submit
+feedback
+Medium
+Feedback stored and
+visible to admin
+3
+Completed
+FO-02
+  As a user, I can contact support
+Medium
+Support ticket created and
+acknowledged
+3
+Completed
+AN-01
+As a salon owner, I can post
+promotional offers
+Medium
+Offer saved with validity
+period
+5
+Completed
+AN-02
+As a customer, I can view
+promotions
+Medium
+Active promotions listed
+on salon page
+3
+Completed
+AF-01
+As a user, I can refer other
+users
+Low
+Referral link generated
+and trackable
+3
+Completed
+AF-02
+As an admin, I can manage
+rewards
+Low
+Reward rules
+configurable by admin
+3
+Completed
+MS-01
+As a user, I receive notifications
+Medium
+Notifications appear with
+correct timestamps
+5
+Completed
+MS-02
+As a user, I can view the FAQ
+page
+Low
+FAQ content displayed
+and searchable
+2
+Completed
+NT-01
+As a customer, I receive
+booking confirmation
+notifications
+High
+Confirmation sent via
+chosen channel after
+booking
+3
+Completed
+NT-02
+As a customer, I receive
+payment success alerts
+Medium
+Alert sent immediately
+after successful payment
+3
+Completed
+NT-03
+As a customer, I receive
+appointment reminders
+Medium
+Reminder sent a set time
+before the appointment
+3
+Completed
+EV-01
+As a customer, I can evaluate a
+completed service
+Medium
+Evaluation form available
+after service completion
+3
+Completed
+EV-02
+As an admin, I can analyze
+feedback
+Low
+Feedback trends
+summarized for admin
+3
+Completed
+Sprint 6 Design Class Diagram
+The Sprint 6 Sequence Diagram explains how the system objects interact step by step to perform the Sprint 6 features
+Figure 42: Class diagram of Sprint 6 features [4]
+Sprint 6 Sequence Diagram
+The Sprint 6 Sequence Diagram explains how the system objects interact step by step to perform the Sprint 6 features 
+Figure 43: Sample Sprint 6 Sequence diagram [2]
+Sprint 6 Decision Table
+Figure 44: Sample Sprint 6 Decision Table Notification Dispatch Logic
+The decision table below documents the notification dispatch logic for Sprint 6:
+Condition / Action
+Case 1
+Case 2
+Case 3
+Event Type Recognized
+Yes
+Yes
+No
+User Notification
+Preference Enabled
+Yes
+No
+Yes
+Action
+Notification Sent via
+Preferred Channel
+Notification Logged but
+Not Sent
+Error: Unknown Event
+Type
+Sprint 6 Extended Test Cases
+Multiple test cases need to be created against each user story to test the functionality.
+Table 32: Sprint 6 Extended Test Case
+TID
+PB-ID
+Test Scenario
+Test Steps
+Expected Result
+Actual Result / Status
+TC-601
+NT-01
+Booking
+confirmation after
+successful booking
+Customer completes 
+a booking
+Confirmation 
+  notification
+  received within
+  seconds
+Passed
+TC-602
+NT-03
+Appointment
+reminder timing
+System checks 
+appointments due
+in 24 hours
+Reminder sent
+exactly once per
+appointment
+Passed
+TC-603
+FO-02
+Submit a support
+request with empty
+message
+User submits 
+the support form
+blank
+System blocks 
+submission with
+validation message
+Passed
+TC-604
+AN-01
+  Post a promotional
+  offer with expired
+  date
+  Owner sets offer
+  end date in the past
+  System rejects with
+  validation error
+Passed
+TC-605
+MS-01
+Receive multiple
+notifications in
+sequence
+Three events trigger
+notifications close
+together
+All three appear
+correctly ordered in 
+notification center
+Passed
+TC-606
+EV-01
+Submit evaluation
+for an incomplete
+service
+Customer tries to
+evaluate a pending
+appointment
+System blocks
+evaluation until
+marked complete
+Passed
+Sprint 6 Review Meeting
+Sprint: Notifications, Support & Customer Engagement
+Review Date: 06 Apr 2026
+Duration: 1 hour
+Facilitator: Ms. Asma Arshad (FYP Supervisor / Product Owner)
+Attendees: Ms. Asma Arshad, Mujtaba Bilal Bela, Hammad Ahmad, Muhammad Anas, Quratulain
+The next table represents the situation of tasks given to the team members in the Sprint planning meeting.
+Table 33: Status of Sprint 6 Backlog
+ID
+Task Name
+Related PB-ID
+Owner
+Status
+Notes
+1
+Set up notification
+NT-01/NT-
+Mujtaba
+Completed
+Integrated with chosen channels
+dispatch service
+02/NT-03/
+Bilal Bela
+MS-01
+2
+Build feedback and
+FO-01/FO-
+Hammad
+Completed
+Tickets visible to admin
+support ticket system
+02
+Ahmad
+3
+Build promotions and
+AN-01/AN-
+Hammad
+Completed
+Reward rules configurable
+referral features
+02/AF-01/
+Ahmad
+AF-02
+4
+Build FAQ and
+MS-01/MS-
+MuhammadAnas
+Completed
+Searchable FAQ implemented
+notification center UI
+02
+5
+Build service evaluation
+EV-01/EV-
+Muhammad
+Completed
+Feedback summarized for
+admin
+flow
+02
+ Anas
+6
+  QA & regression testing
+All Sprint 6 items
+  Quratulain
+Completed
+Notification timing verified
+Demo Highlights:
+Customers be informed with a timely notification of booking, payment, and reminder.
+The ability to post promotions for consumption by the customers is available to salon owners.
+There are now support and feedback channels within the app.
+Sprint Goal Achievement:
+The Sprint 6 goal was fully realised. The engagement and communication components are all intact sessions, enhancing the customer experience.
+Feedback from Stakeholders:
+Feedback Source
+Comments
+Supervisor
+Appreciated the multi-channel notification system and asked for delivery logs
+to confirm reliability
+Team
+Felt the referral and rewards features were lower priority but useful for
+future growth
+Metrics Overview:
+Metric
+Value
+Planned Story Points
+39
+Completed Story Points
+39
+Bugs Found
+5
+Bugs Resolved
+5
+What Went Well:
+Notification dispatch service could be reused for all the types of events
+Support and FAQ's done in advance on time
+What Could Be Improved:
+Add logs for notifications delivery for easier debugging.
+Action Items / Next Steps:
+Action Item
+Owner
+Due Date
+Add delivery logs for notification
+service
+Mujtaba Bilal Bela
+Sprint 7 start
+Review referral feature usage after
+soft launch
+Hammad Ahmad
+Post-deployment
+Wrap-up:
+Sprint 6 was presented as successful, and dealt with the completion of all of the engagement/communication aspects of the project.
+Sprint 6 Retrospective Meeting
+Sprint: Notifications, Support & Customer Engagement
+Retrospective Date: 07 Apr 2026
+Duration: 1 hour
+Ms. Asma Arshad, FYP Supervisor / Product Owner facilitated the session.
+Mujtaba Bilal Bela, Hammad Ahmad, Muhammad Anas, Quratulain were among the attendees.
+Sprint Overview:
+Objectives: To increase usage and communication.
+Sprint Duration: 03 Mar 2026 – 06 Apr 2026 (5 Weeks)
+What Went Well:
+Notification system design was adequate and allowed for all the needed notification channels to be considered.
+Despite having the most backlogs of any sprint to date, team on-track to meet the deadline
+What Didn't Go Well:
+Less testing focus to lower priority features such as referral
+Suggestions for Improvement:
+Use specific QA time, even when the items on the backlog are not high priority
+Action Items:
+Action Item
+Owner
+Due Date
+Allocate explicit QA time for low-priority items
+Quratulain
+Sprint 7
+Team Health Check:
+Effectively managed a sustained sprint pace with good communication as a team.
+Everyone is excited about the final stretch of AI and deployment!
+Wrap-up:
+The team has perfect and tested out features, which are available for the implementation of AI and deployment.
+Sprint 7
+Enterprise AI personalization and complete the system.
+Sprint 7 Planning Meeting Minutes
+Learn how to implement AI features, testing, and deployment.
+Project Name: Beauty Personalized By Ai
+Sprint Duration: 07 Apr 2026 – 25 Jun 2026 (11 Weeks)
+Meeting Date: 07 Apr 2026
+FYP Supervisor: Mam Asma ARSHAD, Product Owner, who facilitated this sprint
+Attendees: Mujtaba Bilal Bela, Hammad Ahmad, Muhammad Anas, Quratulain were the attendees.
+Backlog Items with high priority, high risk and Architecturally Significant:
+Items are moved from the Product Backlog into the following features:
+Table 34: Selected Features of Product Backlog
+PB-ID
+User Story
+Priority
+Acceptance Criteria
+Story Points
+Status
+AI-01
+As a customer, I can receive
+hairstyle recommendations
+High
+Recommendations 
+Match uploaded photo
+features
+8
+Completed
+AI-02
+As a customer, I can interact
+with an AI chatbot
+High
+Chatbot responds 
+accurately to common
+queries
+8
+Completed
+AI-03
+As a system, I can detect face
+shape
+High
+Face shape correctly
+classified from photo
+8
+Completed
+NFR-01
+Performance Optimization
+High
+Key pages load within
+acceptable time limits
+5
+Completed
+Team Capacity:
+Each member of the team and their capacity is shown below:
+Table 35: Team Capacity Sprint 7
+Team Member
+Days Available
+Hours/Day
+Total Hours
+Mujtaba Bilal Bela
+40
+4
+160
+Hammad Ahmad
+40
+4
+160
+Muhammad Anas
+40
+4
+160
+Quratulain
+40
+4
+160
+Action Items before Sprint Starts:
+Set up Gemini Vision API integration for face shape detection, skin tone and hair type analysis
+Embed AI Chatbot service and build conversation flows based on that
+Revise and finalize performance and security testing checklist.
+The Sirek host configuration suite and CI/CD tools will be configured.
+Sprint 7 Backlog
+The Product tasks that follow are taken from the Product Backlog's features.
+Table 36: Sprint 7 Backlog
+PB-ID
+User Story
+Priority
+Acceptance Criteria
+Story Points
+Status
+AI-01
+As a customer, I can receive
+hairstyle recommendations
+High
+Recommendations 
+generated from uploaded
+photo
+8
+Completed
+AI-02
+As a customer, I can interact
+with an AI chatbot
+High
+Chatbot answers booking
+and service queries
+8
+Completed
+AI-03
+As a system, I can detect face shape
+High
+Face shape detection 
+integrated into
+ recommendation flow
+8
+Completed
+AI-04
+As a customer, I can receive
+service recommendations
+High
+Suggestionsmatch
+customer profile and
+history
+5
+..Completed
+AI-05
+As a customer, I can receive
+personalized suggestions
+High
+Suggestions reflect
+customer preferences
+8
+Completed
+AI-06
+As a system, I can analyze skin 
+tone
+High
+Skin tone classified 
+and stored against 
+profile
+8
+Completed
+AI-07
+As a system, I can analyze hair
+type
+High
+Hair type classified
+from uploaded photo
+8
+Completed
+AI-08
+As a system, I can analyze
+user preferences
+Medium
+Preferences derived
+from booking history
+5
+Completed
+AI-09
+As a customer, I can receive
+salon recommendations
+High
+Suitable nearby 
+salons suggested
+5
+Completed
+AI-10
+As a customer, I can receive 
+AI service recommendations
+High
+AI-ranked services
+shown on salon page
+5
+Completed
+NFR-01
+Performance Optimization
+High
+Core pages load within
+2 seconds under test
+load
+5
+Completed
+NFR-02
+Security Implementation
+High
+Security audit passes
+with no critical issues
+5
+Completed
+NFR-03
+Scalability Testing
+Medium
+System handles target
+concurrent user load
+5
+Completed
+Sprint 7 Design Class Diagram
+The Sprint 7 Class Diagram shows the final set of classes and relationships developed for the remaining project features.
+Figure 45: Class diagram of Sprint 7 features 
+Sprint 7 Sequence Diagram
+The Sprint 7 Sequence Diagram illustrates the complete interaction between system objects for the final Sprint features.
+Figure 46: Sample Sprint 7 Sequence diagram 
+Sprint 7 Decision Table
+Figure 47:Sprint 7 Decision Table AI Recommendation Confidence Threshold Logic
+Sprint 7's AI recommendation confidence threshold decision table is below:
+Condition / Action
+Case 1
+Case 2
+Case 3
+Face/Skin Analysis
+Confidence ≥ 80%
+Yes
+Yes
+No
+User Profile Data 
+Available
+Yes
+No
+Yes
+Action
+Personalized Recommendation Shown
+Generic Recommendation
+Shown
+Recommendation Deferred
+Retry Suggested
+Sprint 7 Extended Test Cases
+For each user story separate test cases should be created for testing the functionality.
+Table 37: Sprint 7 Extended Test Case
+TID
+PB-ID
+Test Scenario
+Test Steps
+Expected Result
+Actual Result / Status
+TC-701
+AI-03
+Detect face 
+shape from a 
+clear photo
+Customer uploads
+a well-lit front-
+facing photo
+Face shape detected
+ with high
+confidence
+Passed
+TC-702
+AI-03
+Detect face shape 
+from a low-quality
+photo
+Customer uploads
+a blurry photo
+System requests a
+clearer photo
+instead of guessing
+Passed
+TC-703
+AI-02
+Ask chatbot an 
+unsupported question
+Customer asks 
+an unrelated
+question
+Chatbot responds
+with a fallback
+message
+Passed
+TC-704
+AI-06
+Analyze skin tone
+under poor lighting
+Customer upload
+a dark,
+underexposed photo
+System flags low
+confidence and
+asks for retry
+Passed
+TC-705
+NFR-01
+Load the salon
+discovery page
+under load
+100 concurrent
+users access the
+page
+Page loads within 2
+seconds for 95% of
+requests
+Passed
+TC-706
+NFR-02
+Attempt
+unauthorized
+access to admin
+endpoints
+Non-admin user
+calls an admin-only
+API
+Request rejected
+with 403 Forbidden
+Passed
+TC-707
+NFR-03
+Simulate peak
+concurrent booking
+load
+200 simulated
+users book
+appointments
+simultaneously
+System processes
+bookings without
+data corruption
+Passed
+TC-708
+AI-09
+Recommend salons
+with no nearby
+matches
+Customer in a
+remote area
+requests salon
+recommendations
+System shows
+broader-radius
+results with a notice
+Passed
+Sprint 7 Review Meeting
+Review Date: 25 Jun 2026
+Duration: 1 hour
+Product Owner: Ms. Asma Arshad (FYP Supervisor)
+Ms. Asma Arshad, Mujtaba Bilal Bela, Hammad Ahmad and Muhammad Anas, Quratulain worked on this sprint
+The below table indicates if tasks were assigned in the Sprint planning meeting to team members as Done, To Do, or Open.
+Table 38: Status of Sprint 7 Backlog
+ID
+Task Name
+Related PB-ID
+Owner
+Status
+Notes
+1
+Build face shape
+and hairstyle
+recommendation pipeline
+AI-01/AI-03
+Mujtaba Bilal Bela
+Completed
+Used Gemini Vision API
+ (face analysis) and a 
+pretrained model
+2
+  Integrate AI chatbot 
+  service
+AI-02
+  Hammad  Ahmad
+  Completed
+  Handles booking and FAQ 
+  queries
+3
+Build skin tone and
+hair type analysis
+AI-06/AI-07
+Mujtaba Bilal Bela
+Completed
+Integrated Gemini Vision
+API (classification) pipeline
+4
+Build preference and
+service recommendation
+engine
+AI-04/AI-05/AI-08/AI-
+10
+Hammad Ahmad
+Completed
+Combines history and profile
+data
+5
+Build salon
+recommendation logic
+AI-09
+Mujtaba Bilal Bela
+Completed
+Location-aware ranking
+implemented
+6
+Performance and security
+hardening
+NFR-01/ NFR-02
+Hammad Ahmad
+Completed
+Passed load and security 
+testing
+7
+Scalability and load 
+testing
+NFR-03
+Quratulain
+Completed
+Verified under simulated
+peak load
+8
+System testing bug fixing
+All backlog items
+Quratulain
+Completed
+Full regression pass completed
+9
+Deployment final
+documentation
+Deployment
+Muhammad Anas
+Completed
+Deployed and FYP 
+report finalized
+Demo Highlights:
+AI chatbot and personalized recommendations seamlessly work through the customer journey.
+Analysis of face shape, skin and hair type gives precise hairstyle suggestions.
+Performance, security and scalability were tested before the system was deployed
+Sprint Goal Achievement:
+Setting & achieving the goal of Sprint 7 was fully accomplished. All Personalisation features using AI were made, the system was tested and passed and Beauty Personalized By Ai was successfully deployed.
+Feedback from Stakeholders:
+Feedback Source
+Comments
+Supervisor
+Commended the AI recommendation pipeline and confirmed the project meets the FYP requirements for final submission
+Team
+Agreed the modular AI pipeline could be extended with more models in future work
+Metrics Overview:
+Metric
+Value
+Planned Story Points
+78
+Completed Story Points
+78
+Bugs Found
+7
+Bugs Resolved
+7
+What Went Well:
+AI pipelines seamlessly merged into the current booking and profile system
+No critical issues were identified during performance & security testing.
+What Could Be Improved:
+Inference time of the AI model could be optimized for low end devices
+Action Items / Next Steps:
+Action Item
+Owner
+Due Date
+Document everything for the
+final report
+Mujtaba Bilal Bela
+Before final submission
+Explore model optimization
+for low-end devices
+Hammad Ahmad
+Future work
+Wrap-up:
+Sprint 7 has been reviewed and is considered success - with all planned features completed and Beauty Personalized By Ai deployed successfully.
+Sprint 7 Retrospective Meeting
+The core of the session will be AI features, testing, and deployment.The use of AI features, testing and deployment will be at the heart of the session.
+Retrospective Date: 25 Jun 2026
+Duration: 1 hour
+Mujtaba Bilal Bela, Hammad Ahmad, Muhammad Anas, Quratulain participated in the sprint.
+Sprint Overview:
+The goal is to bring personalization based on AI and complete the system.
+Sprint Duration: 07 Apr 2026 – 25 Jun 2026 (11 Weeks)
+What Went Well:
+The team was able to achieve integration of multiple models in the planned timeframe
+Final tests and deployments were hassle-free with no huge failures
+What Didn't Go Well:
+The higher than expected AI inference time on the lower-end devices.
+Suggestions for Improvement:
+State the limitations of the AI models that can be used as future work in the final report clearly.
+Action Items:
+Action Item
+Owner
+Due Date
+Add AI model limitations section
+to final report
+Quratulain
+  Before final submission
+Team Health Check:
+Team is familiar with the new team communication techniques, processes, and protocols
+All members are in accord with leaving tasks only in documentation before sending to the end.
+Wrap-up:
+Once all seven sprints are done, the team shifts focus to readying for the FYP defence and to prepare the final report.
+System Architecture 
+System context Diagram
+The System Context Diagram provides a high-level view of the system. It shows the main users and external systems that interact with the application and the information exchanged between them.
+Figure 24: System context Diagram [5]
+System Container Diagram
+The System Container Diagram shows the main parts of the system, including the applications, backend, database, and external services, and how they communicate with each other.
+Figure 25: System container Diagram [5]
+Component Diagram
+The Component diagram displays the key software components in the system along with the interactions among them that ensure that the system achieves its intended functionality
+.
+Figure 26: Component Diagram [5]
+Code Diagrams
+The Code Diagram shows the classes that are used in the application. It shows what is inside these classes and how they work together.
+Figure 27: Code Diagram [5]
+ERD
+The Entity Relationship Diagram (ERD) presents the key database entities, their attributes, and the relationships between the entities. This diagram will assist in explaining the structure of the project data.
+Figure 28: ER Diagram for University Scenario [3]
+Data Dictionary
+The Data Dictionary provides detailed information about the data used in the system. It describes each data element, its data type, possible values, and any constraints, helping maintain consistency throughout the project.
+Figure 29: Data Dictionary of Chemical Tracking System [1]
+Implementation details
+Development Setup
+Beauty Personalized by AI is built using a dual-frontend architecture. The website is developed with React.js and the mobile application is built with Dart (Flutter). A shared FastAPI backend handles all business logic and AI requests through the Gemini API. All data is stored and managed through Supabase.
+Tool / Technology
+Role in Development
+React.js
+Website frontend for customers, salon owners, and 
+admin panel
+Dart / Flutter
+Mobile application for Android and iOS
+FastAPI (Python)
+Backend Fast API handling all business logic and
+AI requests
+Supabase
+Database, authentication, real-time updates, and file 
+storage
+Supabase Auth
+User login, registration, and role-based access control
+Supabase Storage
+Image storage for salon profiles and service photos
+Gemini API (Google)
+Face shape detection, skin tone analysis, 
+hairstyle recommendations, and AI chatbot
+Vercel
+Deployment platform for the React.js website
+Render
+Deployment platform for the FastAPI backend
+Figma
+UI/UX wireframe and screen design
+GitHub
+Version control and team collaboration
+6.2 Deployment Setup
+This infrastructure is set up across the following services: Vercel for the website, Render for the backend, and Supabase Cloud for the database and authentication
+Website (React.js on Vercel): The React.js website is deployed to Vercel. Each commit to the master branch on GitHub automatically starts a new deployment process. Supabase URL and API keys are securely stored in the Vercel project settings.
+Mobile App (Dart / Flutter): The mobile application is developed with Flutter and compiled as 'flutter build apk' for Android. It uses the environment variables from a .env file to connect to the backend and Supabase (this file is not kept under version control). 
+Backend (FastAPI on Render): This FastAPI application is deployed to Render and processes all REST API requests, booking logic, payment registering, and calling of the Gemini API. HTTPS protocol is configured via Render settings.
+Database and Auth (Supabase Cloud): Supabase Cloud provides PostgreSQL database with real-time capabilities and authentication functionality, as well as file storage. RLS policies are implemented in the database for role-based access without additional middleware. 
+Payment: Cash payment only is used by the system. Users pay in cash while being serviced. The payment details are recorded in the Supabase database
+6.3 Algorithms
+The following are the main custom algorithms built for Beauty Personalized by AI. Full source code is not included. Only the key steps and logic are described.
+Algorithm 1: Face Shape Detection and Hairstyle Recommendation
+Input: Customer photo (uploaded image)
+Convert the uploaded image to base64
+Send to Gemini Vision API with the prompt:
+"Look at this face. Classify the face shape as one of: Oval, Round, Square, Oblong, or Heart. Return JSON: {shape, confidence, top3_hairstyles}"
+Read the response. If confidence is below 0.70, ask the user to upload a clearer photo.
+Match the face shape to the hairstyle list and return the top 3 suggestions.
+Output: [{hairstyle, reason, confidence, image_url}]
+Algorithm 2: Booking Slot Conflict Check
+Input: salon_id, service_id, selected_date_time, duration_minutes
+Calculate slot_end = selected_date_time + duration_minutes
+Search Supabase bookings table: SELECT id FROM bookings WHERE salon_id = :salon_id AND status != 'cancelled' AND start_time < slot_end AND end_time > selected_date_time
+If any result is found: return error 'Slot is not available'
+If no conflict: save booking with status = 'pending' and return booking_id
+Output: booking_id or error message
+Algorithm 3: AI Service Recommendation
+Input: customer_id
+Get customer profile from Supabase: skin_tone, hair_type, face_shape
+Get the customer's 5 most booked service types from booking history
+Build a prompt: "Customer details: skin = {skin_tone}, hair = {hair_type}, face =
+{face_shape}.Most used services: {service_types}.
+Suggest 5 salon services. Return as JSON array."
+Send to Gemini API, read the response, and match with available services in Supabase
+Output: List of recommended services sorted by match score
+Algorithm 4: Cash Payment Recording
+Input: booking_id, amount_paid, payment_date
+Check that the booking exists and is in 'confirmed' status
+Record payment in the payments table:
+INSERT into payments (booking_id, amount, date, method, status) VALUES (:booking_id, :amount, :date, 'cash', 'completed')
+Update booking status to 'paid' Send booking confirmation notification to the customer Output: Payment recorded successfully
+Project Monitoring, control and traceability 
+7.1 Traceability Matrix
+Requirements vs Prototype (PB-ID vs Sprint)
+The Product Backlog is mapped on the following matrix to the specific sprint it has been designed, implemented and delivered as working prototype: The ✓ means the submitter has done the requirement in that sprint.
+PB-ID
+S1
+S2
+S3
+S4
+S5
+S6
+S7
+AM-01
+✔
+AM-02
+✔
+AM-03
+✔
+AM-04
+✔
+AM-05
+✔
+SC-01
+✔
+SC-02
+✔
+SC-03
+✔
+SC-04
+✔
+SC-05
+✔
+SV-01
+✔
+SV-02
+✔
+SV-03
+✔
+SV-04
+✔
+SV-05
+✔
+SV-06
+✔
+BK-01
+✔
+BK-02
+✔
+BK-03
+✔
+BK-04
+✔
+BK-05
+✔
+BK-06
+✔
+VS-01
+✔
+VS-02
+✔
+VS-03
+✔
+AC-01
+✔
+AC-02
+✔
+PY-01
+✔
+PY-02
+✔
+PY-03
+✔
+SA-01
+✔
+SA-02
+✔
+SA-03
+✔
+CM-01
+✔
+CM-02
+✔
+CM-03
+✔
+RP-01
+✔
+RP-02
+✔
+RP-03
+✔
+RP-04
+✔
+FO-01
+✔
+FO-02
+✔
+AN-01
+✔
+AN-02
+✔
+AF-01
+✔
+AF-02
+✔
+MS-01
+✔
+MS-02
+✔
+NT-01
+✔
+NT-02
+✔
+NT-03
+✔
+EV-01
+✔
+EV-02
+✔
+AI-01
+✔
+AI-02
+✔
+AI-03
+✔
+AI-04
+✔
+AI-05
+✔
+AI-06
+✔
+AI-07
+✔
+AI-08
+✔
+AI-09
+✔
+AI-10
+✔
+NFR-01
+✔
+NFR-02
+✔
+NFR-03
+✔
+NFR-04
+✔
+NFR-05
+✔
+Requirements vs Test Cases (PB-ID vs TID)
+The matrices below correlate each Product Backlog item with test cases to verify. Tables are sorted (listed) by sprint for readability.
+Sprint 1  Requirements vs Test Cases
+PB-ID
+TC-101
+TC-102
+TC-103
+TC-104
+TC-105
+TC-106
+TC-107
+AM-01
+✔
+AM-02
+✔
+AM-03
+✔
+AM-05
+✔
+NFR-04
+✔
+NFR-05
+✔
+During Sprint 2, the Requirements vs Test Cases were created.
+PB-ID
+TC-201
+TC-202
+TC-203
+TC-204
+TC-205
+TC-206
+SC-01
+SC-05
+✔
+SV-01
+✔
+SV-02
+✔
+SV-03
+✔
+SV-04
+✔
+SV-05
+✔
+SV-06
+✔
+Sprint 3 Requirements to Test Cases
+PB-ID
+TC-301
+TC-302
+TC-303
+TC-304
+TC-305
+TC-306
+SC-02
+✔
+SC-03
+✔
+SC-04
+✔
+VS-01
+✔
+VS-02
+✔
+VS-03
+✔
+BK-01
+✔
+✔
+BK-02
+✔
+Sprint 4 – Requirements vs Test Cases
+PB-ID
+TC-401
+TC-402
+TC-403
+TC-404
+TC-405
+TC-406
+TC-407
+BK-03
+✔
+BK-04
+✔
+BK-05
+✔
+BK-06
+✔
+PY-01
+✔
+PY-02
+✔
+PY-03
+✔
+AC-01
+✔
+AC-02
+✔
+Sprint 5 is the requirements vs the Test Cases.
+PB-ID
+TC-501
+TC-502
+TC-503
+TC-504
+TC-505
+TC-506
+AM-04
+✔
+SA-01
+✔
+SA-02
+✔
+SA-03
+✔
+CM-01
+✔
+CM-02
+✔
+CM-03
+✔
+RP-01
+✔
+RP-02
+✔
+RP-03
+✔
+RP-04
+✔
+Requirements vs Test Cases - Sprint 6
+PB-ID
+TC-601
+TC-602
+TC-603
+TC-604
+TC-605
+TC-606
+FO-01
+✔
+FO-02
+✔
+AN-01
+✔
+AN-02
+✔
+AF-01
+✔
+AF-02
+✔
+MS-01
+✔
+MS-02
+✔
+NT-01
+✔
+NT-02
+✔
+NT-03
+✔
+EV-01
+✔
+EV-02
+✔
+Now in Sprint 7, the product requirements are documented in epics, which then are translated to test cases.
+PB-ID
+TC-701
+TC-702
+TC-703
+TC-704
+TC-705
+TC-706
+TC-707
+TC-708
+AI-01
+✔
+AI-02
+✔
+AI-03
+✔
+✔
+AI-04
+✔
+AI-05
+✔
+AI-06
+✔
+AI-07
+✔
+AI-08
+✔
+AI-09
+✔
+AI-10
+✔
+NFR-01
+✔
+NFR-02
+✔
+NFR-03
+✔
+Conclusion
+8.1 Overall Statistics
+Metric
+Value
+Details
+Total Requirements (PB-IDs)
+68
+Covering all functional and non-functional requirements
+Requirements Completed
+68
+All 68 backlog items implemented across 7 sprints
+% Completion
+100%
+All planned features delivered within the project timeline
+Total Test Cases
+46
+Spread across Sprint 1–7 extended test case suites
+Test Cases Passed
+46
+All test cases passed after final regression testing
+% Accuracy
+100%
+All requirements implemented correctly per acceptance criteria
+% Correctness
+100%
+All implemented features verified against defined test cases
+Total Bugs Found
+33
+Across all 7 sprints during QA and testing
+Total Bugs Resolved
+33
+All identified bugs fixed before sprint review sign-off
+Bug Resolution Rate
+100%
+No critical or major bugs left unresolved at deployment
+8.2 Sprint Velocity
+As can be seen in the following table, planned velocity was met, with 100% velocity in all seven sprints.
+Sprint
+Planned Story Points
+Completed Story Points
+Velocity
+Sprint 1
+26
+26
+100% Foundation and
+auth complete
+Sprint 2
+21
+21
+100% Salon and service
+ management complete
+Sprint 3
+26
+26
+100% Discovery and booking
+complete
+Sprint 4
+41
+41
+100% Payment and appointment
+lifecycle complete
+Sprint 5
+42
+42
+100% Admin, reviews & reporting complete
+Sprint 6
+39
+39
+100% Notifications and
+engagement complete
+Sprint 7
+78
+78
+100% AI features testing and
+deployment complete
+Total
+273
+273
+100% overall velocity across all sprints
+8.3 % Completion
+100% of Product Backlog items, 68 of them, were implemented and accepted. Annual scope of sprints was carried out as planned and 100% of requirements were met. Each PB-ID has been correlated in the traceability matrix in Chapter 7 to at least one delivered prototype sprint(s).
+8.4 % Accuracy
+Accuracy determines if requirements are being applied successfully, based on acceptance criteria. The supervisor attended all sprint review meetings to review and sign off on all 68 requirements. At the final review, no requirement was identified to change its defined acceptance criteria.
+8.5 % Correctness
+Correctness: if the features implemented are right or not as found by test cases. 100% pass/bug resolution in extended testing in all 46 test cases. No open defects noted on deployment.
+Future work
+At present, the system provides users with beauty recommendations and assistance in scheduling services provided by salons through the use of artificial intelligence. Nevertheless, there is much room for improvement.
+One of the enhancements could be the implementation of the Beauty Reels functionality. This would be the feature where videos similar to those that one may find on Instagram and TikTok would be uploaded by salons, hair stylists, makeup artists, beauty influencers and others. They would show various hairdos, techniques for doing makeup, skin care advice and ways in which one may improve their appearance. In addition to watching these videos, users would be able to discuss them and even book an appointment at salons or services advertised in the videos. Thus, the system would become more entertaining and interactive.
+It would also be beneficial if there was an in-system online store for beauty products. This would allow people to purchase beauty, skin care and hair care products recommended by artificial intelligence or used at salons. People would have the opportunity to view products, get information regarding them, place orders and pay online in the system without having to visit other sites.
+Bibliography
+Books
+Sommerville, I. Software Engineering. 10th ed., Pearson, 2015.
+Pressman, R. S., and B. R. Maxim. Software Engineering: A Practitioner’s Approach. 9th ed., McGraw-Hill Education, 2019.
+Russell, S. J., and P. Norvig. Artificial Intelligence: A Modern Approach. 4th ed., Pearson, 2020.
+Goodfellow, I., Y. Bengio, and A. Courville. Deep Learning. MIT Press, 2016.
+Bennett, S. Object-Oriented Systems Analysis and Design Using UML. McGraw-Hill Education, 2016.
+Systems Analysis and Design Using UML. McGraw-Hill Education, 2016.
+Journals
+“Artificial Intelligence (AI) in Pakistani University Library Services.” 2021.
+Jabeen, M., Z. Aakif, and H. A. Afridi. “Unlocking Pakistan’s Digital Potential: A Roadmap for Workforce Digitalization and Economic Transformation.” 2024.
+“Impact of Mobile Application Compatibility, Online Shopping and Payment on User Satisfaction in Pakistan.” 2022.
+“Virtual Try-On Experience: How Augmented Reality Characteristics Shape Consumer Responses.” 2025.
+Consumer Willingness to Use Digital Coupons: A Case of Karachi Market in Pakistan (2018)
+Articles
+“The Influence of Augmented Reality on E-commerce: A Case Study on Beauty and Fashion Products.” 2023.
+“A New Descriptor for Acne Detection and Skin Care Framework Using AI Algorithms.” 2025.
+“Mobile Application for Skin Disease Classification Using CNN with User Privacy.” 2024.
+“Online Salon Appointment and Management System of FOREVER18 Hair Salon.” 2024.
+“Progressive Web Application for Salons Using Artificial Intelligence.” 2020.
+Research papers
+Optimizing Salon Services: Reducing Scheduling Errors and Wait Times Through Automation (2025)
+Online Salon Appointment and Management System of FOREVER18 Hair Salon (2024)
+Unlocking Pakistan’s Digital Potential: A Roadmap for Workforce Digitalization and Economic Transformation(2024)
+Mobile Application for Skin Disease Classification Using CNN with User Privacy (2024)
+A New Descriptor for Acne Detection and Skin Care Framework Using AI Algorithms (2025)
+Other References
+React Documentation.
+Flutter Documentation.
+FastAPI Documentation.
+Supabase Documentation.
+Gemini API Documentation.
+Appendix
+Glossary of terms
+The following terms are used throughout this document. Definitions are specific to their usage in the context of Beauty Personalized By Ai. 
+Term
+Definition
+PB-ID
+Product Backlog Identifier a unique code assigned to each user story in the product backlog 
+(e.g., AM-01, BK-03, AI-06). Used throughout the traceability matrix in Chapter 7.
+Sprint
+A fixed-length development cycle used in Agile methodology. This project used 7 sprints 
+ranging from 4 to 8 weeks each, totalling 42 weeks (2 semesters).
+User Story
+A feature description written from the end user's perspective: 'As a <role>, I can
+<action>.' All 68 PB-IDs in this document follow this format.
+Acceptance Criteria
+The conditions that must be met for a user story to be considered complete and 
+accepted by the product owner (supervisor).
+Story Points
+A relative unit of effort estimation used in Agile sprints. Total story points across 
+all 7 sprints: 273.
+FastAPI
+A modern Python web framework for building REST APIs, used as the sole backend
+for Beauty Personalized by AI. Deployed on Azure App Service.
+Flutter / Dart
+Google's open-source UI toolkit and programming language for building natively
+compiled mobile apps from a single codebase. Used for the Android and iOS mobile app.
+React.js
+A JavaScript library for building user interfaces. Used for the web frontend 
+(salon owner dashboard, admin panel, customer web app).
+Tailwind CSS
+A utility-first CSS framework used to style all React.js frontend screens
+consistently.
+Supabase
+An open-source database, authentication, real-time subscriptions, and file storage as a
+managed cloud service.
+RLS
+Row-Level Security a PostgreSQL/Supabase feature enforcing data access rules at the 
+database level per user role (Customer, Salon Owner, Admin).
+Gemini API
+Google's generative AI API (gemini-1.5-pro / gemini-1.5-flash) used for face shape detection, skin tone and hair type analysis, AI chatbot, and personalized recommendations.
+Vercel
+A cloud deployment platform with automatic CI/CD from GitHub, used to host the 
+React.js web frontend.
+Render
+Cloud hosting platform used to deploy and host the FastAPI backend. No local
+Installation needed.
+API
+Application Programming Interface a set of endpoints allowing software components 
+to communicate. All business logic is exposed via the FastAPI REST API.
+RBAC
+Role-Based Access Control restricts system access based on user roles: Customer,
+Salon Owner, and Admin. Enforced via Supabase RLS policies.
+C4 Model
+A software architecture visualisation framework (Context, Container, Component, Code)
+used to document the system architecture in Chapter 5.
+TID
+Test Case Identifier a unique code assigned to each test case (e.g., TC-101, TC-504) 
+used in the traceability matrix (Chapter 7).
+NFR
+Non-Functional Requirement a system quality attribute such as performance (NFR-01),
+ security (NFR-02), and scalability (NFR-03).
+CDN
+Content Delivery Network used to serve Flutter-uploaded videos and images (service photos)
+ stored in Supabase Storage via optimized URLs.
+Pre-requisites
+The following tools and versions must be installed to run or build Beauty Personalized By Ai locally. All dependencies are open-source unless otherwise state
+Dependency
+Purpose / Install Command
+Node.js
+Required to run React.js development server and install npm packages. Install: nodejs.org
+React.js
+Web frontend framework. Install: npm create vite@latest
+Tailwind CSS
+CSS utility framework. Install: npm install tailwindcss
+Flutter SDK
+Mobile app framework.Install: flutter.dev/docs/get-started/install
+Dart SDK
+Bundled with Flutter SDK. No separate install needed.
+Python
+Required for FastAPI backend. Install: python.org
+FastAPI
+Backend framework. Install: pip install fastapi
+Supabase Account
+Create at supabase.com. No local install needed.
+Supabase Python Client
+Install: pip install supabase
+Git
+Version control. Install: git-scm.com
+VS Code
+Recommended IDE. Install: code.visualstudio.com

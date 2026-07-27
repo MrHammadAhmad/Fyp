@@ -68,7 +68,7 @@ export default function BusinessDashboard() {
     return Object.entries(report.popular_services).map(([name, count]) => ({
       name,
       sales: count,
-      revenue: formatPrice(count * 45) // Assume an average price of $45 per booking for display
+      revenue: formatPrice(report.earnings_by_service?.[name] || 0)
     }))
   }, [report])
 

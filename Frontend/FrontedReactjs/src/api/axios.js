@@ -4,7 +4,7 @@ import { useAuthStore } from '../store/authStore'
 // Create axios instance
 const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL || 'https://api.beautyai.com/v1',
-  timeout: 15000,
+  timeout: 60000,
   headers: {
     'Content-Type': 'application/json',
   },

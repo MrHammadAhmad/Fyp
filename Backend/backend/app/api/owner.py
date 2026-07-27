@@ -48,8 +48,8 @@ def get_owner_performance(current_user: dict = Depends(get_current_owner)):
             if status in status_counts:
                 status_counts[status] += 1
                 
-            # If paid, add to earnings
-            if pay_status == "paid":
+            # If paid or completed, add to earnings
+            if pay_status == "paid" or status == "completed":
                 service = services_map.get(service_id)
                 if service:
                     price = float(service["price"])

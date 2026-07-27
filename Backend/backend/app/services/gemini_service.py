@@ -12,8 +12,8 @@ model = None
 if genai is not None and getattr(settings, "GEMINI_API_KEY", None):
     try:
         genai.configure(api_key=settings.GEMINI_API_KEY)
-        model = genai.GenerativeModel('gemini-3.5-flash')
-        print("SUCCESS: Gemini AI model loaded successfully: gemini-3.5-flash")
+        model = genai.GenerativeModel('gemini-2.5-flash')
+        print("SUCCESS: Gemini AI model loaded successfully: gemini-2.5-flash")
     except Exception as e:
         print(f"ERROR: Failed to load Gemini model: {e}")
         model = None
@@ -117,7 +117,7 @@ def analyze_image_general(image_bytes: bytes, mime_type: str, user_prompt: str) 
         return f"Error from AI: {str(e)}"
 
 def analyze_hair_image_json(image_bytes: bytes, mime_type: str) -> dict:
-    import json
+    import json, traceback
     _ensure_model_available()
     prompt = (
         "Analyze this image of a person's hair. Provide a structured JSON response with the following keys EXACTLY: "
@@ -133,19 +133,28 @@ def analyze_hair_image_json(image_bytes: bytes, mime_type: str) -> dict:
         "Do NOT include any markdown formatting like ```json. Return ONLY valid JSON."
     )
     try:
-        response = model.generate_content([{"mime_type": mime_type, "data": image_bytes}, prompt])
+        generation_config = {
+            "response_mime_type": "application/json",
+            "thinking_config": {"thinking_budget": 0}
+        }
+        response = model.generate_content(
+            [{"mime_type": mime_type, "data": image_bytes}, prompt],
+            generation_config=generation_config
+        )
         clean_text = response.text
+        print(f"Hair Analysis raw response: {clean_text[:300]}")
         start = clean_text.find('{')
         end = clean_text.rfind('}')
         if start != -1 and end != -1:
             clean_text = clean_text[start:end+1]
         return json.loads(clean_text)
     except Exception as e:
-        print(f"Hair Analysis Error: {e}")
+        print(f"Hair Analysis Error: {type(e).__name__}: {e}")
+        traceback.print_exc()
         return None
 
 def analyze_skin_image_json(image_bytes: bytes, mime_type: str) -> dict:
-    import json
+    import json, traceback
     _ensure_model_available()
     prompt = (
         "Analyze this image of a person's face/skin. Provide a structured JSON response with the following keys EXACTLY: "
@@ -162,15 +171,24 @@ def analyze_skin_image_json(image_bytes: bytes, mime_type: str) -> dict:
         "Do NOT include any markdown formatting like ```json. Return ONLY valid JSON."
     )
     try:
-        response = model.generate_content([{"mime_type": mime_type, "data": image_bytes}, prompt])
+        generation_config = {
+            "response_mime_type": "application/json",
+            "thinking_config": {"thinking_budget": 0}
+        }
+        response = model.generate_content(
+            [{"mime_type": mime_type, "data": image_bytes}, prompt],
+            generation_config=generation_config
+        )
         clean_text = response.text
+        print(f"Skin Analysis raw response: {clean_text[:300]}")
         start = clean_text.find('{')
         end = clean_text.rfind('}')
         if start != -1 and end != -1:
             clean_text = clean_text[start:end+1]
         return json.loads(clean_text)
     except Exception as e:
-        print(f"Skin Analysis Error: {e}")
+        print(f"Skin Analysis Error: {type(e).__name__}: {e}")
+        traceback.print_exc()
         return None
 
 def analyze_review_sentiment(review_text: str) -> int:

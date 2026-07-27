@@ -47,7 +47,7 @@ def signup(user: UserSignup):
                     "referral_code": ref_code,
                     "referred_by": referred_by_id
                 },
-                "redirect_to": "http://localhost:5173/auth/login"
+                "redirect_to": "https://fyp-iota-rust.vercel.app/auth/login"
             }
         })
         

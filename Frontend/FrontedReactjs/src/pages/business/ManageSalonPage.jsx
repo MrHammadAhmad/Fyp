@@ -29,8 +29,8 @@ export default function ManageSalonPage() {
     name: '',
     description: '',
     cover_image: '',
-    country: '',
-    city: '',
+    country: 'Pakistan',
+    city: 'Lahore',
     town: '',
     shop_no: '',
     street_address: '',
@@ -72,8 +72,8 @@ export default function ManageSalonPage() {
             name: mySalon.name || '',
             description: mySalon.description || '',
             cover_image: mySalon.cover_image || mySalon.image_url || '',
-            country: mySalon.country || '',
-            city: mySalon.city || '',
+            country: mySalon.country || 'Pakistan',
+            city: mySalon.city || 'Lahore',
             town: mySalon.town || '',
             shop_no: mySalon.shop_no || '',
             street_address: mySalon.street_address || '',
@@ -128,15 +128,17 @@ export default function ManageSalonPage() {
   // Handle core Save action
   const handleSaveSalon = async (e) => {
     e.preventDefault()
-    if (!salonData.name || !salonData.city) {
-      showToast.error('Please enter Shop Name and Area in Lahore.')
+    if (!salonData.name) {
+      showToast.error('Please enter Shop Name.')
       return
     }
 
     try {
       setSaving(true)
+      const finalCity = salonData.city || 'Lahore'
+      const finalCountry = salonData.country || 'Pakistan'
       // Form location string as street address, City, Country
-      const locationText = `${salonData.street_address || ''}, ${salonData.town || ''}, ${salonData.city}, Lahore, Pakistan`
+      const locationText = `${salonData.street_address || ''}, ${salonData.town || ''}, ${finalCity}, ${finalCountry}`
       
       const payload = {
         name: salonData.name,
@@ -144,9 +146,9 @@ export default function ManageSalonPage() {
         cover_image: salonData.cover_image || 'https://images.unsplash.com/photo-1560066984-138dadb4c035?w=800',
         location: locationText,
         address: locationText,
-        country: 'Pakistan',
-        city: 'Lahore',
-        town: salonData.city,
+        country: finalCountry,
+        city: finalCity,
+        town: salonData.town,
         shop_no: salonData.shop_no,
         street_address: salonData.street_address,
         latitude: salonData.latitude,

@@ -118,7 +118,7 @@ def ai_recommendations(request: RecommendationRequest, current_user: dict = Depe
         raise HTTPException(status_code=500, detail=str(e))
 
 @router.post("/recommend-salon")
-def ai_recommend_salon(request: SalonRecommendRequest, current_user: dict = Depends(get_current_user)):
+def ai_recommend_salon(request: SalonRecommendRequest):
     try:
         salons_res = supabase_admin.table("Salons").select("id, name, location, average_rating, ai_aggregate_rating").eq("is_approved", True).execute()
         salons_list = salons_res.data
@@ -215,7 +215,7 @@ def ai_recommend_salon(request: SalonRecommendRequest, current_user: dict = Depe
             }
 
 @router.post("/recommend-service")
-def ai_recommend_service(request: ServiceRecommendRequest, current_user: dict = Depends(get_current_user)):
+def ai_recommend_service(request: ServiceRecommendRequest):
     try:
         concerns_str = ", ".join(request.concerns)
         prompt = f"The user has the following beauty/skin/hair concerns: {concerns_str}. What treatments or services do you recommend for them? Provide a well-thought-out, highly effective list of recommendations. Present them as a numbered list (1., 2., 3.). Put the name of the treatment in **bold** using markdown. Keep your explanation concise, easy to read, and helpful. Do NOT use hashtags (#)."

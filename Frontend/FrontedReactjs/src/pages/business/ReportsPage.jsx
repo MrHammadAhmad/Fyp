@@ -55,7 +55,7 @@ export default function ReportsPage() {
   // Report 1: Sales Summary Data Breakdown
   const salesSummaryData = useMemo(() => {
     return appointments
-      .filter(a => a.payment_status === 'paid')
+      .filter(a => a.payment_status === 'paid' || a.status === 'completed')
       .map(a => {
         const gross = parseFloat(a.price || 0)
         const tax = gross * 0.10 // 10% tax mock
@@ -74,20 +74,14 @@ export default function ReportsPage() {
 
   // Report 2: Staff Performance Data Breakdown
   const staffPerformanceData = useMemo(() => {
-    const defaultStaff = [
-      { id: 's1', name: 'Alex Stylist', role: 'Senior Stylist' },
-      { id: 's2', name: 'Jordan Barber', role: 'Master Barber' }
-    ]
-    const list = staffList.length > 0 ? staffList : defaultStaff
-
-    return list.map(member => {
+    return staffList.map(member => {
       // Find appointments assigned to this staff member
       const memberAppts = appointments.filter(a => 
         a.staff_id === member.id || a.staffName === member.name
       )
       const completed = memberAppts.filter(a => a.status === 'completed' || a.status === 'confirmed')
       const revenue = completed.reduce((sum, a) => sum + parseFloat(a.price || 0), 0)
-      // Mock hours worked (assuming 45 mins per completed booking)
+      // Estimate hours worked based on completed appointments
       const hours = (completed.length * 0.75).toFixed(1)
 
       return {
@@ -108,7 +102,7 @@ export default function ReportsPage() {
     appointments.forEach(a => {
       const sName = a.serviceName || 'Standard Service'
       const price = parseFloat(a.price || 0)
-      const isPaid = a.payment_status === 'paid'
+      const isPaid = a.payment_status === 'paid' || a.status === 'completed'
 
       if (!servicesMap[sName]) {
         servicesMap[sName] = { count: 0, revenue: 0 }
