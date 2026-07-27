@@ -357,6 +357,54 @@ export default function ManageSalonPage() {
 
             </div>
 
+            {/* Services Section */}
+            <div className="space-y-4 pt-4 border-t border-surface-100 dark:border-surface-800">
+              <h3 className="font-bold text-surface-900 dark:text-white text-sm flex items-center gap-1.5">
+                <Scissors className="w-4 h-4 text-[#405742]" /> Services Offered
+              </h3>
+              <p className="text-xs text-surface-500 dark:text-surface-400">Check the services your salon offers. Set your price and duration for each.</p>
+              <div className="space-y-3">
+                {services.map((svc, idx) => (
+                  <div key={svc.name} className={`p-3 rounded-xl border transition-colors ${svc.checked ? 'border-[#405742] bg-[#405742]/5' : 'border-surface-200 dark:border-surface-800'}`}>
+                    <div className="flex items-center gap-3">
+                      <input
+                        type="checkbox"
+                        id={`svc-${idx}`}
+                        checked={svc.checked}
+                        onChange={() => handleServiceToggle(idx)}
+                        className="w-4 h-4 accent-[#405742] cursor-pointer"
+                      />
+                      <label htmlFor={`svc-${idx}`} className="font-semibold text-surface-900 dark:text-white text-sm cursor-pointer flex-1">{svc.name}</label>
+                    </div>
+                    {svc.checked && (
+                      <div className="grid grid-cols-2 gap-3 mt-3 pl-7">
+                        <div>
+                          <label className="text-xs text-surface-500 mb-1 block">Price (PKR)</label>
+                          <input
+                            type="number"
+                            value={svc.price}
+                            onChange={e => handleServiceChange(idx, 'price', e.target.value)}
+                            className="w-full p-2 rounded-lg border border-surface-200 dark:border-surface-700 bg-white dark:bg-surface-900 text-sm outline-none focus:border-[#405742]"
+                            min="0"
+                          />
+                        </div>
+                        <div>
+                          <label className="text-xs text-surface-500 mb-1 block">Duration (min)</label>
+                          <input
+                            type="number"
+                            value={svc.duration}
+                            onChange={e => handleServiceChange(idx, 'duration', e.target.value)}
+                            className="w-full p-2 rounded-lg border border-surface-200 dark:border-surface-700 bg-white dark:bg-surface-900 text-sm outline-none focus:border-[#405742]"
+                            min="5"
+                          />
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+
             <Button type="submit" fullWidth size="lg" disabled={saving} className="bg-[#405742] hover:bg-[#334d3b]">
               {saving ? 'Saving Details...' : 'Save Profile & Services Setup'}
             </Button>
